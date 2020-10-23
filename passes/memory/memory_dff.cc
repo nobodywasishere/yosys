@@ -237,7 +237,6 @@ struct MemoryDffWorker
 			port.data = sig_data;
 			port.clk_enable = true;
 			port.clk_polarity = clk_polarity;
-			port.transparent = false;
 			mem.emit();
 			log("merged data $dff to cell.\n");
 			return;
@@ -249,12 +248,19 @@ struct MemoryDffWorker
 		if (find_sig_before_dff(sig_addr, clk_addr, clk_polarity) &&
 				clk_addr != RTLIL::SigSpec(RTLIL::State::Sx))
 		{
+			for (int i = 0; i < GetSize(mem.wr_ports); i++) {
+				auto &wport = mem.wr_ports[i];
+				if (!wport.clk_enable || wport.clk != clk_addr || wport.clk_polarity != clk_polarity) {
+					log("an address $dff was found, but is not compatible with write clock.\n");
+					return;
+				}
+				port.transparency_mask[i] = true;
+			}
 			port.clk = clk_addr;
 			port.en = State::S1;
 			port.addr = sig_addr;
 			port.clk_enable = true;
 			port.clk_polarity = clk_polarity;
-			port.transparent = true;
 			mem.emit();
 			log("merged address $dff to cell.\n");
 			return;
