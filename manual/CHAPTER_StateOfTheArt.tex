@@ -264,8 +264,9 @@ designs that are far out of reach for any of the other tools discussed in this a
 	\def\failed{$\skull$}
 	\def\missing{$\skull$}
 	\rowcolors{2}{gray!25}{white}
-	\centerline{
+	% \centerline{
 		\begin{tabular}{|l|cccc|c|}
+		\centering
 		\hline
 		& \bf HANA & \bf VIS / vl2m & \bf Icarus Verilog & \bf Odin-II & \bf Yosys \\
 		\hline
@@ -277,7 +278,7 @@ designs that are far out of reach for any of the other tools discussed in this a
 		\tt forgen02 &  \failed   &  \error    &  \error    &  \error  & \ok \\
 		\hline
 		\end{tabular}
-	}
+	% }
 	\centerline{
 		\ding{52} \dots passed \hskip2em
 		\ding{56} \dots produced error \hskip2em
@@ -286,4 +287,3 @@ designs that are far out of reach for any of the other tools discussed in this a
 	\caption{Summary of all test results}
 	\label{tab:StateOfTheArt_sum}
 \end{table}
-
