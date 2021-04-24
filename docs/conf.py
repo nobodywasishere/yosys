@@ -196,3 +196,30 @@ html_static_path = ['_static']
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'yosys'
+
+# https://pygments.org/docs/lexerdevelopment/
+# https://samprocter.com/2014/06/documenting-a-language-using-a-custom-sphinx-domain-and-pygments-lexer/
+# Need to add 'ys' lexer (which is no highlighting except for commenting '#')
+
+from pygments.lexer import RegexLexer
+from pygments.token import *
+
+class YsLexer(RegexLexer):
+    name = 'Ys'
+    aliases = ['ys']
+    filenames = ['*.ys']
+
+    tokens = {
+        'root': [
+            (r' .*\n', Text),
+            (r'\+.*\n', Generic.Inserted),
+            (r'-.*\n', Generic.Deleted),
+            (r'@.*\n', Generic.Subheading),
+            (r'Index.*\n', Generic.Heading),
+            (r'=.*\n', Generic.Heading),
+            (r'.*\n', Text),
+        ]
+    }
+
+def setup(sphinx):
+    sphinx.add_lexer("ys", YsLexer)

@@ -8,6 +8,24 @@
 
    Clifford Wolf
 
+
+.. toctree::
+    CHAPTER_Intro
+    CHAPTER_Basics
+    CHAPTER_Approach
+    CHAPTER_Overview
+    CHAPTER_CellLib
+    CHAPTER_Prog
+    CHAPTER_Verilog
+    CHAPTER_Optimize
+    CHAPTER_Techmap
+    CHAPTER_Eval
+    CHAPTER_Auxlibs
+    CHAPTER_Auxprogs
+    CHAPTER_TextRtlil
+    CHAPTER_Appnotes
+    CHAPTER_StateOfTheArt
+
 Abstract
 ========
 
@@ -60,47 +78,7 @@ VHSIC      Very-High-Speed Integrated Circuit
 YOSYS      Yosys Open SYnthesis Suite
 ========== =======================================
 
-includeCHAPTER_Intro
-
-includeCHAPTER_Basics
-
-includeCHAPTER_Approach
-
-includeCHAPTER_Overview
-
-includeCHAPTER_CellLib
-
-includeCHAPTER_Prog
-
-includeCHAPTER_Verilog
-
-includeCHAPTER_Optimize
-
-includeCHAPTER_Techmap
-
-includeCHAPTER_Eval
-
-appendix
-
-includeCHAPTER_Auxlibs
-
-includeCHAPTER_Auxprogs
-
 .. _commandref:
 
 Command Reference Manual
 ========================
-
-includeCHAPTER_TextRtlil
-
-includeCHAPTER_Appnotes
-
-includeCHAPTER_StateOfTheArt
-
-bibliographyliterature
-
-bibliographystylealphadin
-
-bibliographyweblinkweblinks
-
-bibliographystyleweblinkabbrv
