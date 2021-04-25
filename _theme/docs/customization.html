@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Customization &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Customization</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../_sources/_theme/docs/customization.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="../../index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="customization">
+<span id="id1"></span><h1>Customization<a class="headerlink" href="#customization" title="Permalink to this headline">¶</a></h1>
+<p>There are two methods to alter the theme.  The first, and simplest, uses the
+options exposed through <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code> in <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>. This site’s
+options are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;http://bashtage.github.io/sphinx-material/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;github_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://github.com/bashtage/sphinx-material/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;repo_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Material for Sphinx&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;google_analytics_account&#39;</span><span class="p">:</span> <span class="s1">&#39;UA-XXXXX&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;html_minify&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;css_minify&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;nav_title&#39;</span><span class="p">:</span> <span class="s1">&#39;Material Sphinx Demo&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;logo_icon&#39;</span><span class="p">:</span> <span class="s1">&#39;&amp;#xe869&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;globaltoc_depth&#39;</span><span class="p">:</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The complete list of options with detailed explanations appears in
+<code class="docutils literal notranslate"><span class="pre">theme.conf</span></code>.</p>
+<div class="section" id="configuration-options">
+<h2>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">nav_title</span></code></dt><dd><p>Set the name to appear in the left sidebar/header. If not provided, uses
+html_short_title if defined, or html_title.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">touch_icon</span></code></dt><dd><p>Path to a touch icon, should be 152x152 or larger.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google_analytics_account</span></code></dt><dd><p>Set to enable google analytics.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">github_url</span></code></dt><dd><p>Set the repo url for the link to appear.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">repo_name</span></code></dt><dd><p>The name of the repo. If must be set if github_url is set.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">repo_type</span></code></dt><dd><p>Must be one of github, gitlab or bitbucket.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">base_url</span></code></dt><dd><p>Specify a base_url used to generate sitemap.xml links. If not specified, then
+no sitemap will be built.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">globaltoc_depth</span></code></dt><dd><p>The maximum depth of the global TOC; set it to -1 to allow unlimited depth.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">globaltoc_collapse</span></code></dt><dd><p>If true, TOC entries that are not ancestors of the current page are collapsed.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">globaltoc_includehidden</span></code></dt><dd><p>If true, the global TOC tree will also contain hidden entries.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">theme_color</span></code></dt><dd><p>The theme color for mobile browsers. Hex Color without the leading #.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">color_primary</span></code></dt><dd><p>Primary color. Options are
+red, pink, purple, deep-purple, indigo, blue, light-blue, cyan,
+teal, green, light-green, lime, yellow, amber, orange, deep-orange,
+brown, grey, blue-grey, and white.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">color_accent</span></code></dt><dd><p>Accent color. Options are
+red, pink, purple, deep-purple, indigo, blue, light-blue, cyan,
+teal, green, light-green, lime, yellow, amber, orange, and deep-orange.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_minify</span></code></dt><dd><p>Minify pages after creation using htmlmin.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html_prettify</span></code></dt><dd><p>Prettify pages, usually only for debugging.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">css_minify</span></code></dt><dd><p>Minify css files found in the output directory.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">logo_icon</span></code></dt><dd><p>Set the logo icon. Should be a pre-escaped html string that indicates a
+unicode point, e.g., <code class="docutils literal notranslate"><span class="pre">'&amp;#xe869'</span></code> which is used on this site.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">master_doc</span></code></dt><dd><p>Include the master document at the top of the page in the breadcrumb bar.
+You must also set this to true if you want to override the rootrellink block, in which
+case the content of the overridden block will appear</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">nav_links</span></code></dt><dd><p>A list of dictionaries where each has three keys:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">href</span></code>: The URL or pagename (str)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: The title to appear (str)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">internal</span></code>: Flag indicating to use pathto to find the page.  Set to False for
+external content. (bool)</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">heroes</span></code></dt><dd><p>A <code class="docutils literal notranslate"><span class="pre">dict[str,str]</span></code> where the key is a pagename and the value is the text to display in the
+page’s hero location.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">version_dropdown</span></code></dt><dd><p>A flag indicating whether the version drop down should be included. You must supply a JSON file
+to use this feature.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">version_dropdown_text</span></code></dt><dd><p>The text in the version dropdown button</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">version_json</span></code></dt><dd><p>The location of the JSON file that contains the version information. The default assumes there
+is a file versions.json located in the root of the site.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">version_info</span></code></dt><dd><p>A dictionary used to populate the version dropdown.  If this variable is provided, the static
+dropdown is used and any JavaScript information is ignored.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">table_classes</span></code></dt><dd><p>A list of classes to <strong>not strip</strong> from tables. All other classes are stripped, and the default
+table has no class attribute. Custom table classes need to provide the full style for the table.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="customizing-the-layout">
+<h2>Customizing the layout<a class="headerlink" href="#customizing-the-layout" title="Permalink to this headline">¶</a></h2>
+<p>You can customize the theme by overriding Jinja template blocks. For example,
+‘layout.html’ contains several blocks that can be overridden or extended.</p>
+<p>Place a ‘layout.html’ file in your project’s ‘/_templates’ directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir source/_templates
+touch source/_templates/layout.html
+</pre></div>
+</div>
+<p>Then, configure your ‘conf.py’:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">templates_path</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_templates&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Finally, edit your override file <code class="docutils literal notranslate"><span class="pre">source/_templates/layout.html</span></code>:</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="c">{# Import the theme&#39;s layout. #}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;!layout.html&#39;</span> <span class="cp">%}</span><span class="x"></span>
+
+<span class="cp">{%</span>- <span class="k">block</span> <span class="nv">extrahead</span> <span class="cp">%}</span><span class="x"></span>
+<span class="c">{# Add custom things to the head HTML tag #}</span><span class="x"></span>
+<span class="c">{# Call the parent block #}</span><span class="x"></span>
+<span class="cp">{{</span> <span class="nb">super</span><span class="o">()</span> <span class="cp">}}</span><span class="x"></span>
+<span class="cp">{%</span>- <span class="k">endblock</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="new-blocks">
+<h2>New Blocks<a class="headerlink" href="#new-blocks" title="Permalink to this headline">¶</a></h2>
+<p>The theme has a small number of new blocks to simplify some types of
+customization:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">footerrel</span></code></dt><dd><p>Previous and next in the footer.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">font</span></code></dt><dd><p>The default font inline CSS and the class to the google API. Use this
+block when changing the font.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fonticon</span></code></dt><dd><p>Block that contains the icon font. Use this to add additional icon fonts
+(e.g., <a class="reference external" href="https://fontawesome.com/">FontAwesome</a>). You should probably call <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">super()</span> <span class="pre">}}</span></code> at
+the end of the block to include the default icon font as well.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="version-dropdown">
+<h2>Version Dropdown<a class="headerlink" href="#version-dropdown" title="Permalink to this headline">¶</a></h2>
+<p>A version dropdown is available that lets you store multiple versions in a single site.
+The standard structure of the site, relative to the base is usually:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span>
+<span class="o">/</span><span class="n">devel</span>
+<span class="o">/</span><span class="n">v1</span><span class="o">.</span><span class="mf">0.0</span>
+<span class="o">/</span><span class="n">v1</span><span class="o">.</span><span class="mf">1.0</span>
+<span class="o">/</span><span class="n">v1</span><span class="o">.</span><span class="mf">1.1</span>
+<span class="o">/</span><span class="n">v1</span><span class="o">.</span><span class="mf">2.0</span>
+</pre></div>
+</div>
+<p>To use the version dropdown, you must set <code class="docutils literal notranslate"><span class="pre">version_dropdown</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> in
+the sites configuration.</p>
+<p>There are two approaches, one which stores the version information in a JavaScript file
+and one which uses a dictionary in the configuration.</p>
+<div class="section" id="using-a-javascript-file">
+<h3>Using a Javascript File<a class="headerlink" href="#using-a-javascript-file" title="Permalink to this headline">¶</a></h3>
+<p>The data used is read via javascript from a file. The basic structure of the file is a dictionary of the form [label, path].</p>
+<p>This dictionary tells the dropdown that the release version is in the root of the site, the
+other versions are archived under their version number, and the development version is
+located in /devel.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The advantage of this approach is that you can separate version information
+from the rendered documentation.  This makes is easy to change the version
+dropdown in _older_ versions of the documentation to reflect additional versions
+that are released later. Changing the Javascript file changes the version dropdown
+content in all versions.  This approach is used in
+<a class="reference external" href="https://www.statsmodels.org/">statsmodels</a>.</p>
+</div>
+</div>
+<div class="section" id="using-conf-py">
+<h3>Using <code class="docutils literal notranslate"><span class="pre">conf.py</span></code><a class="headerlink" href="#using-conf-py" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This method has precedence over the JavaScript approach. If <code class="docutils literal notranslate"><span class="pre">version_info</span></code> is
+not empty in a site’s <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code>, then the static approach is used.</p>
+</div>
+<p>The alternative uses a dictionary where the key is the title and the value is the target.
+The dictionary is part of the size configuration’s <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code>.</p>
+<p>The dictionary structure is nearly identical.  Here you can use relative paths
+like in the JavaScript version. You can also use absolute paths.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This approach is easier if you only want to have a fixed set of documentation,
+e.g., stable and devel.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Customization</a><ul>
+<li><a class="reference internal" href="#configuration-options">Configuration Options</a></li>
+<li><a class="reference internal" href="#customizing-the-layout">Customizing the layout</a></li>
+<li><a class="reference internal" href="#new-blocks">New Blocks</a></li>
+<li><a class="reference internal" href="#version-dropdown">Version Dropdown</a><ul>
+<li><a class="reference internal" href="#using-a-javascript-file">Using a Javascript File</a></li>
+<li><a class="reference internal" href="#using-conf-py">Using <code class="docutils literal notranslate"><span class="pre">conf.py</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

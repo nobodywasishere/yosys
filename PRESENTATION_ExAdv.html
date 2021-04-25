@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Yosys by example – Advanced Synthesis &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Yosys by example – Advanced Synthesis</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/PRESENTATION_ExAdv.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="yosys-by-example-advanced-synthesis">
+<h1>Yosys by example – Advanced Synthesis<a class="headerlink" href="#yosys-by-example-advanced-synthesis" title="Permalink to this headline">¶</a></h1>
+<div class="frame docutils container">
+<p>Overview This section contains 4 subsections:</p>
+<ul class="simple">
+<li><p>Using selections</p></li>
+<li><p>Advanced uses of techmap</p></li>
+<li><p>Coarse-grain synthesis</p></li>
+<li><p>Automatic design changes</p></li>
+</ul>
+</div>
+<div class="section" id="using-selections">
+<h2>Using selections<a class="headerlink" href="#using-selections" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simple-selections">
+<h3>Simple selections<a class="headerlink" href="#simple-selections" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Most Yosys commands make use of the “selection framework” of Yosys.
+It can be used to apply commands only to part of the design. For
+example:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>delete                # will delete the whole design, but
+
+delete foobar         # will only delete the module foobar.
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">select</span></code> command can be used to create a selection for
+subsequent commands. For example:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select foobar         # select the module foobar
+delete                # delete selected objects
+select -clear         # reset selection (select whole design)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="selection-by-object-name">
+<h3>Selection by object name<a class="headerlink" href="#selection-by-object-name" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>The easiest way to select objects is by object name. This is usually
+only done in synthesis scripts that are hand-tailored for a specific
+design.</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select foobar         # select module foobar
+select foo*           # select all modules whose names start with foo
+select foo*/bar*      # select all objects matching bar* from modules matching foo*
+select */clk          # select objects named clk from all modules
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="module-and-design-context">
+<h3>Module and design context<a class="headerlink" href="#module-and-design-context" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Commands can be executed in <em>module</em> or <em>design</em> context. Until now
+all commands have been executed in design context. The <code class="docutils literal notranslate"><span class="pre">cd</span></code> command
+can be used to switch to module context.</p>
+<p>In module context all commands only effect the active module. Objects
+in the module are selected without the <code class="docutils literal notranslate"><span class="pre">&lt;module_name&gt;/</span></code> prefix. For
+example:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>cd foo                # switch to module foo
+delete bar            # delete object foo/bar
+
+cd mycpu              # switch to module mycpu
+dump reg_*            # print details on all objects whose names start with reg_
+
+cd ..                 # switch back to design
+</pre></div>
+</div>
+<p>Note: Most synthesis scripts never switch to module context. But it
+is a very powerful tool for interactive design investigation.</p>
+</div>
+</div>
+<div class="section" id="selecting-by-object-property-or-type">
+<h3>Selecting by object property or type<a class="headerlink" href="#selecting-by-object-property-or-type" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Special patterns can be used to select by object property or type.
+For example:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select w:reg_*        # select all wires whose names start with reg_
+select a:foobar       # select all objects with the attribute foobar set
+select a:foobar=42    # select all objects with the attribute foobar set to 42
+select A:blabla       # select all modules with the attribute blabla set
+select foo/t:$add     # select all $add cells from the module foo
+</pre></div>
+</div>
+<p>A complete list of this pattern expressions can be found in the
+command reference to the <code class="docutils literal notranslate"><span class="pre">select</span></code> command.</p>
+</div>
+</div>
+<div class="section" id="combining-selection">
+<h3>Combining selection<a class="headerlink" href="#combining-selection" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>When more than one selection expression is used in one statement,
+then they are pushed on a stack. The final elements on the stack are
+combined into a union:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select t:$dff r:WIDTH&gt;1     # all cells of type $dff and/or with a parameter WIDTH &gt; 1
+</pre></div>
+</div>
+<p>Special %-commands can be used to combine the elements on the stack:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select t:$dff r:WIDTH&gt;1 %i  # all cells of type $dff *AND* with a parameter WIDTH &gt; 1
+</pre></div>
+</div>
+<div class="block docutils container">
+<div class="line-block">
+<div class="line">Examples for <code class="docutils literal notranslate"><span class="pre">%</span></code>-codes (see <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">select</span></code> for full list)
+<code class="docutils literal notranslate"><span class="pre">%u</span></code> union of top two elements on stack – pop 2, push 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">%d</span></code> difference of top two elements on stack – pop 2, push 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">%i</span></code> intersection of top two elements on stack – pop 2, push 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">%n</span></code> inverse of top element on stack – pop 1, push 1</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="expanding-selections">
+<h3>Expanding selections<a class="headerlink" href="#expanding-selections" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Selections of cells and wires can be expanded along connections using
+<code class="docutils literal notranslate"><span class="pre">%</span></code>-codes for selecting input cones (<code class="docutils literal notranslate"><span class="pre">%ci</span></code>), output cones
+(<code class="docutils literal notranslate"><span class="pre">%co</span></code>), or both (<code class="docutils literal notranslate"><span class="pre">%x</span></code>).</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span># select all wires that are inputs to $add cells
+select t:$add %ci w:* %i
+</pre></div>
+</div>
+<p>Additional constraints such as port names can be specified.</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span># select all wires that connect a &quot;Q&quot; output with a &quot;D&quot; input
+select c:* %co:+[Q] w:* %i c:* %ci:+[D] w:* %i %i
+
+# select the multiplexer tree that drives the signal &#39;state&#39;
+select state %ci*:+$mux,$pmux[A,B,Y]
+</pre></div>
+</div>
+<p>See <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">select</span></code> for full documentation of this expressions.</p>
+</div>
+</div>
+<div class="section" id="incremental-selection">
+<h3>Incremental selection<a class="headerlink" href="#incremental-selection" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Sometimes a selection can most easily be described by a series of
+add/delete operations. The commands <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-add</span></code> and
+<code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-del</span></code> respectively add or remove objects from the current
+selection instead of overwriting it.</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select -none            # start with an empty selection
+select -add reg_*       # select a bunch of objects
+select -del reg_42      # but not this one
+select -add state %ci   # and add mor stuff
+</pre></div>
+</div>
+<p>Within a select expression the token <code class="docutils literal notranslate"><span class="pre">%</span></code> can be used to push the
+previous selection on the stack.</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select t:$add t:$sub    # select all $add and $sub cells
+select % %ci % %d       # select only the input wires to those cells
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-selection-variables">
+<h3>Creating selection variables<a class="headerlink" href="#creating-selection-variables" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Selections can be stored under a name with the <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-set</span> <span class="pre">&lt;name&gt;</span></code>
+command. The stored selections can be used in later select
+expressions using the syntax <code class="docutils literal notranslate"><span class="pre">&#64;&lt;name&gt;</span></code>.</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>select -set cone_a state_a %ci*:-$dff  # set @cone_a to the input cone of state_a
+select -set cone_b state_b %ci*:-$dff  # set @cone_b to the input cone of state_b
+select @cone_a @cone_b %i              # select the objects that are in both cones
+</pre></div>
+</div>
+<p>Remember that select expressions can also be used directly as
+arguments to most commands. Some commands also except a single select
+argument to some options. In those cases selection variables must be
+used to capture more complex selections.</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>dump @cone_a @cone_b
+
+select -set cone_ab @cone_a @cone_b %i
+show -color red @cone_ab -color magenta @cone_a -color blue @cone_b
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example</p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">s</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">output</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+    <span class="kt">reg</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+        <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">a</span><span class="p">;</span>
+        <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">;</span>
+    <span class="k">end</span>
+
+    <span class="kt">wire</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">state_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+    <span class="kt">wire</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">state_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">^</span> <span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="o">!</span><span class="n">s</span> <span class="o">?</span> <span class="n">state_a</span> <span class="o">:</span> <span class="n">state_b</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog select.v
+hierarchy -check -top test
+proc; opt
+cd test
+select -set cone_a state_a %ci*:-$dff
+select -set cone_b state_b %ci*:-$dff
+select -set cone_ab @cone_a @cone_b %i
+show -prefix select -format pdf -notitle \
+     -color red @cone_ab -color magenta @cone_a \
+     -color blue @cone_b
+</pre></div>
+</div>
+</div>
+<img alt="image" src="PRESENTATION_ExAdv/select.pdf" />
+</div>
+</div>
+</div>
+<div class="section" id="advanced-uses-of-techmap">
+<h2>Advanced uses of techmap<a class="headerlink" href="#advanced-uses-of-techmap" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction-to-techmap">
+<h3>Introduction to techmap<a class="headerlink" href="#introduction-to-techmap" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">techmap</span></code> command replaces cells in the design with
+implementations given as Verilog code (called “map files”). It can
+replace Yosys’ internal cell types (such as <code class="docutils literal notranslate"><span class="pre">$or</span></code>) as well as
+user-defined cell types.</p></li>
+<li><p>Verilog parameters are used extensively to customize the internal
+cell types.</p></li>
+<li><p>Additional special parameters are used by techmap to communicate
+meta-data to the map files.</p></li>
+<li><p>Special wires are used to instruct techmap how to handle a module
+in the map file.</p></li>
+<li><p>Generate blocks and recursion are powerful tools for writing map
+files.</p></li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– Example 1/2 To map the Verilog OR-reduction operator to 3-input OR
+gates:</p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">\$reduce_or</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+    <span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+
+    <span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+    <span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="k">integer</span> <span class="n">min</span><span class="p">;</span>
+        <span class="k">input</span> <span class="k">integer</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+        <span class="k">begin</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span>
+                <span class="n">min</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+            <span class="k">else</span>
+                <span class="n">min</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+        <span class="k">end</span>
+    <span class="k">endfunction</span>
+
+    <span class="k">genvar</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">generate</span> <span class="k">begin</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">==</span> <span class="mh">0</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+        <span class="k">end</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>        <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">==</span> <span class="mh">1</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
+        <span class="k">end</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">==</span> <span class="mh">2</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="kt">wire</span> <span class="n">ybuf</span><span class="p">;</span>
+            <span class="n">OR3X1</span> <span class="n">g</span> <span class="p">(.</span><span class="n">A</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mh">0</span><span class="p">]),</span> <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mh">1</span><span class="p">]),</span> <span class="p">.</span><span class="n">C</span><span class="p">(</span><span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">),</span> <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">ybuf</span><span class="p">));</span>
+            <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">ybuf</span><span class="p">;</span>
+        <span class="k">end</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">==</span> <span class="mh">3</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="kt">wire</span> <span class="n">ybuf</span><span class="p">;</span>
+            <span class="n">OR3X1</span> <span class="n">g</span> <span class="p">(.</span><span class="n">A</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mh">0</span><span class="p">]),</span> <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mh">1</span><span class="p">]),</span> <span class="p">.</span><span class="n">C</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mh">2</span><span class="p">]),</span> <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">ybuf</span><span class="p">));</span>
+            <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">ybuf</span><span class="p">;</span>
+        <span class="k">end</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">&gt;</span> <span class="mh">3</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="k">localparam</span> <span class="n">next_stage_sz</span> <span class="o">=</span> <span class="p">(</span><span class="n">A_WIDTH</span><span class="o">+</span><span class="mh">2</span><span class="p">)</span> <span class="o">/</span> <span class="mh">3</span><span class="p">;</span>
+            <span class="kt">wire</span> <span class="p">[</span><span class="n">next_stage_sz</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">next_stage</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">next_stage_sz</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span> <span class="k">begin</span>
+                <span class="k">localparam</span> <span class="n">bits</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">-</span> <span class="mh">3</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="mh">3</span><span class="p">);</span>
+                <span class="k">assign</span> <span class="n">next_stage</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">|</span><span class="n">A</span><span class="p">[</span><span class="mh">3</span><span class="o">*</span><span class="n">i</span> <span class="o">+:</span> <span class="n">bits</span><span class="p">];</span>
+            <span class="k">end</span>
+            <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="o">|</span><span class="n">next_stage</span><span class="p">;</span>
+        <span class="k">end</span>
+    <span class="k">end</span> <span class="k">endgenerate</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 2/2 to 0cm<a class="reference internal" href="PRESENTATION_ExAdv/red_or3x1.pdf"><img alt="image" src="PRESENTATION_ExAdv/red_or3x1.pdf" style="width: 10cm;" /></a></p>
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>techmap -map red_or3x1_map.v;;
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+    <span class="k">input</span> <span class="p">[</span><span class="mh">6</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+    <span class="k">output</span> <span class="n">Y</span><span class="p">;</span>
+    <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="o">|</span><span class="n">A</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="conditional-techmap">
+<h3>Conditional techmap<a class="headerlink" href="#conditional-techmap" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>In some cases only cells with certain properties should be
+substituted.</p></li>
+<li><p>The special wire <code class="docutils literal notranslate"><span class="pre">_TECHMAP_FAIL_</span></code> can be used to disable a
+module in the map file for a certain set of parameters.</p></li>
+<li><p>The wire <code class="docutils literal notranslate"><span class="pre">_TECHMAP_FAIL_</span></code> must be set to a constant value. If it
+is non-zero then the module is disabled for this set of
+parameters.</p></li>
+<li><p>Example use-cases:</p>
+<ul>
+<li><p>coarse-grain cell types that only operate on certain bit widths</p></li>
+<li><p>memory resources for different memory geometries (width, depth,
+ports, etc.)</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– Example to 0cm<a class="reference internal" href="PRESENTATION_ExAdv/sym_mul.pdf"><img alt="image1" src="PRESENTATION_ExAdv/sym_mul.pdf" style="width: 6cm;" /></a></p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">\$mul</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+    <span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+    <span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+    <span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+    <span class="kt">wire</span> <span class="n">_TECHMAP_FAIL_</span> <span class="o">=</span> <span class="n">A_WIDTH</span> <span class="o">!=</span> <span class="n">B_WIDTH</span> <span class="o">||</span> <span class="n">B_WIDTH</span> <span class="o">!=</span> <span class="n">Y_WIDTH</span><span class="p">;</span>
+
+    <span class="n">MYMUL</span> <span class="p">#(</span> <span class="p">.</span><span class="n">WIDTH</span><span class="p">(</span><span class="n">Y_WIDTH</span><span class="p">)</span> <span class="p">)</span> <span class="n">g</span> <span class="p">(</span> <span class="p">.</span><span class="n">A</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">B</span><span class="p">),</span> <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="p">);</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">Y1</span><span class="p">,</span> <span class="n">Y2</span><span class="p">);</span>
+    <span class="k">input</span>   <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">;</span>
+    <span class="k">output</span>  <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y1</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span><span class="p">;</span>
+    <span class="k">output</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y2</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">C</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog sym_mul_test.v
+hierarchy -check -top test
+
+techmap -map sym_mul_map.v;;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scripting-in-map-modules">
+<h3>Scripting in map modules<a class="headerlink" href="#scripting-in-map-modules" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>The special wires <code class="docutils literal notranslate"><span class="pre">_TECHMAP_DO_</span></code> can be used to run Yosys
+scripts in the context of the replacement module.</p></li>
+<li><p>The wire that comes first in alphabetical oder is interpreted as
+string (must be connected to constants) that is executed as
+script. Then the wire is removed. Repeat.</p></li>
+<li><p>You can even call techmap recursively!</p></li>
+<li><p>Example use-cases:</p>
+<ul>
+<li><p>Using always blocks in map module: call <code class="docutils literal notranslate"><span class="pre">proc</span></code></p></li>
+<li><p>Perform expensive optimizations (such as <code class="docutils literal notranslate"><span class="pre">freduce</span></code>) on cells
+where this is known to work well.</p></li>
+<li><p>Interacting with custom commands.</p></li>
+</ul>
+</li>
+</ul>
+<p>PROTIP: Commands such as <code class="docutils literal notranslate"><span class="pre">shell</span></code>, <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">-pause</span></code>, and <code class="docutils literal notranslate"><span class="pre">dump</span></code> can
+be use in the <code class="docutils literal notranslate"><span class="pre">_TECHMAP_DO_</span></code> scripts for debugging map modules.</p>
+</div>
+<div class="frame docutils container">
+<p>– Example to 0cm<a class="reference internal" href="PRESENTATION_ExAdv/mymul.pdf"><img alt="image2" src="PRESENTATION_ExAdv/mymul.pdf" style="width: 10cm;" /></a></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">MYMUL</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+    <span class="k">parameter</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">;</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+    <span class="kt">wire</span> <span class="p">[</span><span class="mh">1023</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">_TECHMAP_DO_</span> <span class="o">=</span> <span class="s">&quot;proc; clean&quot;</span><span class="p">;</span>
+
+    <span class="k">integer</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">always</span> <span class="p">@</span><span class="o">*</span> <span class="k">begin</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">WIDTH</span><span class="p">;</span> <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">+</span> <span class="p">(</span><span class="n">B</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">);</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+    <span class="k">input</span>  <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">;</span>
+    <span class="k">output</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog mymul_test.v
+hierarchy -check -top test
+
+techmap -map sym_mul_map.v \
+        -map mymul_map.v;;
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>rename test test_mapped
+read_verilog mymul_test.v
+miter -equiv test test_mapped miter
+flatten miter
+
+sat -verify -prove trigger 0 miter
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="handling-constant-inputs">
+<h3>Handling constant inputs<a class="headerlink" href="#handling-constant-inputs" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>The special parameters <code class="docutils literal notranslate"><span class="pre">_TECHMAP_CONSTMSK__</span></code> and
+<code class="docutils literal notranslate"><span class="pre">_TECHMAP_CONSTVAL__</span></code> can be used to handle constant input
+values to cells.</p></li>
+<li><p>The former contains 1-bits for all constant input bits on the
+port.</p></li>
+<li><p>The latter contains the constant bits or undef (x) for
+non-constant bits.</p></li>
+<li><p>Example use-cases:</p>
+<ul>
+<li><p>Converting arithmetic (for example multiply to shift)</p></li>
+<li><p>Identify constant addresses or enable bits in memory
+interfaces.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– Example to 0cm<a class="reference internal" href="PRESENTATION_ExAdv/mulshift.pdf"><img alt="image3" src="PRESENTATION_ExAdv/mulshift.pdf" style="width: 5cm;" /></a></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">MYMUL</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+    <span class="k">parameter</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">;</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+    <span class="k">parameter</span> <span class="n">_TECHMAP_CONSTVAL_A_</span> <span class="o">=</span> <span class="n">WIDTH</span><span class="p">&#39;</span><span class="n">bx</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">_TECHMAP_CONSTVAL_B_</span> <span class="o">=</span> <span class="n">WIDTH</span><span class="p">&#39;</span><span class="n">bx</span><span class="p">;</span>
+
+    <span class="kt">reg</span> <span class="n">_TECHMAP_FAIL_</span><span class="p">;</span>
+    <span class="kt">wire</span> <span class="p">[</span><span class="mh">1023</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">_TECHMAP_DO_</span> <span class="o">=</span> <span class="s">&quot;proc; clean&quot;</span><span class="p">;</span>
+
+    <span class="k">integer</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">always</span> <span class="p">@</span><span class="o">*</span> <span class="k">begin</span>
+       <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">WIDTH</span><span class="p">;</span> <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_TECHMAP_CONSTVAL_A_</span> <span class="o">===</span> <span class="n">WIDTH</span><span class="mi">&#39;d1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">)</span> <span class="k">begin</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+                <span class="n">Y</span> <span class="o">&lt;=</span> <span class="n">B</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+           <span class="k">end</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_TECHMAP_CONSTVAL_B_</span> <span class="o">===</span> <span class="n">WIDTH</span><span class="mi">&#39;d1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">)</span> <span class="k">begin</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+                <span class="n">Y</span> <span class="o">&lt;=</span> <span class="n">A</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">;</span>
+           <span class="k">end</span>
+       <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">X</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">d</span> <span class="mh">6</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="mh">8</span><span class="p">&#39;</span><span class="n">d</span> <span class="mh">8</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog mulshift_test.v
+hierarchy -check -top test
+
+techmap -map sym_mul_map.v \
+        -map mulshift_map.v;;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="handling-shorted-inputs">
+<h3>Handling shorted inputs<a class="headerlink" href="#handling-shorted-inputs" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>The special parameters <code class="docutils literal notranslate"><span class="pre">_TECHMAP_BITS_CONNMAP_</span></code> and
+<code class="docutils literal notranslate"><span class="pre">_TECHMAP_CONNMAP__</span></code> can be used to handle shorted inputs.</p></li>
+<li><p>Each bit of the port correlates to an <code class="docutils literal notranslate"><span class="pre">_TECHMAP_BITS_CONNMAP_</span></code>
+bits wide number in <code class="docutils literal notranslate"><span class="pre">_TECHMAP_CONNMAP__</span></code>.</p></li>
+<li><p>Each unique signal bit is assigned its own number. Identical
+fields in the <code class="docutils literal notranslate"><span class="pre">_TECHMAP_CONNMAP__</span></code> parameters mean shorted
+signal bits.</p></li>
+<li><p>The numbers 0-3 are reserved for <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>, and <code class="docutils literal notranslate"><span class="pre">z</span></code>
+respectively.</p></li>
+<li><p>Example use-cases:</p>
+<ul>
+<li><p>Detecting shared clock or control signals in memory interfaces.</p></li>
+<li><p>In some cases this can be used for for optimization.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– Example to 0cm<a class="reference internal" href="PRESENTATION_ExAdv/addshift.pdf"><img alt="image4" src="PRESENTATION_ExAdv/addshift.pdf" style="width: 5cm;" /></a></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">\$add</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+  <span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+  <span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+  <span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+  <span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+  <span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+  <span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+  <span class="k">input</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+  <span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+  <span class="k">parameter</span> <span class="n">_TECHMAP_BITS_CONNMAP_</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+  <span class="k">parameter</span> <span class="n">_TECHMAP_CONNMAP_A_</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+  <span class="k">parameter</span> <span class="n">_TECHMAP_CONNMAP_B_</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+
+  <span class="kt">wire</span> <span class="n">_TECHMAP_FAIL_</span> <span class="o">=</span> <span class="n">A_WIDTH</span> <span class="o">!=</span> <span class="n">B_WIDTH</span> <span class="o">||</span> <span class="n">B_WIDTH</span> <span class="o">&lt;</span> <span class="n">Y_WIDTH</span> <span class="o">||</span>
+                        <span class="n">_TECHMAP_CONNMAP_A_</span> <span class="o">!=</span> <span class="n">_TECHMAP_CONNMAP_B_</span><span class="p">;</span>
+
+  <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">&lt;&lt;</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">X</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog addshift_test.v
+hierarchy -check -top test
+
+techmap -map addshift_map.v;;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="notes-on-using-techmap">
+<h3>Notes on using techmap<a class="headerlink" href="#notes-on-using-techmap" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<ul>
+<li><p>Don’t use positional cell parameters in map modules.</p></li>
+<li><div class="line-block">
+<div class="line">Don’t try to implement basic logic optimization with techmap.</div>
+<div class="line">(So the OR-reduce using OR3X1 cells map was actually a bad
+example.)</div>
+</div>
+</li>
+<li><p>You can use the <code class="docutils literal notranslate"><span class="pre">$_ _</span></code>-prefix for internal cell types to avoid
+collisions with the user-namespace. But always use two underscores
+or the internal consistency checker will trigger on this cells.</p></li>
+<li><p>Techmap has two major use cases:</p>
+<ul>
+<li><div class="line-block">
+<div class="line">Creating good logic-level representation of arithmetic
+functions.</div>
+<div class="line">This also means using dedicated hardware resources such as
+half- and full-adder cells in ASICS or dedicated carry logic
+in FPGAs.</div>
+</div>
+</li>
+<li><p>Mapping of coarse-grain resources such as block memory or DSP
+cells.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="coarse-grain-synthesis">
+<h2>Coarse-grain synthesis<a class="headerlink" href="#coarse-grain-synthesis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="intro-to-coarse-grain-synthesis">
+<h3>Intro to coarse-grain synthesis<a class="headerlink" href="#intro-to-coarse-grain-synthesis" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>In coarse-grain synthesis the target architecture has cells of the
+same complexity or larger complexity than the internal RTL
+representation.</p>
+<p>For example:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">wire</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="kt">wire</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">c</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+    <span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This circuit contains two cells in the RTL representation: one
+multiplier and one adder. In some architectures this circuit can be
+implemented using a single circuit element, for example an FPGA DSP
+core. Coarse grain synthesis is this mapping of groups of circuit
+elements to larger components.</p>
+<p>Fine-grain synthesis would be matching the circuit elements to
+smaller components, such as LUTs, gates, or half- and full-adders.</p>
+</div>
+</div>
+<div class="section" id="the-extract-pass">
+<h3>The extract pass<a class="headerlink" href="#the-extract-pass" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Like the <code class="docutils literal notranslate"><span class="pre">techmap</span></code> pass, the <code class="docutils literal notranslate"><span class="pre">extract</span></code> pass is called with a
+map file. It compares the circuits inside the modules of the map
+file with the design and looks for sub-circuits in the design that
+match any of the modules in the map file.</p></li>
+<li><p>If a match is found, the <code class="docutils literal notranslate"><span class="pre">extract</span></code> pass will replace the
+matching subcircuit with an instance of the module from the map
+file.</p></li>
+<li><p>In a way the <code class="docutils literal notranslate"><span class="pre">extract</span></code> pass is the inverse of the techmap pass.</p></li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– Example 1/2 to 0cm</p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">d</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">macc_16_16_32</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">c</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog macc_simple_test.v
+hierarchy -check -top test
+
+extract -map macc_simple_xmap.v;;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 2/2</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><span class="math">\downarrow</span></p></td>
+<td><p><span class="math">\downarrow</span></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><span class="math">\downarrow</span></p></td>
+<td><p><span class="math">\downarrow</span></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="the-wrap-extract-unwrap-method">
+<h3>The wrap-extract-unwrap method<a class="headerlink" href="#the-wrap-extract-unwrap-method" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Often a coarse-grain element has a constant bit-width, but can be
+used to implement operations with a smaller bit-width. For example, a
+18x25-bit multiplier can also be used to implement 16x20-bit
+multiplication.</p>
+<p>A way of mapping such elements in coarse grain synthesis is the
+wrap-extract-unwrap method:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><strong>wrap</strong></div>
+<div class="line">Identify candidate-cells in the circuit and wrap them in a cell
+with a constant wider bit-width using <code class="docutils literal notranslate"><span class="pre">techmap</span></code>. The wrappers
+use the same parameters as the original cell, so the information
+about the original width of the ports is preserved.</div>
+<div class="line">Then use the <code class="docutils literal notranslate"><span class="pre">connwrappers</span></code> command to connect up the
+bit-extended in- and outputs of the wrapper cells.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>extract</strong></div>
+<div class="line">Now all operations are encoded using the same bit-width as the
+coarse grain element. The <code class="docutils literal notranslate"><span class="pre">extract</span></code> command can be used to
+replace circuits with cells of the target architecture.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>unwrap</strong></div>
+<div class="line">The remaining wrapper cell can be unwrapped using <code class="docutils literal notranslate"><span class="pre">techmap</span></code>.</div>
+</div>
+</li>
+</ul>
+<p>The following sides detail an example that shows how to map MACC
+operations of arbitrary size to MACC cells with a 18x25-bit
+multiplier and a 48-bit adder (such as the Xilinx DSP48 cells).</p>
+</div>
+</div>
+<div class="section" id="example-dsp48-macc">
+<h3>Example: DSP48_MACC<a class="headerlink" href="#example-dsp48-macc" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<div class="line-block">
+<div class="line">– 1/13 Preconditioning: <code class="docutils literal notranslate"><span class="pre">macc_xilinx_swap_map.v</span></code></div>
+<div class="line">Make sure <code class="docutils literal notranslate"><span class="pre">A</span></code> is the smaller port on all multipliers</div>
+</div>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span> <span class="n">techmap_celltype</span> <span class="o">=</span> <span class="s">&quot;$mul&quot;</span> <span class="o">*</span><span class="p">)</span>
+<span class="k">module</span> <span class="n">mul_swap_ports</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+<span class="kt">wire</span> <span class="n">_TECHMAP_FAIL_</span> <span class="o">=</span> <span class="n">A_WIDTH</span> <span class="o">&lt;=</span> <span class="n">B_WIDTH</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">\$mul</span> <span class="p">#(</span>
+       <span class="p">.</span><span class="n">A_SIGNED</span><span class="p">(</span><span class="n">B_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_SIGNED</span><span class="p">(</span><span class="n">A_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">A_WIDTH</span><span class="p">(</span><span class="n">B_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_WIDTH</span><span class="p">(</span><span class="n">A_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y_WIDTH</span><span class="p">(</span><span class="n">Y_WIDTH</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">_TECHMAP_REPLACE_</span> <span class="p">(</span>
+       <span class="p">.</span><span class="n">A</span><span class="p">(</span><span class="n">B</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">A</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– 2/13 Wrapping multipliers: <code class="docutils literal notranslate"><span class="pre">macc_xilinx_wrap_map.v</span></code></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span> <span class="n">techmap_celltype</span> <span class="o">=</span> <span class="s">&quot;$mul&quot;</span> <span class="o">*</span><span class="p">)</span>
+<span class="k">module</span> <span class="n">mul_wrap</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A_18</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">24</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B_25</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y_48</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">Y_48</span><span class="p">;</span>
+
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">1023</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">_TECHMAP_DO_</span> <span class="o">=</span> <span class="s">&quot;proc; clean&quot;</span><span class="p">;</span>
+
+<span class="kt">reg</span> <span class="n">_TECHMAP_FAIL_</span><span class="p">;</span>
+<span class="k">initial</span> <span class="k">begin</span>
+       <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>       <span class="k">if</span> <span class="p">(</span><span class="n">A_SIGNED</span> <span class="o">||</span> <span class="n">B_SIGNED</span><span class="p">)</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">&lt;</span> <span class="mh">4</span> <span class="o">||</span> <span class="n">B_WIDTH</span> <span class="o">&lt;</span> <span class="mh">4</span><span class="p">)</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">&gt;</span> <span class="mh">18</span> <span class="o">||</span> <span class="n">B_WIDTH</span> <span class="o">&gt;</span> <span class="mh">25</span><span class="p">)</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span><span class="o">*</span><span class="n">B_WIDTH</span> <span class="o">&lt;</span> <span class="mh">100</span><span class="p">)</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="n">\$__mul_wrapper</span> <span class="p">#(</span>
+       <span class="p">.</span><span class="n">A_SIGNED</span><span class="p">(</span><span class="n">A_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_SIGNED</span><span class="p">(</span><span class="n">B_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">A_WIDTH</span><span class="p">(</span><span class="n">A_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_WIDTH</span><span class="p">(</span><span class="n">B_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y_WIDTH</span><span class="p">(</span><span class="n">Y_WIDTH</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">_TECHMAP_REPLACE_</span> <span class="p">(</span>
+       <span class="p">.</span><span class="n">A</span><span class="p">(</span><span class="n">A_18</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">B_25</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">Y_48</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– 3/13 Wrapping adders: <code class="docutils literal notranslate"><span class="pre">macc_xilinx_wrap_map.v</span></code></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span> <span class="n">techmap_celltype</span> <span class="o">=</span> <span class="s">&quot;$add&quot;</span> <span class="o">*</span><span class="p">)</span>
+<span class="k">module</span> <span class="n">add_wrap</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A_48</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B_48</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y_48</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">Y_48</span><span class="p">;</span>
+
+<span class="kt">wire</span> <span class="p">[</span><span class="mh">1023</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">_TECHMAP_DO_</span> <span class="o">=</span> <span class="s">&quot;proc; clean&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="kt">reg</span> <span class="n">_TECHMAP_FAIL_</span><span class="p">;</span>
+<span class="k">initial</span> <span class="k">begin</span>
+       <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">A_SIGNED</span> <span class="o">||</span> <span class="n">B_SIGNED</span><span class="p">)</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">A_WIDTH</span> <span class="o">&lt;</span> <span class="mh">10</span> <span class="o">&amp;&amp;</span> <span class="n">B_WIDTH</span> <span class="o">&lt;</span> <span class="mh">10</span><span class="p">)</span>
+               <span class="n">_TECHMAP_FAIL_</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="n">\$__add_wrapper</span> <span class="p">#(</span>
+       <span class="p">.</span><span class="n">A_SIGNED</span><span class="p">(</span><span class="n">A_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_SIGNED</span><span class="p">(</span><span class="n">B_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">A_WIDTH</span><span class="p">(</span><span class="n">A_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_WIDTH</span><span class="p">(</span><span class="n">B_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y_WIDTH</span><span class="p">(</span><span class="n">Y_WIDTH</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">_TECHMAP_REPLACE_</span> <span class="p">(</span>
+       <span class="p">.</span><span class="n">A</span><span class="p">(</span><span class="n">A_48</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">B_48</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">Y_48</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– 4/13 Extract: <code class="docutils literal notranslate"><span class="pre">macc_xilinx_xmap.v</span></code></p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">DSP48_MACC</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">24</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">c</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+
+<span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p>design to create a template for the <code class="docutils literal notranslate"><span class="pre">extract</span></code> command.</p>
+</div>
+<div class="frame docutils container">
+<p>– 5/13 Unwrapping multipliers: <code class="docutils literal notranslate"><span class="pre">macc_xilinx_unwrap_map.v</span></code></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">\$__mul_wrapper</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">24</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+<span class="kt">wire</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A_ORIG</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B_ORIG</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y_ORIG</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">Y_ORIG</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">\$mul</span> <span class="p">#(</span>
+       <span class="p">.</span><span class="n">A_SIGNED</span><span class="p">(</span><span class="n">A_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_SIGNED</span><span class="p">(</span><span class="n">B_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">A_WIDTH</span><span class="p">(</span><span class="n">A_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_WIDTH</span><span class="p">(</span><span class="n">B_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y_WIDTH</span><span class="p">(</span><span class="n">Y_WIDTH</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">_TECHMAP_REPLACE_</span> <span class="p">(</span>
+       <span class="p">.</span><span class="n">A</span><span class="p">(</span><span class="n">A_ORIG</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">B_ORIG</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">Y_ORIG</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– 6/13 Unwrapping adders: <code class="docutils literal notranslate"><span class="pre">macc_xilinx_unwrap_map.v</span></code></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">\$__add_wrapper</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">47</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+<span class="kt">wire</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A_ORIG</span> <span class="o">=</span> <span class="n">A</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B_ORIG</span> <span class="o">=</span> <span class="n">B</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y_ORIG</span><span class="p">;</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">Y_ORIG</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="n">\$add</span> <span class="p">#(</span>
+       <span class="p">.</span><span class="n">A_SIGNED</span><span class="p">(</span><span class="n">A_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_SIGNED</span><span class="p">(</span><span class="n">B_SIGNED</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">A_WIDTH</span><span class="p">(</span><span class="n">A_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B_WIDTH</span><span class="p">(</span><span class="n">B_WIDTH</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y_WIDTH</span><span class="p">(</span><span class="n">Y_WIDTH</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">_TECHMAP_REPLACE_</span> <span class="p">(</span>
+       <span class="p">.</span><span class="n">A</span><span class="p">(</span><span class="n">A_ORIG</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">B</span><span class="p">(</span><span class="n">B_ORIG</span><span class="p">),</span>
+       <span class="p">.</span><span class="n">Y</span><span class="p">(</span><span class="n">Y_ORIG</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– 7/13</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">test1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math">\downarrow</span></p></td>
+<td><p><span class="math">\downarrow</span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog macc_xilinx_test.v
+                            hierarchy -check
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><span class="math">\downarrow</span></p></td>
+<td><p><span class="math">\downarrow</span></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="frame docutils container">
+<p>– 8/13</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">test1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math">\downarrow</span></p></td>
+<td><p><span class="math">\downarrow</span></p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>techmap -map macc_xilinx_swap_map.v ;;
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><span class="math">\downarrow</span></p></td>
+<td><p><span class="math">\downarrow</span></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="frame docutils container">
+<p>– 9/13 Wrapping in <code class="docutils literal notranslate"><span class="pre">test1</span></code>:</p>
+<div class="columns docutils container">
+<p>to 0cm</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>techmap -map macc_xilinx_wrap_map.v
+
+connwrappers -unsigned $__mul_wrapper \
+                            Y Y_WIDTH \
+             -unsigned $__add_wrapper \
+                            Y Y_WIDTH ;;
+</pre></div>
+</div>
+</div>
+<img alt="image" src="PRESENTATION_ExAdv/macc_xilinx_test1c.pdf" />
+</div>
+<div class="frame docutils container">
+<p>– 10/13 Wrapping in <code class="docutils literal notranslate"><span class="pre">test2</span></code>:</p>
+<div class="columns docutils container">
+<p>to 0cm</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>techmap -map macc_xilinx_wrap_map.v
+
+connwrappers -unsigned $__mul_wrapper \
+                            Y Y_WIDTH \
+             -unsigned $__add_wrapper \
+                            Y Y_WIDTH ;;
+</pre></div>
+</div>
+</div>
+<img alt="image" src="PRESENTATION_ExAdv/macc_xilinx_test2c.pdf" />
+</div>
+<div class="frame docutils container">
+<p>– 11/13 Extract in <code class="docutils literal notranslate"><span class="pre">test1</span></code>:</p>
+<div class="columns docutils container">
+<p>to 0cm</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>design -push
+read_verilog macc_xilinx_xmap.v
+techmap -map macc_xilinx_swap_map.v
+techmap -map macc_xilinx_wrap_map.v;;
+design -save __macc_xilinx_xmap
+design -pop
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>extract -constports -ignore_parameters \
+        -map %__macc_xilinx_xmap       \
+        -swap $__add_wrapper A,B ;;
+</pre></div>
+</div>
+<p>to 0cm</p>
+</div>
+<a class="reference internal image-reference" href="PRESENTATION_ExAdv/macc_xilinx_test1d.pdf"><img alt="image" src="PRESENTATION_ExAdv/macc_xilinx_test1d.pdf" style="width: 11cm;" /></a>
+</div>
+<div class="frame docutils container">
+<p>– 12/13 Extract in <code class="docutils literal notranslate"><span class="pre">test2</span></code>:</p>
+<div class="columns docutils container">
+<p>to 0cm</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>design -push
+read_verilog macc_xilinx_xmap.v
+techmap -map macc_xilinx_swap_map.v
+techmap -map macc_xilinx_wrap_map.v;;
+design -save __macc_xilinx_xmap
+design -pop
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>extract -constports -ignore_parameters \
+        -map %__macc_xilinx_xmap       \
+        -swap $__add_wrapper A,B ;;
+</pre></div>
+</div>
+<p>to 0cm</p>
+</div>
+<a class="reference internal image-reference" href="PRESENTATION_ExAdv/macc_xilinx_test2d.pdf"><img alt="image" src="PRESENTATION_ExAdv/macc_xilinx_test2d.pdf" style="width: 11cm;" /></a>
+</div>
+<div class="frame docutils container">
+<p>– 13/13 Unwrap in <code class="docutils literal notranslate"><span class="pre">test2</span></code>:</p>
+</div>
+</div>
+</div>
+<div class="section" id="automatic-design-changes">
+<h2>Automatic design changes<a class="headerlink" href="#automatic-design-changes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="changing-the-design-from-yosys">
+<h3>Changing the design from Yosys<a class="headerlink" href="#changing-the-design-from-yosys" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Yosys commands can be used to change the design in memory. Examples
+of this are:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><strong>Changes in design hierarchy</strong></div>
+<div class="line">Commands such as <code class="docutils literal notranslate"><span class="pre">flatten</span></code> and <code class="docutils literal notranslate"><span class="pre">submod</span></code> can be used to
+change the design hierarchy, i.e. flatten the hierarchy or
+moving parts of a module to a submodule. This has applications
+in synthesis scripts as well as in reverse engineering and
+analysis.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>Behavioral changes</strong></div>
+<div class="line">Commands such as <code class="docutils literal notranslate"><span class="pre">techmap</span></code> can be used to make behavioral
+changes to the design, for example changing asynchronous resets
+to synchronous resets. This has applications in design space
+exploration (evaluation of various architectures for one
+circuit).</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="example-async-reset-to-sync-reset">
+<h3>Example: Async reset to sync reset<a class="headerlink" href="#example-async-reset-to-sync-reset" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>The following techmap map file replaces all positive-edge async reset
+flip-flops with positive-edge sync reset flip-flops. The code is
+taken from the example Yosys script for ASIC synthesis of the Amber
+ARMv2 CPU.</p>
+<div class="columns docutils container">
+<p>to 0cm</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">*</span> <span class="n">techmap_celltype</span> <span class="o">=</span> <span class="s">&quot;$adff&quot;</span> <span class="o">*</span><span class="p">)</span>
+<span class="k">module</span> <span class="n">adff2dff</span> <span class="p">(</span><span class="n">CLK</span><span class="p">,</span> <span class="n">ARST</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">Q</span><span class="p">);</span>
+
+    <span class="k">parameter</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">CLK_POLARITY</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">ARST_POLARITY</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">ARST_VALUE</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+
+    <span class="k">input</span> <span class="n">CLK</span><span class="p">,</span> <span class="n">ARST</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">D</span><span class="p">;</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Q</span><span class="p">;</span>
+
+    <span class="kt">wire</span> <span class="p">[</span><span class="mh">1023</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">_TECHMAP_DO_</span> <span class="o">=</span> <span class="s">&quot;proc&quot;</span><span class="p">;</span>
+
+    <span class="kt">wire</span> <span class="n">_TECHMAP_FAIL_</span> <span class="o">=</span> <span class="o">!</span><span class="n">CLK_POLARITY</span> <span class="o">||</span> <span class="o">!</span><span class="n">ARST_POLARITY</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// ..continued..</span>
+
+
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">CLK</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ARST</span><span class="p">)</span>
+            <span class="n">Q</span> <span class="o">&lt;=</span> <span class="n">ARST_VALUE</span><span class="p">;</span>
+        <span class="k">else</span>
+             <span class="o">&lt;=</span> <span class="n">D</span><span class="p">;</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>A lot can be achieved in Yosys just with the standard set of
+commands.</p></li>
+<li><p>The commands <code class="docutils literal notranslate"><span class="pre">techmap</span></code> and <code class="docutils literal notranslate"><span class="pre">extract</span></code> can be used to prototype
+many complex synthesis tasks.</p></li>
+</ul>
+<div class="center docutils container">
+<p>Questions?</p>
+</div>
+<div class="center docutils container">
+<p><a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Yosys by example – Advanced Synthesis</a><ul>
+<li><a class="reference internal" href="#using-selections">Using selections</a><ul>
+<li><a class="reference internal" href="#simple-selections">Simple selections</a></li>
+<li><a class="reference internal" href="#selection-by-object-name">Selection by object name</a></li>
+<li><a class="reference internal" href="#module-and-design-context">Module and design context</a></li>
+<li><a class="reference internal" href="#selecting-by-object-property-or-type">Selecting by object property or type</a></li>
+<li><a class="reference internal" href="#combining-selection">Combining selection</a></li>
+<li><a class="reference internal" href="#expanding-selections">Expanding selections</a></li>
+<li><a class="reference internal" href="#incremental-selection">Incremental selection</a></li>
+<li><a class="reference internal" href="#creating-selection-variables">Creating selection variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-uses-of-techmap">Advanced uses of techmap</a><ul>
+<li><a class="reference internal" href="#introduction-to-techmap">Introduction to techmap</a></li>
+<li><a class="reference internal" href="#conditional-techmap">Conditional techmap</a></li>
+<li><a class="reference internal" href="#scripting-in-map-modules">Scripting in map modules</a></li>
+<li><a class="reference internal" href="#handling-constant-inputs">Handling constant inputs</a></li>
+<li><a class="reference internal" href="#handling-shorted-inputs">Handling shorted inputs</a></li>
+<li><a class="reference internal" href="#notes-on-using-techmap">Notes on using techmap</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#coarse-grain-synthesis">Coarse-grain synthesis</a><ul>
+<li><a class="reference internal" href="#intro-to-coarse-grain-synthesis">Intro to coarse-grain synthesis</a></li>
+<li><a class="reference internal" href="#the-extract-pass">The extract pass</a></li>
+<li><a class="reference internal" href="#the-wrap-extract-unwrap-method">The wrap-extract-unwrap method</a></li>
+<li><a class="reference internal" href="#example-dsp48-macc">Example: DSP48_MACC</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#automatic-design-changes">Automatic design changes</a><ul>
+<li><a class="reference internal" href="#changing-the-design-from-yosys">Changing the design from Yosys</a></li>
+<li><a class="reference internal" href="#example-async-reset-to-sync-reset">Example: Async reset to sync reset</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

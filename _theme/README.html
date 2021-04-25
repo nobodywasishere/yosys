@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Material Sphinx Theme &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Material Sphinx Theme</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../_sources/_theme/README.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="../index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="material-sphinx-theme">
+<h1>Material Sphinx Theme<a class="headerlink" href="#material-sphinx-theme" title="Permalink to this headline">¶</a></h1>
+<p><strong>Continuous Integration</strong></p>
+<p><a class="reference external" href="https://travis-ci.com/bashtage/sphinx-material"><img alt="Travis Build Status" src="https://travis-ci.com/bashtage/sphinx-material.svg?branch=master" /></a></p>
+<p><strong>Release</strong></p>
+<p><a class="reference external" href="https://badge.fury.io/py/sphinx-material"><img alt="PyPI Status" src="https://badge.fury.io/py/sphinx-material.svg" /></a></p>
+<p><strong>License</strong></p>
+<p><a class="reference external" href="https://opensource.org/licenses/MIT-Clause"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-blue.svg" /></a></p>
+<p>A Material Design theme for Sphinx documentation. Based on
+<a class="reference external" href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>,
+and <a class="reference external" href="https://github.com/guzzle/guzzle_sphinx_theme">Guzzle Sphinx Theme</a>.</p>
+<p>See the theme’s <a class="reference external" href="https://sphinx-symbiflow-theme.readthedocs.io/en/latest/">demonstration site</a>
+for examples of rendered rst.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Install via pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install sphinx-material
+</pre></div>
+</div>
+<p>or if you have the code checked out locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Add the following to your conf.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;sphinx_symbiflow_theme&#39;</span>
+</pre></div>
+</div>
+<p>There are a lot more ways to customize this theme, as this more comprehensive
+example shows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Required theme setup</span>
+<span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;sphinx_symbiflow_theme&#39;</span>
+
+<span class="c1"># Set link name generated in the top bar.</span>
+<span class="n">html_title</span> <span class="o">=</span> <span class="s1">&#39;Project Title&#39;</span>
+
+<span class="c1"># Material theme options (see theme.conf for more information)</span>
+<span class="n">html_theme_options</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="c1"># Set the name of the project to appear in the navigation.</span>
+    <span class="s1">&#39;nav_title&#39;</span><span class="p">:</span> <span class="s1">&#39;Project Name&#39;</span><span class="p">,</span>
+
+    <span class="c1"># Set you GA account ID to enable tracking</span>
+    <span class="s1">&#39;google_analytics_account&#39;</span><span class="p">:</span> <span class="s1">&#39;UA-XXXXX&#39;</span><span class="p">,</span>
+
+    <span class="c1"># Specify a base_url used to generate sitemap.xml. If not</span>
+    <span class="c1"># specified, then no sitemap will be built.</span>
+    <span class="s1">&#39;base_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://project.github.io/project&#39;</span><span class="p">,</span>
+
+    <span class="c1"># Set the color and the accent color</span>
+    <span class="s1">&#39;color_primary&#39;</span><span class="p">:</span> <span class="s1">&#39;deep-purple&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;color_accent&#39;</span><span class="p">:</span> <span class="s1">&#39;indigo&#39;</span><span class="p">,</span>
+
+    <span class="c1"># Set the repo location to get a badge with stats</span>
+    <span class="s1">&#39;github_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://github.com/project/project/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;repo_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Project&#39;</span><span class="p">,</span>
+
+    <span class="c1"># Visible levels of the global TOC; -1 means unlimited</span>
+    <span class="s1">&#39;globaltoc_depth&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="c1"># If False, expand all TOC entries</span>
+    <span class="s1">&#39;globaltoc_collapse&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># If True, show hidden TOC entries</span>
+    <span class="s1">&#39;globaltoc_includehidden&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="customizing-the-layout">
+<h2>Customizing the layout<a class="headerlink" href="#customizing-the-layout" title="Permalink to this headline">¶</a></h2>
+<p>You can customize the theme by overriding Jinja template blocks. For example,
+‘layout.html’ contains several blocks that can be overridden or extended.</p>
+<p>Place a ‘layout.html’ file in your project’s ‘/_templates’ directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir source/_templates
+touch source/_templates/layout.html
+</pre></div>
+</div>
+<p>Then, configure your ‘conf.py’:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">templates_path</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_templates&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Finally, edit your override file ‘source/_templates/layout.html’:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="c1"># Import the theme&#39;s layout. #}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s1">&#39;!layout.html&#39;</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%-</span> <span class="n">block</span> <span class="n">extrahead</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="c1"># Add custom things to the head HTML tag #}</span>
+<span class="p">{</span><span class="c1"># Call the parent block #}</span>
+<span class="p">{{</span> <span class="nb">super</span><span class="p">()</span> <span class="p">}}</span>
+<span class="p">{</span><span class="o">%-</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Material Sphinx Theme</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#customizing-the-layout">Customizing the layout</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

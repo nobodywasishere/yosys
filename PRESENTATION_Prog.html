@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Writing Yosys extensions in C++ &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Writing Yosys extensions in C++</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/PRESENTATION_Prog.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="writing-yosys-extensions-in-c">
+<h1>Writing Yosys extensions in C++<a class="headerlink" href="#writing-yosys-extensions-in-c" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="program-components-and-data-formats">
+<h2>Program Components and Data Formats<a class="headerlink" href="#program-components-and-data-formats" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+</div>
+</div>
+<div class="section" id="simplified-rtlil-entity-relationship-diagram">
+<h2>Simplified RTLIL Entity-Relationship Diagram<a class="headerlink" href="#simplified-rtlil-entity-relationship-diagram" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Between passses and frontends/backends the design is stored in Yosys’
+internal RTLIL (RTL Intermediate Language) format. For writing Yosys
+extensions it is key to understand this format.</p>
+</div>
+</div>
+<div class="section" id="rtlil-without-memories-and-processes">
+<h2>RTLIL without memories and processes<a class="headerlink" href="#rtlil-without-memories-and-processes" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>After the commands <code class="docutils literal notranslate"><span class="pre">proc</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> (or <code class="docutils literal notranslate"><span class="pre">memory</span> <span class="pre">-nomap</span></code>), we
+are left with a much simpler version of RTLIL:</p>
+<p>Many commands simply choose to only work on this simpler version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">RTLIL</span><span class="p">::</span><span class="n">Module</span> <span class="o">*</span><span class="n">module</span> <span class="p">:</span> <span class="n">design</span><span class="o">-&gt;</span><span class="n">selected_modules</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">module</span><span class="o">-&gt;</span><span class="n">has_memories_warn</span><span class="p">()</span> <span class="o">||</span> <span class="n">module</span><span class="o">-&gt;</span><span class="n">has_processes_warn</span><span class="p">())</span>
+        <span class="k">continue</span><span class="p">;</span>
+    <span class="o">....</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For simplicity we only discuss this version of RTLIL in this
+presentation.</p>
+</div>
+</div>
+<div class="section" id="using-dump-and-show-commands">
+<h2>Using dump and show commands<a class="headerlink" href="#using-dump-and-show-commands" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">dump</span></code> command prints the design (or parts of it) in the
+text representation of RTLIL.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">show</span></code> command visualizes how the components in the design
+are connected.</p></li>
+</ul>
+<p>When trying to understand what a command does, create a small test
+case and look at the output of <code class="docutils literal notranslate"><span class="pre">dump</span></code> and <code class="docutils literal notranslate"><span class="pre">show</span></code> before and after
+the command has been executed.</p>
+</div>
+</div>
+<div class="section" id="the-rtlil-data-structures">
+<h2>The RTLIL Data Structures<a class="headerlink" href="#the-rtlil-data-structures" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>The RTLIL data structures are simple structs utilizing <code class="docutils literal notranslate"><span class="pre">pool&lt;&gt;</span></code> and
+<code class="docutils literal notranslate"><span class="pre">dict&lt;&gt;</span></code> containers (drop-in replacements for
+<code class="docutils literal notranslate"><span class="pre">std::unordered_set&lt;&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">std::unordered_map&lt;&gt;</span></code>).</p>
+<ul class="simple">
+<li><p>Most operations are performed directly on the RTLIL structs
+without setter or getter functions.</p></li>
+<li><p>In debug builds a consistency checker is run over the in-memory
+design between commands to make sure that the RTLIL representation
+is intact.</p></li>
+<li><p>Most RTLIL structs have helper methods that perform the most
+common operations.</p></li>
+</ul>
+<p>See <code class="docutils literal notranslate"><span class="pre">yosys/kernel/rtlil.h</span></code> for details.</p>
+</div>
+<div class="section" id="rtlil-idstring">
+<h3>RTLIL::IdString<a class="headerlink" href="#rtlil-idstring" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p><code class="docutils literal notranslate"><span class="pre">RTLIL::IdString</span></code> in many ways behave like a <code class="docutils literal notranslate"><span class="pre">std::string</span></code>. It is
+used for names of RTLIL objects. Internally a RTLIL::IdString object
+is only a single integer.</p>
+<p>The first character of a <code class="docutils literal notranslate"><span class="pre">RTLIL::IdString</span></code> specifies if the name is
+<em>public</em> or <em>private</em>:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">RTLIL::IdString[0]</span> <span class="pre">==</span> <span class="pre">’\\’</span></code>:</div>
+<div class="line">This is a public name. Usually this means it is a name that was
+declared in a Verilog file.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">RTLIL::IdString[0]</span> <span class="pre">==</span> <span class="pre">’$’</span></code>:</div>
+<div class="line">This is a private name. It was assigned by Yosys.</div>
+</div>
+</li>
+</ul>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">NEW_ID</span></code> macro to create a new unique private name.</p>
+</div>
+</div>
+<div class="section" id="rtlil-design-and-rtlil-module">
+<h3>RTLIL::Design and RTLIL::Module<a class="headerlink" href="#rtlil-design-and-rtlil-module" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>The <code class="docutils literal notranslate"><span class="pre">RTLIL::Design</span></code> and <code class="docutils literal notranslate"><span class="pre">RTLIL::Module</span></code> structs are the top-level
+RTLIL data structures. Yosys always operates on one active design,
+but can hold many designs in memory.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">Design</span> <span class="p">{</span>
+    <span class="n">dict</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Module</span><span class="o">*&gt;</span> <span class="n">modules_</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">Module</span> <span class="p">{</span>
+    <span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">dict</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Wire</span><span class="o">*&gt;</span> <span class="n">wires_</span><span class="p">;</span>
+    <span class="n">dict</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Cell</span><span class="o">*&gt;</span> <span class="n">cells_</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSig</span><span class="o">&gt;</span> <span class="n">connections_</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>(Use the various accessor functions instead of directly working with
+the <code class="docutils literal notranslate"><span class="pre">_</span></code> members.)</p>
+</div>
+</div>
+<div class="section" id="the-rtlil-wire-structure">
+<h3>The RTLIL::Wire Structure<a class="headerlink" href="#the-rtlil-wire-structure" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Each wire in the design is represented by a <code class="docutils literal notranslate"><span class="pre">RTLIL::Wire</span></code> struct:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">Wire</span> <span class="p">{</span>
+    <span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">,</span> <span class="n">port_id</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">port_input</span><span class="p">,</span> <span class="n">port_output</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">width</span></code></p></td>
+<td><p>The total number of bits. E.g. 10 for <code class="docutils literal notranslate"><span class="pre">[9:0]</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_offset</span></code></p></td>
+<td><p>The lowest bit index. E.g. 3 for <code class="docutils literal notranslate"><span class="pre">[5:3]</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">port_id</span></code></p></td>
+<td><p>Zero for non-ports. Positive index for ports.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">port_input</span></code></p></td>
+<td><p>True for <code class="docutils literal notranslate"><span class="pre">input</span></code> and <code class="docutils literal notranslate"><span class="pre">inout</span></code> ports.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">port_output</span></code></p></td>
+<td><p>True for <code class="docutils literal notranslate"><span class="pre">output</span></code> and <code class="docutils literal notranslate"><span class="pre">inout</span></code> ports.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="rtlil-state-and-rtlil-const">
+<h3>RTLIL::State and RTLIL::Const<a class="headerlink" href="#rtlil-state-and-rtlil-const" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>The <code class="docutils literal notranslate"><span class="pre">RTLIL::State</span></code> enum represents a simple 1-bit logic level:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">State</span> <span class="p">{</span>
+    <span class="n">S0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">S1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">Sx</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="c1">// undefined value or conflict</span>
+    <span class="n">Sz</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="c1">// high-impedance / not-connected</span>
+    <span class="n">Sa</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="c1">// don&#39;t care (used only in cases)</span>
+    <span class="n">Sm</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1">// marker (used internally by some passes)</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">RTLIL::Const</span></code> struct represents a constant multi-bit value:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">Const</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">State</span><span class="o">&gt;</span> <span class="n">bits</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Notice that Yosys is not using special <code class="docutils literal notranslate"><span class="pre">VCC</span></code> or <code class="docutils literal notranslate"><span class="pre">GND</span></code> driver
+cells to represent constants. Instead constants are part of the RTLIL
+representation itself.</p>
+</div>
+</div>
+<div class="section" id="the-rtlil-sigspec-structure">
+<h3>The RTLIL::SigSpec Structure<a class="headerlink" href="#the-rtlil-sigspec-structure" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>The <code class="docutils literal notranslate"><span class="pre">RTLIL::SigSpec</span></code> struct represents a signal vector. Each bit
+can either be a bit from a wire or a constant value.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">SigBit</span>
+<span class="p">{</span>
+    <span class="n">RTLIL</span><span class="o">::</span><span class="n">Wire</span> <span class="o">*</span><span class="n">wire</span><span class="p">;</span>
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="n">RTLIL</span><span class="o">::</span><span class="n">State</span> <span class="n">data</span><span class="p">;</span> <span class="c1">// used if wire == NULL</span>
+        <span class="kt">int</span> <span class="n">offset</span><span class="p">;</span>        <span class="c1">// used if wire != NULL</span>
+    <span class="p">};</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">SigBit</span><span class="o">&gt;</span> <span class="n">bits_</span><span class="p">;</span> <span class="c1">// LSB at index 0</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">RTLIL::SigSpec</span></code> struct has a ton of additional helper methods
+to compare, analyze, and manipulate instances of <code class="docutils literal notranslate"><span class="pre">RTLIL::SigSpec</span></code>.</p>
+</div>
+</div>
+<div class="section" id="the-rtlil-cell-structure">
+<h3>The RTLIL::Cell Structure<a class="headerlink" href="#the-rtlil-cell-structure" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>(1/2) The <code class="docutils literal notranslate"><span class="pre">RTLIL::Cell</span></code> struct represents an instance of a module
+or library cell.</p>
+<p>The ports of the cell are associated with <code class="docutils literal notranslate"><span class="pre">RTLIL::SigSpec</span></code>
+instances and the parameters are associated with <code class="docutils literal notranslate"><span class="pre">RTLIL::Const</span></code>
+instances:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">Cell</span> <span class="p">{</span>
+    <span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span> <span class="n">name</span><span class="p">,</span> <span class="n">type</span><span class="p">;</span>
+    <span class="n">dict</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span><span class="o">&gt;</span> <span class="n">connections_</span><span class="p">;</span>
+    <span class="n">dict</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">IdString</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Const</span><span class="o">&gt;</span> <span class="n">parameters</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">type</span></code> may refer to another module in the same design, a cell
+name from a cell library, or a cell name from the internal cell
+library:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$not $pos $neg $and $or $xor $xnor $reduce_and $reduce_or $reduce_xor $reduce_xnor
+$reduce_bool $shl $shr $sshl $sshr $lt $le $eq $ne $eqx $nex $ge $gt $add $sub $mul $div $mod
+$divfloor $modfloor $pow $logic_not $logic_and $logic_or $mux $pmux $slice $concat $lut $assert $sr $dff
+$dffsr $adff $dlatch $dlatchsr $memrd $memwr $mem $fsm $_NOT_ $_AND_ $_OR_ $_XOR_ $_MUX_ $_SR_NN_
+$_SR_NP_ $_SR_PN_ $_SR_PP_ $_DFF_N_ $_DFF_P_ $_DFF_NN0_ $_DFF_NN1_ $_DFF_NP0_ $_DFF_NP1_ $_DFF_PN0_
+$_DFF_PN1_ $_DFF_PP0_ $_DFF_PP1_ $_DFFSR_NNN_ $_DFFSR_NNP_ $_DFFSR_NPN_ $_DFFSR_NPP_ $_DFFSR_PNN_
+$_DFFSR_PNP_ $_DFFSR_PPN_ $_DFFSR_PPP_ $_DLATCH_N_ $_DLATCH_P_ $_DLATCHSR_NNN_ $_DLATCHSR_NNP_
+$_DLATCHSR_NPN_ $_DLATCHSR_NPP_ $_DLATCHSR_PNN_ $_DLATCHSR_PNP_ $_DLATCHSR_PPN_ $_DLATCHSR_PPP_
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>(2/2) Simulation models (i.e. <em>documentation</em> :-) for the internal
+cell library:</p>
+<div class="line-block">
+<div class="line">2em <code class="docutils literal notranslate"><span class="pre">yosys/techlibs/common/simlib.v</span></code> and</div>
+<div class="line">2em <code class="docutils literal notranslate"><span class="pre">yosys/techlibs/common/simcells.v</span></code></div>
+</div>
+<p>The lower-case cell types (such as <code class="docutils literal notranslate"><span class="pre">$and</span></code>) are parameterized cells
+of variable width. This so-called <em>RTL Cells</em> are the cells described
+in <code class="docutils literal notranslate"><span class="pre">simlib.v</span></code>.</p>
+<p>The upper-case cell types (such as <code class="docutils literal notranslate"><span class="pre">$_AND_</span></code>) are single-bit cells
+that are not parameterized. This so-called <em>Internal Logic Gates</em> are
+the cells described in <code class="docutils literal notranslate"><span class="pre">simcells.v</span></code>.</p>
+<p>The consistency checker also checks the interfaces to the internal
+cell library. If you want to use private cell types for your own
+purposes, use the <code class="docutils literal notranslate"><span class="pre">$__</span></code>-prefix to avoid name collisions.</p>
+</div>
+</div>
+<div class="section" id="connecting-wires-or-constant-drivers">
+<h3>Connecting wires or constant drivers<a class="headerlink" href="#connecting-wires-or-constant-drivers" title="Permalink to this headline">¶</a></h3>
+<div class="frame docutils container">
+<p>Additional connections between wires or between wires and constants
+are modelled using <code class="docutils literal notranslate"><span class="pre">RTLIL::Module::connections</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span><span class="o">&gt;</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSig</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">RTLIL</span><span class="o">::</span><span class="n">Module</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSig</span><span class="o">&gt;</span> <span class="n">connections_</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">RTLIL::SigSig::first</span></code> is the driven signal and
+<code class="docutils literal notranslate"><span class="pre">RTLIL::SigSig::second</span></code> is the driving signal. Example usage
+(setting wire <code class="docutils literal notranslate"><span class="pre">foo</span></code> to value <code class="docutils literal notranslate"><span class="pre">42</span></code>):</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">wire</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">foo&quot;</span><span class="p">),</span>
+                <span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="k">module</span><span class="o">-&gt;</span><span class="n">wire</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">foo&quot;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-modules-from-scratch">
+<h2>Creating modules from scratch<a class="headerlink" href="#creating-modules-from-scratch" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Let’s create the following module using the RTLIL API:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">absval</span><span class="p">(</span><span class="k">input</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="k">output</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mh">3</span><span class="p">]</span> <span class="o">?</span> <span class="o">-</span><span class="n">a</span> <span class="o">:</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">RTLIL</span><span class="o">::</span><span class="n">Module</span> <span class="o">*</span><span class="k">module</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Module</span><span class="p">;</span>
+<span class="k">module</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\\</span><span class="s">absval&quot;</span><span class="p">;</span>
+
+<span class="n">RTLIL</span><span class="o">::</span><span class="n">Wire</span> <span class="o">*</span><span class="n">a</span> <span class="o">=</span> <span class="k">module</span><span class="o">-&gt;</span><span class="n">addWire</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">a&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="n">a</span><span class="o">-&gt;</span><span class="n">port_input</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="n">a</span><span class="o">-&gt;</span><span class="n">port_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="n">RTLIL</span><span class="o">::</span><span class="n">Wire</span> <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="k">module</span><span class="o">-&gt;</span><span class="n">addWire</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">y&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="n">y</span><span class="o">-&gt;</span><span class="n">port_output</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="n">y</span><span class="o">-&gt;</span><span class="n">port_id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="n">RTLIL</span><span class="o">::</span><span class="n">Wire</span> <span class="o">*</span><span class="n">a_inv</span> <span class="o">=</span> <span class="k">module</span><span class="o">-&gt;</span><span class="n">addWire</span><span class="p">(</span><span class="n">NEW_ID</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="k">module</span><span class="o">-&gt;</span><span class="n">addNeg</span><span class="p">(</span><span class="n">NEW_ID</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a_inv</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+<span class="k">module</span><span class="o">-&gt;</span><span class="n">addMux</span><span class="p">(</span><span class="n">NEW_ID</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a_inv</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="k">module</span><span class="o">-&gt;</span><span class="n">fixup_ports</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="modifying-modules">
+<h2>Modifying modules<a class="headerlink" href="#modifying-modules" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Most commands modify existing modules, not create new ones.</p>
+<p>When modifying existing modules, stick to the following DOs and
+DON’Ts:</p>
+<ul class="simple">
+<li><p>Do not remove wires. Simply disconnect them and let a successive
+<code class="docutils literal notranslate"><span class="pre">clean</span></code> command worry about removing it.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">module-&gt;fixup_ports()</span></code> after changing the <code class="docutils literal notranslate"><span class="pre">port_</span></code>
+properties of wires.</p></li>
+<li><p>You can safely remove cells or change the <code class="docutils literal notranslate"><span class="pre">connections</span></code> property
+of a cell, but be careful when changing the size of the
+<code class="docutils literal notranslate"><span class="pre">SigSpec</span></code> connected to a cell port.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">SigMap</span></code> helper class (see next slide) when you need a
+unique handle for each signal bit.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="using-the-sigmap-helper-class">
+<h2>Using the SigMap helper class<a class="headerlink" href="#using-the-sigmap-helper-class" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Consider the following module:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">a</span><span class="p">,</span> <span class="k">output</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">assign</span> <span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p>In this case <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>, and <code class="docutils literal notranslate"><span class="pre">y</span></code> are all different names for the
+same signal. However:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span> <span class="n">a</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">wire</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">a&quot;</span><span class="p">)),</span> <span class="n">x</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">wire</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">x&quot;</span><span class="p">)),</span>
+                                       <span class="n">y</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">wire</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">y&quot;</span><span class="p">));</span>
+<span class="n">log</span><span class="p">(</span><span class="s">&quot;%d %d %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span> <span class="o">==</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">==</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span> <span class="o">==</span> <span class="n">a</span><span class="p">);</span> <span class="c1">// will print &quot;0 0 0&quot;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SigMap</span></code> helper class can be used to map all such aliasing
+signals to a unique signal from the group (usually the wire that is
+directly driven by a cell or port).</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">SigMap</span> <span class="nf">sigmap</span><span class="p">(</span><span class="k">module</span><span class="p">);</span>
+<span class="n">log</span><span class="p">(</span><span class="s">&quot;%d %d %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
+                  <span class="n">sigmap</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">a</span><span class="p">));</span> <span class="c1">// will print &quot;1 1 1&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="printing-log-messages">
+<h2>Printing log messages<a class="headerlink" href="#printing-log-messages" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>The <code class="docutils literal notranslate"><span class="pre">log()</span></code> function is a <code class="docutils literal notranslate"><span class="pre">printf()</span></code>-like function that can be
+used to create log messages.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">log_signal()</span></code> to create a C-string for a SigSpec object <a class="footnote-reference brackets" href="#id2" id="id1">1</a>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Mapped signal x: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">log_signal</span><span class="p">(</span><span class="n">sigmap</span><span class="p">(</span><span class="n">x</span><span class="p">)));</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">log_id()</span></code> to create a C-string for an <code class="docutils literal notranslate"><span class="pre">RTLIL::IdString</span></code>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">log</span><span class="p">(</span><span class="s">&quot;Name of this module: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">log_id</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">log_header()</span></code> and <code class="docutils literal notranslate"><span class="pre">log_push()</span></code>/<code class="docutils literal notranslate"><span class="pre">log_pop()</span></code> to structure
+log messages:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">log_header</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="s">&quot;Doing important stuff!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="n">log_push</span><span class="p">();</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">log</span><span class="p">(</span><span class="s">&quot;Log message #%d.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+<span class="n">log_pop</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="error-handling">
+<h2>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Use <code class="docutils literal notranslate"><span class="pre">log_error()</span></code> to report a non-recoverable error:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">design</span><span class="o">-&gt;</span><span class="n">modules</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">log_error</span><span class="p">(</span><span class="s">&quot;A module with the name %s already exists!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+            <span class="n">RTLIL</span><span class="o">::</span><span class="n">id2cstr</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">log_cmd_error()</span></code> to report a recoverable error:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">design</span><span class="o">-&gt;</span><span class="n">selection_stack</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">empty</span><span class="p">())</span>
+    <span class="n">log_cmd_error</span><span class="p">(</span><span class="s">&quot;This command can&#39;t operator on an empty selection!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">log_assert()</span></code> and <code class="docutils literal notranslate"><span class="pre">log_abort()</span></code> instead of <code class="docutils literal notranslate"><span class="pre">assert()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">abort()</span></code>.</p>
+</div>
+</div>
+<div class="section" id="creating-a-command">
+<h2>Creating a command<a class="headerlink" href="#creating-a-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Simply create a global instance of a class derived from <code class="docutils literal notranslate"><span class="pre">Pass</span></code> to
+create a new yosys command:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;kernel/yosys.h&quot;</span><span class="cp"></span>
+<span class="n">USING_YOSYS_NAMESPACE</span>
+
+<span class="k">struct</span> <span class="nc">MyPass</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Pass</span> <span class="p">{</span>
+    <span class="n">MyPass</span><span class="p">()</span> <span class="o">:</span> <span class="n">Pass</span><span class="p">(</span><span class="s">&quot;my_cmd&quot;</span><span class="p">,</span> <span class="s">&quot;just a simple test&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">execute</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Design</span> <span class="o">*</span><span class="n">design</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">log</span><span class="p">(</span><span class="s">&quot;Arguments to my_cmd:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">arg</span> <span class="p">:</span> <span class="n">args</span><span class="p">)</span>
+            <span class="n">log</span><span class="p">(</span><span class="s">&quot;  %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">arg</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+
+        <span class="n">log</span><span class="p">(</span><span class="s">&quot;Modules in current design:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">mod</span> <span class="p">:</span> <span class="n">design</span><span class="o">-&gt;</span><span class="n">modules</span><span class="p">())</span>
+            <span class="n">log</span><span class="p">(</span><span class="s">&quot;  %s (%d wires, %d cells)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">log_id</span><span class="p">(</span><span class="n">mod</span><span class="p">),</span>
+                    <span class="n">GetSize</span><span class="p">(</span><span class="n">mod</span><span class="o">-&gt;</span><span class="n">wires</span><span class="p">()),</span> <span class="n">GetSize</span><span class="p">(</span><span class="n">mod</span><span class="o">-&gt;</span><span class="n">cells</span><span class="p">()));</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="n">MyPass</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="creating-a-plugin">
+<h2>Creating a plugin<a class="headerlink" href="#creating-a-plugin" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Yosys can be extended by adding additional C++ code to the Yosys code
+base, or by loading plugins into Yosys.</p>
+<p>Use the following command to compile a Yosys plugin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yosys</span><span class="o">-</span><span class="n">config</span> <span class="o">--</span><span class="n">exec</span> <span class="o">--</span><span class="n">cxx</span> <span class="o">--</span><span class="n">cxxflags</span> <span class="o">--</span><span class="n">ldflags</span> \
+             <span class="o">-</span><span class="n">o</span> <span class="n">my_cmd</span><span class="o">.</span><span class="n">so</span> <span class="o">-</span><span class="n">shared</span> <span class="n">my_cmd</span><span class="o">.</span><span class="n">cc</span> <span class="o">--</span><span class="n">ldlibs</span>
+</pre></div>
+</div>
+<p>Or shorter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yosys</span><span class="o">-</span><span class="n">config</span> <span class="o">--</span><span class="n">build</span> <span class="n">my_cmd</span><span class="o">.</span><span class="n">so</span> <span class="n">my_cmd</span><span class="o">.</span><span class="n">cc</span>
+</pre></div>
+</div>
+<p>Load the plugin using the yosys <code class="docutils literal notranslate"><span class="pre">-m</span></code> option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yosys</span> <span class="o">-</span><span class="n">m</span> <span class="o">./</span><span class="n">my_cmd</span><span class="o">.</span><span class="n">so</span> <span class="o">-</span><span class="n">p</span> <span class="s1">&#39;my_cmd foo bar&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Writing Yosys extensions is very straight-forward.</p></li>
+<li><p>…and even simpler if you don’t need RTLIL::Memory or
+RTLIL::Process objects.</p></li>
+<li><p>Writing synthesis software? Consider learning the Yosys API and
+make your work part of the Yosys framework.</p></li>
+</ul>
+<div class="center docutils container">
+<p>Questions?</p>
+</div>
+<div class="center docutils container">
+<p><a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></p>
+</div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The pointer returned by <code class="docutils literal notranslate"><span class="pre">log_signal()</span></code> is automatically freed by
+the log framework at a later time.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Writing Yosys extensions in C++</a><ul>
+<li><a class="reference internal" href="#program-components-and-data-formats">Program Components and Data Formats</a></li>
+<li><a class="reference internal" href="#simplified-rtlil-entity-relationship-diagram">Simplified RTLIL Entity-Relationship Diagram</a></li>
+<li><a class="reference internal" href="#rtlil-without-memories-and-processes">RTLIL without memories and processes</a></li>
+<li><a class="reference internal" href="#using-dump-and-show-commands">Using dump and show commands</a></li>
+<li><a class="reference internal" href="#the-rtlil-data-structures">The RTLIL Data Structures</a><ul>
+<li><a class="reference internal" href="#rtlil-idstring">RTLIL::IdString</a></li>
+<li><a class="reference internal" href="#rtlil-design-and-rtlil-module">RTLIL::Design and RTLIL::Module</a></li>
+<li><a class="reference internal" href="#the-rtlil-wire-structure">The RTLIL::Wire Structure</a></li>
+<li><a class="reference internal" href="#rtlil-state-and-rtlil-const">RTLIL::State and RTLIL::Const</a></li>
+<li><a class="reference internal" href="#the-rtlil-sigspec-structure">The RTLIL::SigSpec Structure</a></li>
+<li><a class="reference internal" href="#the-rtlil-cell-structure">The RTLIL::Cell Structure</a></li>
+<li><a class="reference internal" href="#connecting-wires-or-constant-drivers">Connecting wires or constant drivers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-modules-from-scratch">Creating modules from scratch</a></li>
+<li><a class="reference internal" href="#modifying-modules">Modifying modules</a></li>
+<li><a class="reference internal" href="#using-the-sigmap-helper-class">Using the SigMap helper class</a></li>
+<li><a class="reference internal" href="#printing-log-messages">Printing log messages</a></li>
+<li><a class="reference internal" href="#error-handling">Error handling</a></li>
+<li><a class="reference internal" href="#creating-a-command">Creating a command</a></li>
+<li><a class="reference internal" href="#creating-a-plugin">Creating a plugin</a></li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

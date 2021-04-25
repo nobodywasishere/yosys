@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>reStructuredText Primer &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">reStructuredText Primer</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../_sources/_theme/docs/basics.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="../../index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="restructuredtext-primer">
+<span id="rst-primer"></span><h1>reStructuredText Primer<a class="headerlink" href="#restructuredtext-primer" title="Permalink to this headline">¶</a></h1>
+<p>reStructuredText is the default plaintext markup language used by Sphinx.  This
+section is a brief introduction to reStructuredText (reST) concepts and syntax,
+intended to provide authors with enough information to author documents
+productively.  Since reST was designed to be a simple, unobtrusive markup
+language, this will not take too long.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The authoritative <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText User Documentation</a>.  The “ref” links in this
+document link to the description of the individual constructs in the reST
+reference.</p>
+</div>
+<div class="section" id="paragraphs">
+<h2>Paragraphs<a class="headerlink" href="#paragraphs" title="Permalink to this headline">¶</a></h2>
+<p>The paragraph (<a href="#id1"><span class="problematic" id="id2">:duref:`ref &lt;paragraphs&gt;`</span></a>) is the most basic block in a reST
+document.  Paragraphs are simply chunks of text separated by one or more blank
+lines.  As in Python, indentation is significant in reST, so all lines of the
+same paragraph must be left-aligned to the same level of indentation.</p>
+</div>
+<div class="section" id="inline-markup">
+<span id="rst-inline-markup"></span><h2>Inline markup<a class="headerlink" href="#inline-markup" title="Permalink to this headline">¶</a></h2>
+<p>The standard reST inline markup is quite simple: use</p>
+<ul class="simple">
+<li><p>one asterisk: <code class="docutils literal notranslate"><span class="pre">*text*</span></code> for emphasis (italics),</p></li>
+<li><p>two asterisks: <code class="docutils literal notranslate"><span class="pre">**text**</span></code> for strong emphasis (boldface), and</p></li>
+<li><p>backquotes: <code class="docutils literal notranslate"><span class="pre">``text``</span></code> for code samples.</p></li>
+</ul>
+<p>If asterisks or backquotes appear in running text and could be confused with
+inline markup delimiters, they have to be escaped with a backslash.</p>
+<p>Be aware of some restrictions of this markup:</p>
+<ul class="simple">
+<li><p>it may not be nested,</p></li>
+<li><p>content may not start or end with whitespace: <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">text*</span></code> is wrong,</p></li>
+<li><p>it must be separated from surrounding text by non-word characters.  Use a
+backslash escaped space to work around that: <code class="docutils literal notranslate"><span class="pre">thisis\</span> <span class="pre">*one*\</span> <span class="pre">word</span></code>.</p></li>
+</ul>
+<p>These restrictions may be lifted in future versions of the docutils.</p>
+<p>It is also possible to replace or expand upon some of this inline markup with
+roles. Refer to <a class="reference internal" href="#rst-roles-alt"><span class="std std-ref">Roles</span></a> for more information.</p>
+</div>
+<div class="section" id="lists-and-quote-like-blocks">
+<h2>Lists and Quote-like blocks<a class="headerlink" href="#lists-and-quote-like-blocks" title="Permalink to this headline">¶</a></h2>
+<p>List markup (<a href="#id3"><span class="problematic" id="id4">:duref:`ref &lt;bullet-lists&gt;`</span></a>) is natural: just place an asterisk at
+the start of a paragraph and indent properly.  The same goes for numbered
+lists; they can also be autonumbered using a <code class="docutils literal notranslate"><span class="pre">#</span></code> sign:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="m">*</span> This is a bulleted list.
+<span class="m">*</span> It has two items, the second
+  item uses two lines.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>This is a bulleted list.</p></li>
+<li><p>It has two items, the second
+item uses two lines.</p></li>
+</ul>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="m">1.</span> This is a numbered list.
+<span class="m">2.</span> It has two items too.
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>This is a numbered list.</p></li>
+<li><p>It has two items too.</p></li>
+</ol>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="m">#.</span> This is a numbered list.
+<span class="m">#.</span> It has two items too.
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>This is a numbered list.</p></li>
+<li><p>It has two items too.</p></li>
+</ol>
+<p>Nested lists are possible, but be aware that they must be separated from the
+parent list items by blank lines:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="m">*</span> this is
+<span class="m">*</span> a list
+
+  <span class="m">*</span> with a nested list
+  <span class="m">*</span> and some subitems
+
+<span class="m">*</span> and here the parent list continues
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>this is</p></li>
+<li><p>a list</p>
+<ul>
+<li><p>with a nested list</p></li>
+<li><p>and some subitems</p></li>
+</ul>
+</li>
+<li><p>and here the parent list continues</p></li>
+</ul>
+<p>Definition lists (<a href="#id5"><span class="problematic" id="id6">:duref:`ref &lt;definition-lists&gt;`</span></a>) are created as follows:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>term (up to a line of text)
+   Definition of the term, which must be indented
+
+   and can even consist of multiple paragraphs
+
+next term
+   Description.
+</pre></div>
+</div>
+<dl>
+<dt>term (up to a line of text)</dt><dd><p>Definition of the term, which must be indented</p>
+<p>and can even consist of multiple paragraphs</p>
+</dd>
+<dt>next term</dt><dd><p>Description.</p>
+</dd>
+</dl>
+<p>Note that the term cannot have more than one line of text.</p>
+<p>Quoted paragraphs (<a href="#id7"><span class="problematic" id="id8">:duref:`ref &lt;block-quotes&gt;`</span></a>) are created by just indenting
+them more than the surrounding paragraphs.</p>
+<p>Line blocks (<a href="#id9"><span class="problematic" id="id10">:duref:`ref &lt;line-blocks&gt;`</span></a>) are a way of preserving line breaks:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="o">|</span> These lines are
+<span class="o">|</span> broken exactly like in
+<span class="o">|</span> the source file.
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">These lines are</div>
+<div class="line">broken exactly like in</div>
+<div class="line">the source file.</div>
+</div>
+<p>There are also several more special blocks available:</p>
+<ul class="simple">
+<li><p>field lists (<a href="#id11"><span class="problematic" id="id12">:duref:`ref &lt;field-lists&gt;`</span></a>, with caveats noted in
+<a class="reference internal" href="#rst-field-lists"><span class="std std-ref">Field Lists</span></a>)</p></li>
+<li><p>option lists (<a href="#id13"><span class="problematic" id="id14">:duref:`ref &lt;option-lists&gt;`</span></a>)</p></li>
+<li><p>quoted literal blocks (<a href="#id15"><span class="problematic" id="id16">:duref:`ref &lt;quoted-literal-blocks&gt;`</span></a>)</p></li>
+<li><p>doctest blocks (<a href="#id17"><span class="problematic" id="id18">:duref:`ref &lt;doctest-blocks&gt;`</span></a>)</p></li>
+</ul>
+</div>
+<div class="section" id="literal-blocks">
+<span id="rst-literal-blocks"></span><h2>Literal blocks<a class="headerlink" href="#literal-blocks" title="Permalink to this headline">¶</a></h2>
+<p>Literal code blocks (<a href="#id19"><span class="problematic" id="id20">:duref:`ref &lt;literal-blocks&gt;`</span></a>) are introduced by ending a
+paragraph with the special marker <code class="docutils literal notranslate"><span class="pre">::</span></code>.  The literal block must be indented
+(and, like all paragraphs, separated from the surrounding ones by blank
+lines):</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>This is a normal text paragraph. The next paragraph is a code sample<span class="se">::</span>
+
+<span class="s">   It is not processed in any way, except</span>
+<span class="s">   that the indentation is removed.</span>
+
+<span class="s">   It can span multiple lines.</span>
+
+This is a normal text paragraph again.
+</pre></div>
+</div>
+<p>This is a normal text paragraph. The next paragraph is a code sample:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>It is not processed in any way, except
+that the indentation is removed.
+
+It can span multiple lines.
+</pre></div>
+</div>
+<p>This is a normal text paragraph again.</p>
+<p>The handling of the <code class="docutils literal notranslate"><span class="pre">::</span></code> marker is smart:</p>
+<ul class="simple">
+<li><p>If it occurs as a paragraph of its own, that paragraph is completely left out
+of the document.</p></li>
+<li><p>If it is preceded by whitespace, the marker is removed.</p></li>
+<li><p>If it is preceded by non-whitespace, the marker is replaced by a single
+colon.</p></li>
+</ul>
+<p>That way, the second sentence in the above example’s first paragraph would be
+rendered as “The next paragraph is a code sample:”.</p>
+<p>Code highlighting can be enabled for these literal blocks on a document-wide
+basis using the <code class="xref rst rst-dir docutils literal notranslate"><span class="pre">highlight</span></code> directive and on a project-wide basis
+using the <a href="#id21"><span class="problematic" id="id22">:confval:`highlight_language`</span></a> configuration option. The
+<code class="xref rst rst-dir docutils literal notranslate"><span class="pre">code-block</span></code> directive can be used to set highlighting on a
+block-by-block basis. These directives are discussed later.</p>
+</div>
+<div class="section" id="doctest-blocks">
+<span id="rst-doctest-blocks"></span><h2>Doctest blocks<a class="headerlink" href="#doctest-blocks" title="Permalink to this headline">¶</a></h2>
+<p>Doctest blocks (<a href="#id23"><span class="problematic" id="id24">:duref:`ref &lt;doctest-blocks&gt;`</span></a>) are interactive Python sessions
+cut-and-pasted into docstrings. They do not require the
+<a class="reference internal" href="#rst-literal-blocks"><span class="std std-ref">literal blocks</span></a> syntax. The doctest block must end
+with a blank line and should <em>not</em> end with with an unused prompt:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; 1 + 1
+2
+</pre></div>
+</div>
+<p>The doctest appears below,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tables">
+<span id="rst-tables"></span><h2>Tables<a class="headerlink" href="#tables" title="Permalink to this headline">¶</a></h2>
+<p>For <em>grid tables</em> (<a href="#id25"><span class="problematic" id="id26">:duref:`ref &lt;grid-tables&gt;`</span></a>), you have to “paint” the cell
+grid yourself.  They look like this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>+------------------------+------------+----------+----------+
+<span class="o">|</span> Header row, column 1   | Header 2   | Header 3 | Header 4 |
+<span class="o">|</span> (header rows optional) |            |          |          |
++========================+============+==========+==========+
+<span class="o">|</span> body row 1, column 1   | column 2   | column 3 | column 4 |
++------------------------+------------+----------+----------+
+<span class="o">|</span> body row 2             | ...        | ...      |          |
++------------------------+------------+----------+----------+
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 21%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Header row, column 1
+(header rows optional)</p></th>
+<th class="head"><p>Header 2</p></th>
+<th class="head"><p>Header 3</p></th>
+<th class="head"><p>Header 4</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>body row 1, column 1</p></td>
+<td><p>column 2</p></td>
+<td><p>column 3</p></td>
+<td><p>column 4</p></td>
+</tr>
+<tr class="row-odd"><td><p>body row 2</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>Simple tables</em> (<a href="#id27"><span class="problematic" id="id28">:duref:`ref &lt;simple-tables&gt;`</span></a>) are easier to write, but
+limited: they must contain more than one row, and the first column cells cannot
+contain multiple lines.  They look like this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>=====  =====  =======
+A      B      A and B
+=====  =====  =======
+False  False  False
+True   False  False
+False  True   False
+True   True   True
+=====  =====  =======
+</pre></div>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 29%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>A and B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>False</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>True</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-even"><td><p>False</p></td>
+<td><p>True</p></td>
+<td><p>False</p></td>
+</tr>
+<tr class="row-odd"><td><p>True</p></td>
+<td><p>True</p></td>
+<td><p>True</p></td>
+</tr>
+</tbody>
+</table>
+<p>Two more syntaxes are supported: <em>CSV tables</em> and <em>List tables</em>. They use an
+<em>explicit markup block</em>. Refer to table directives in the Sphinx documentation for more information.</p>
+</div>
+<div class="section" id="hyperlinks">
+<h2>Hyperlinks<a class="headerlink" href="#hyperlinks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="external-links">
+<h3>External links<a class="headerlink" href="#external-links" title="Permalink to this headline">¶</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">`Link</span> <span class="pre">text</span> <span class="pre">&lt;https://domain.invalid/&gt;`_</span></code> for inline web links.  If the
+link text should be the web address, you don’t need special markup at all, the
+parser finds links and mail addresses in ordinary text.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>There must be a space between the link text and the opening &lt; for the URL.</p>
+</div>
+<p>You can also separate the link and the target definition (<a href="#id29"><span class="problematic" id="id30">:duref:`ref
+&lt;hyperlink-targets&gt;`</span></a>), like this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>This is a paragraph that contains <span class="s">`a link`_</span>.
+
+<span class="p">..</span> <span class="nt">_a link:</span> https://domain.invalid/
+</pre></div>
+</div>
+<p>This is a paragraph that contains <a class="reference external" href="https://domain.invalid/">a link</a>.</p>
+</div>
+<div class="section" id="internal-links">
+<h3>Internal links<a class="headerlink" href="#internal-links" title="Permalink to this headline">¶</a></h3>
+<p>Internal linking is done via a special reST role provided by Sphinx, see the
+section on specific markup.</p>
+</div>
+</div>
+<div class="section" id="sections">
+<h2>Sections<a class="headerlink" href="#sections" title="Permalink to this headline">¶</a></h2>
+<p>Section headers (<a href="#id31"><span class="problematic" id="id32">:duref:`ref &lt;sections&gt;`</span></a>) are created by underlining (and
+optionally overlining) the section title with a punctuation character, at least
+as long as the text:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="gh">=================</span>
+<span class="gh">This is a heading</span>
+<span class="gh">=================</span>
+</pre></div>
+</div>
+<p>Normally, there are no heading levels assigned to certain characters as the
+structure is determined from the succession of headings.  However, this
+convention is used in <a class="reference external" href="https://docs.python.org/devguide/documenting.html#style-guide">Python’s Style Guide for documenting</a> which you may
+follow:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> with overline, for parts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> with overline, for chapters</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span></code>, for sections</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>, for subsections</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^</span></code>, for subsubsections</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;</span></code>, for paragraphs</p></li>
+</ul>
+<p>Of course, you are free to use your own marker characters (see the reST
+documentation), and use a deeper nesting level, but keep in mind that most
+target formats (HTML, LaTeX) have a limited supported nesting depth.</p>
+</div>
+<div class="section" id="field-lists">
+<span id="rst-field-lists"></span><h2>Field Lists<a class="headerlink" href="#field-lists" title="Permalink to this headline">¶</a></h2>
+<p>Field lists (<a href="#id33"><span class="problematic" id="id34">:duref:`ref &lt;field-lists&gt;`</span></a>) are sequences of fields marked up like
+this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="nc">:fieldname:</span> Field content
+</pre></div>
+</div>
+<p>They are commonly used in Python documentation:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>def my_function(my_arg, my_other_arg):
+    &quot;&quot;&quot;A function just for me.
+
+    <span class="nc">:param my_arg:</span> The first of my arguments.
+    <span class="nc">:param my_other_arg:</span> The second of my arguments.
+
+    <span class="nc">:returns:</span> A message (just for me, of course).
+    &quot;&quot;&quot;
+</pre></div>
+</div>
+<p>Sphinx extends standard docutils behavior and intercepts field lists specified
+at the beginning of documents.  Refer to field lists in the Sphinx documentation for more
+information.</p>
+</div>
+<div class="section" id="roles">
+<span id="rst-roles-alt"></span><h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
+<p>A role or “custom interpreted text role” (<a href="#id35"><span class="problematic" id="id36">:duref:`ref &lt;roles&gt;`</span></a>) is an inline
+piece of explicit markup. It signifies that that the enclosed text should be
+interpreted in a specific way.  Sphinx uses this to provide semantic markup and
+cross-referencing of identifiers, as described in the appropriate section.  The
+general syntax is <code class="docutils literal notranslate"><span class="pre">:rolename:`content`</span></code>.</p>
+<p>Docutils supports the following roles:</p>
+<ul class="simple">
+<li><p><a href="#id37"><span class="problematic" id="id38">:durole:`emphasis`</span></a> – equivalent of <code class="docutils literal notranslate"><span class="pre">*emphasis*</span></code> (<em>emphasis</em>)</p></li>
+<li><p><a href="#id39"><span class="problematic" id="id40">:durole:`strong`</span></a> – equivalent of <code class="docutils literal notranslate"><span class="pre">**strong**</span></code> (<strong>strong</strong>)</p></li>
+<li><p><a href="#id41"><span class="problematic" id="id42">:durole:`literal`</span></a> – equivalent of <code class="docutils literal notranslate"><span class="pre">``literal``</span></code> (<code class="docutils literal notranslate"><span class="pre">literal</span></code>)</p></li>
+<li><p><a href="#id43"><span class="problematic" id="id44">:durole:`subscript`</span></a> – subscript text (subscript<sub>subscript</sub>)</p></li>
+<li><p><a href="#id45"><span class="problematic" id="id46">:durole:`superscript`</span></a> – superscript text (superscript<sup>superscript</sup>)</p></li>
+<li><p><a href="#id47"><span class="problematic" id="id48">:durole:`title-reference`</span></a> – for titles of books, periodicals, and other
+materials</p></li>
+</ul>
+<p>Refer to roles in the Sphinx documentation for roles added by Sphinx.</p>
+</div>
+<div class="section" id="explicit-markup">
+<h2>Explicit Markup<a class="headerlink" href="#explicit-markup" title="Permalink to this headline">¶</a></h2>
+<p>“Explicit markup” (<a href="#id49"><span class="problematic" id="id50">:duref:`ref &lt;explicit-markup-blocks&gt;`</span></a>) is used in reST for
+most constructs that need special handling, such as footnotes,
+specially-highlighted paragraphs, comments, and generic directives.</p>
+<p>An explicit markup block begins with a line starting with <code class="docutils literal notranslate"><span class="pre">..</span></code> followed by
+whitespace and is terminated by the next paragraph at the same level of
+indentation.  (There needs to be a blank line between explicit markup and
+normal paragraphs.  This may all sound a bit complicated, but it is intuitive
+enough when you write it.)</p>
+</div>
+<div class="section" id="directives">
+<span id="rst-directives"></span><h2>Directives<a class="headerlink" href="#directives" title="Permalink to this headline">¶</a></h2>
+<p>A directive (<a href="#id51"><span class="problematic" id="id52">:duref:`ref &lt;directives&gt;`</span></a>) is a generic block of explicit markup.
+Along with roles, it is one of the extension mechanisms of reST, and Sphinx
+makes heavy use of it.</p>
+<p>Docutils supports the following directives:</p>
+<ul class="simple">
+<li><p>Admonitions: <a href="#id53"><span class="problematic" id="id54">:dudir:`attention`</span></a>, <a href="#id55"><span class="problematic" id="id56">:dudir:`caution`</span></a>, <a href="#id57"><span class="problematic" id="id58">:dudir:`danger`</span></a>,
+<a href="#id59"><span class="problematic" id="id60">:dudir:`error`</span></a>, <a href="#id61"><span class="problematic" id="id62">:dudir:`hint`</span></a>, <a href="#id63"><span class="problematic" id="id64">:dudir:`important`</span></a>, <a href="#id65"><span class="problematic" id="id66">:dudir:`note`</span></a>,
+<a href="#id67"><span class="problematic" id="id68">:dudir:`tip`</span></a>, <a href="#id69"><span class="problematic" id="id70">:dudir:`warning`</span></a> and the generic
+<a href="#id71"><span class="problematic" id="id72">:dudir:`admonition &lt;admonitions&gt;`</span></a>.  (Most themes style only “note” and
+“warning” specially.)</p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Attention</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Caution</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Danger</p>
+</div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>Error</p>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Hint</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Important</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Tip</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Warning</p>
+</div>
+<ul>
+<li><p>Images:</p>
+<ul class="simple">
+<li><p><a href="#id73"><span class="problematic" id="id74">:dudir:`image`</span></a> (see also <a class="reference internal" href="#images">Images</a> below)</p></li>
+<li><p><a href="#id75"><span class="problematic" id="id76">:dudir:`figure`</span></a> (an image with caption and optional legend)</p></li>
+</ul>
+</li>
+<li><p>Additional body elements:</p>
+<ul class="simple">
+<li><p><a href="#id77"><span class="problematic" id="id78">:dudir:`contents &lt;table-of-contents&gt;`</span></a> (a local, i.e. for the current file
+only, table of contents)</p></li>
+<li><p><a href="#id79"><span class="problematic" id="id80">:dudir:`container`</span></a> (a container with a custom class, useful to generate an
+outer <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> in HTML)</p></li>
+<li><p><a href="#id81"><span class="problematic" id="id82">:dudir:`rubric`</span></a> (a heading without relation to the document sectioning)</p></li>
+<li><p><a href="#id83"><span class="problematic" id="id84">:dudir:`topic`</span></a>, <a href="#id85"><span class="problematic" id="id86">:dudir:`sidebar`</span></a> (special highlighted body elements)</p></li>
+<li><p><a href="#id87"><span class="problematic" id="id88">:dudir:`parsed-literal`</span></a> (literal block that supports inline markup)</p></li>
+<li><p><a href="#id89"><span class="problematic" id="id90">:dudir:`epigraph`</span></a> (a block quote with optional attribution line)</p></li>
+<li><p><a href="#id91"><span class="problematic" id="id92">:dudir:`highlights`</span></a>, <a href="#id93"><span class="problematic" id="id94">:dudir:`pull-quote`</span></a> (block quotes with their own
+class attribute)</p></li>
+<li><p><a href="#id95"><span class="problematic" id="id96">:dudir:`compound &lt;compound-paragraph&gt;`</span></a> (a compound paragraph)</p></li>
+</ul>
+</li>
+<li><p>Special tables:</p>
+<ul class="simple">
+<li><p><a href="#id97"><span class="problematic" id="id98">:dudir:`table`</span></a> (a table with title)</p></li>
+<li><p><a href="#id99"><span class="problematic" id="id100">:dudir:`csv-table`</span></a> (a table generated from comma-separated values)</p></li>
+<li><p><a href="#id101"><span class="problematic" id="id102">:dudir:`list-table`</span></a> (a table generated from a list of lists)</p></li>
+</ul>
+</li>
+<li><p>Special directives:</p>
+<ul class="simple">
+<li><p><a href="#id103"><span class="problematic" id="id104">:dudir:`raw &lt;raw-data-pass-through&gt;`</span></a> (include raw target-format markup)</p></li>
+<li><p><a href="#id105"><span class="problematic" id="id106">:dudir:`include`</span></a> (include reStructuredText from another file) – in Sphinx,
+when given an absolute include file path, this directive takes it as
+relative to the source directory</p></li>
+<li><p><a href="#id107"><span class="problematic" id="id108">:dudir:`class`</span></a> (assign a class attribute to the next element) <a class="footnote-reference brackets" href="#id148" id="id109">1</a></p></li>
+</ul>
+</li>
+<li><p>HTML specifics:</p>
+<ul class="simple">
+<li><p><a href="#id110"><span class="problematic" id="id111">:dudir:`meta`</span></a>
+(generation of HTML <code class="docutils literal notranslate"><span class="pre">&lt;meta&gt;</span></code> tags, see also <a class="reference internal" href="#html-meta"><span class="std std-ref">HTML Metadata</span></a> below)</p></li>
+<li><p><a href="#id112"><span class="problematic" id="id113">:dudir:`title &lt;metadata-document-title&gt;`</span></a> (override document title)</p></li>
+</ul>
+</li>
+<li><p>Influencing markup:</p>
+<ul class="simple">
+<li><p><a href="#id114"><span class="problematic" id="id115">:dudir:`default-role`</span></a> (set a new default role)</p></li>
+<li><p><a href="#id116"><span class="problematic" id="id117">:dudir:`role`</span></a> (create a new role)</p></li>
+</ul>
+<p>Since these are only per-file, better use Sphinx’s facilities for setting the
+<a href="#id118"><span class="problematic" id="id119">:confval:`default_role`</span></a>.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <em>not</em> use the directives <a href="#id120"><span class="problematic" id="id121">:dudir:`sectnum`</span></a>, <a href="#id122"><span class="problematic" id="id123">:dudir:`header`</span></a> and
+<a href="#id124"><span class="problematic" id="id125">:dudir:`footer`</span></a>.</p>
+</div>
+<p>Directives added by Sphinx are described in directives in the Sphinx documentation.</p>
+<p>Basically, a directive consists of a name, arguments, options and content.
+(Keep this terminology in mind, it is used in the next chapter describing
+custom directives.)  Looking at this example,</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">function</span><span class="p">::</span> foo(x)
+              foo(y, z)
+   <span class="nc">:module:</span> some.module.name
+
+   Return a line of text input from the user.
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">function</span></code> is the directive name.  It is given two arguments here, the
+remainder of the first line and the second line, as well as one option
+<code class="docutils literal notranslate"><span class="pre">module</span></code> (as you can see, options are given in the lines immediately
+following the arguments and indicated by the colons).  Options must be indented
+to the same level as the directive content.</p>
+<p>The directive content follows after a blank line and is indented relative to
+the directive start.</p>
+</div>
+<div class="section" id="images">
+<h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
+<p>reST supports an image directive (<a href="#id126"><span class="problematic" id="id127">:dudir:`ref &lt;image&gt;`</span></a>), used like so:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">image</span><span class="p">::</span> gnu.png
+   (options)
+</pre></div>
+</div>
+<p>When used within Sphinx, the file name given (here <code class="docutils literal notranslate"><span class="pre">gnu.png</span></code>) must either be
+relative to the source file, or absolute which means that they are relative to
+the top source directory.  For example, the file <code class="docutils literal notranslate"><span class="pre">sketch/spam.rst</span></code> could
+refer to the image <code class="docutils literal notranslate"><span class="pre">images/spam.png</span></code> as <code class="docutils literal notranslate"><span class="pre">../images/spam.png</span></code> or
+<code class="docutils literal notranslate"><span class="pre">/images/spam.png</span></code>.</p>
+<p>Sphinx will automatically copy image files over to a subdirectory of the output
+directory on building (e.g. the <code class="docutils literal notranslate"><span class="pre">_static</span></code> directory for HTML output.)</p>
+<p>Interpretation of image size options (<code class="docutils literal notranslate"><span class="pre">width</span></code> and <code class="docutils literal notranslate"><span class="pre">height</span></code>) is as follows:
+if the size has no unit or the unit is pixels, the given size will only be
+respected for output channels that support pixels. Other units (like <code class="docutils literal notranslate"><span class="pre">pt</span></code> for
+points) will be used for HTML and LaTeX output (the latter replaces <code class="docutils literal notranslate"><span class="pre">pt</span></code> by
+<code class="docutils literal notranslate"><span class="pre">bp</span></code> as this is the TeX unit such that <code class="docutils literal notranslate"><span class="pre">72bp=1in</span></code>).</p>
+<p>Sphinx extends the standard docutils behavior by allowing an asterisk for the
+extension:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">image</span><span class="p">::</span> gnu.*
+</pre></div>
+</div>
+<p>Sphinx then searches for all images matching the provided pattern and
+determines their type.  Each builder then chooses the best image out of these
+candidates.  For instance, if the file name <code class="docutils literal notranslate"><span class="pre">gnu.*</span></code> was given and two files
+<code class="file docutils literal notranslate"><span class="pre">gnu.pdf</span></code> and <code class="file docutils literal notranslate"><span class="pre">gnu.png</span></code> existed in the source tree, the LaTeX
+builder would choose the former, while the HTML builder would prefer the
+latter.  Supported image types and choosing priority are defined at
+<a class="reference internal" href="../../index.html"><span class="doc">Abstract</span></a>.</p>
+<p>Note that image file names should not contain spaces.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.4: </span>Added the support for file names ending in an asterisk.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.6: </span>Image paths can now be absolute.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.5: </span>latex target supports pixels (default is <code class="docutils literal notranslate"><span class="pre">96px=1in</span></code>).</p>
+</div>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline">¶</a></h2>
+<p>For footnotes (<a href="#id128"><span class="problematic" id="id129">:duref:`ref &lt;footnotes&gt;`</span></a>), use <code class="docutils literal notranslate"><span class="pre">[#name]_</span></code> to mark the footnote
+location, and add the footnote body at the bottom of the document after a
+“Footnotes” rubric heading, like so:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>Lorem ipsum <span class="s">[#f1]_</span> dolor sit amet ... <span class="s">[#f2]_</span>
+
+<span class="p">..</span> <span class="ow">rubric</span><span class="p">::</span> Footnotes
+
+<span class="p">..</span> <span class="nt">[#f1]</span> Text of the first footnote.
+<span class="p">..</span> <span class="nt">[#f2]</span> Text of the second footnote.
+</pre></div>
+</div>
+<p>You can also explicitly number the footnotes (<code class="docutils literal notranslate"><span class="pre">[1]_</span></code>) or use auto-numbered
+footnotes without names (<code class="docutils literal notranslate"><span class="pre">[#]_</span></code>).</p>
+</div>
+<div class="section" id="citations">
+<h2>Citations<a class="headerlink" href="#citations" title="Permalink to this headline">¶</a></h2>
+<p>Standard reST citations (<a href="#id130"><span class="problematic" id="id131">:duref:`ref &lt;citations&gt;`</span></a>) are supported, with the
+additional feature that they are “global”, i.e. all citations can be referenced
+from all files.  Use them like so:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>Lorem ipsum <span class="s">[Ref]_</span> dolor sit amet.
+
+<span class="p">..</span> <span class="nt">[Ref]</span> Book or article reference, URL or whatever.
+</pre></div>
+</div>
+<p>Citation usage is similar to footnote usage, but with a label that is not
+numeric or begins with <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
+</div>
+<div class="section" id="substitutions">
+<h2>Substitutions<a class="headerlink" href="#substitutions" title="Permalink to this headline">¶</a></h2>
+<p>reST supports “substitutions” (<a href="#id132"><span class="problematic" id="id133">:duref:`ref &lt;substitution-definitions&gt;`</span></a>), which
+are pieces of text and/or markup referred to in the text by <code class="docutils literal notranslate"><span class="pre">|name|</span></code>.  They
+are defined like footnotes with explicit markup blocks, like this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="nt">|name|</span> <span class="ow">replace</span><span class="p">::</span> replacement <span class="ge">*text*</span>
+</pre></div>
+</div>
+<p>or this:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="nt">|caution|</span> <span class="ow">image</span><span class="p">::</span> warning.png
+             <span class="nc">:alt:</span> Warning!
+</pre></div>
+</div>
+<p>See the <a href="#id134"><span class="problematic" id="id135">:duref:`reST reference for substitutions &lt;substitution-definitions&gt;`</span></a>
+for details.</p>
+<p id="index-0">If you want to use some substitutions for all documents, put them into
+<a href="#id136"><span class="problematic" id="id137">:confval:`rst_prolog`</span></a> or <a href="#id138"><span class="problematic" id="id139">:confval:`rst_epilog`</span></a> or put them into a separate file
+and include it into all documents you want to use them in, using the
+<code class="xref rst rst-dir docutils literal notranslate"><span class="pre">include</span></code> directive.  (Be sure to give the include file a file name
+extension differing from that of other source files, to avoid Sphinx finding it
+as a standalone document.)</p>
+<p>Sphinx defines some default substitutions.</p>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>Every explicit markup block which isn’t a valid markup construct (like the
+footnotes above) is regarded as a comment (<a href="#id140"><span class="problematic" id="id141">:duref:`ref &lt;comments&gt;`</span></a>).  For
+example:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="cp">.. This is a comment.</span>
+</pre></div>
+</div>
+<p>You can indent text after a comment start to form multiline comments:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="cp">..</span>
+<span class="cp">   This whole indented block</span>
+<span class="cp">   is a comment.</span>
+
+<span class="cp">   Still in the comment.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="html-metadata">
+<span id="html-meta"></span><h2>HTML Metadata<a class="headerlink" href="#html-metadata" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref rst rst-dir docutils literal notranslate"><span class="pre">meta</span></code> directive (<a href="#id142"><span class="problematic" id="id143">:dudir:`ref &lt;meta&gt;`</span></a>) allows specifying the HTML
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta">metadata element</a> of a Sphinx documentation page.  For example, the
+directive:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">meta</span><span class="p">::</span>
+   <span class="nc">:description:</span> The Sphinx documentation builder
+   <span class="nc">:keywords:</span> Sphinx, documentation, builder
+</pre></div>
+</div>
+<p>will generate the following HTML output:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;The Sphinx documentation builder&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;keywords&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;Sphinx, documentation, builder&quot;</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Also, Sphinx will add the keywords as specified in the meta directive to the
+search index.  Thereby, the <code class="docutils literal notranslate"><span class="pre">lang</span></code> attribute of the meta element is
+considered.  For example, the directive:</p>
+<div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">meta</span><span class="p">::</span>
+   <span class="nc">:keywords:</span> backup
+   <span class="nc">:keywords lang=en:</span> pleasefindthiskey pleasefindthiskeytoo
+   <span class="nc">:keywords lang=de:</span> bittediesenkeyfinden
+</pre></div>
+</div>
+<p>adds the following words to the search indices of builds with different language
+configurations:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pleasefindthiskey</span></code>, <code class="docutils literal notranslate"><span class="pre">pleasefindthiskeytoo</span></code> to <em>English</em> builds;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bittediesenkeyfinden</span></code> to <em>German</em> builds;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backup</span></code> to builds in all languages.</p></li>
+</ul>
+</div>
+<div class="section" id="source-encoding">
+<h2>Source encoding<a class="headerlink" href="#source-encoding" title="Permalink to this headline">¶</a></h2>
+<p>Since the easiest way to include special characters like em dashes or copyright
+signs in reST is to directly write them as Unicode characters, one has to
+specify an encoding.  Sphinx assumes source files to be encoded in UTF-8 by
+default; you can change this with the <a href="#id144"><span class="problematic" id="id145">:confval:`source_encoding`</span></a> config value.</p>
+</div>
+<div class="section" id="gotchas">
+<h2>Gotchas<a class="headerlink" href="#gotchas" title="Permalink to this headline">¶</a></h2>
+<p>There are some problems one commonly runs into while authoring reST documents:</p>
+<ul class="simple">
+<li><p><strong>Separation of inline markup:</strong> As said above, inline markup spans must be
+separated from the surrounding text by non-word characters, you have to use a
+backslash-escaped space to get around that.  See <a href="#id146"><span class="problematic" id="id147">:duref:`the reference
+&lt;substitution-definitions&gt;`</span></a> for the details.</p></li>
+<li><p><strong>No nested inline markup:</strong> Something like <code class="docutils literal notranslate"><span class="pre">*see</span> <span class="pre">:func:`foo`*</span></code> is not
+possible.</p></li>
+</ul>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="id148"><span class="brackets"><a class="fn-backref" href="#id109">1</a></span></dt>
+<dd><p>When the default domain contains a <code class="xref rst rst-dir docutils literal notranslate"><span class="pre">class</span></code> directive, this
+directive will be shadowed.  Therefore, Sphinx re-exports it as
+<code class="xref rst rst-dir docutils literal notranslate"><span class="pre">rst-class</span></code>.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">reStructuredText Primer</a><ul>
+<li><a class="reference internal" href="#paragraphs">Paragraphs</a></li>
+<li><a class="reference internal" href="#inline-markup">Inline markup</a></li>
+<li><a class="reference internal" href="#lists-and-quote-like-blocks">Lists and Quote-like blocks</a></li>
+<li><a class="reference internal" href="#literal-blocks">Literal blocks</a></li>
+<li><a class="reference internal" href="#doctest-blocks">Doctest blocks</a></li>
+<li><a class="reference internal" href="#tables">Tables</a></li>
+<li><a class="reference internal" href="#hyperlinks">Hyperlinks</a><ul>
+<li><a class="reference internal" href="#external-links">External links</a></li>
+<li><a class="reference internal" href="#internal-links">Internal links</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sections">Sections</a></li>
+<li><a class="reference internal" href="#field-lists">Field Lists</a></li>
+<li><a class="reference internal" href="#roles">Roles</a></li>
+<li><a class="reference internal" href="#explicit-markup">Explicit Markup</a></li>
+<li><a class="reference internal" href="#directives">Directives</a></li>
+<li><a class="reference internal" href="#images">Images</a></li>
+<li><a class="reference internal" href="#footnotes">Footnotes</a></li>
+<li><a class="reference internal" href="#citations">Citations</a></li>
+<li><a class="reference internal" href="#substitutions">Substitutions</a></li>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+<li><a class="reference internal" href="#html-metadata">HTML Metadata</a></li>
+<li><a class="reference internal" href="#source-encoding">Source encoding</a></li>
+<li><a class="reference internal" href="#gotchas">Gotchas</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

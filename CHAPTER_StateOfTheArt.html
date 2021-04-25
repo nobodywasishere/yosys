@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Evaluation of other OSS Verilog Synthesis Tools &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Application Notes" href="CHAPTER_Appnotes.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Evaluation of other OSS Verilog Synthesis Tools</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_StateOfTheArt.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="evaluation-of-other-oss-verilog-synthesis-tools">
+<span id="chapter-sota"></span><h1>Evaluation of other OSS Verilog Synthesis Tools<a class="headerlink" href="#evaluation-of-other-oss-verilog-synthesis-tools" title="Permalink to this headline">¶</a></h1>
+<p>In this appendix <a class="footnote-reference brackets" href="#id4" id="id1">1</a> the existing FOSS Verilog synthesis tools <a class="footnote-reference brackets" href="#id5" id="id2">2</a> are
+evaluated. Extremely limited or application specific tools (e.g. pure
+Verilog Netlist parsers) as well as Verilog simulators are not included.
+These existing solutions are tested using a set of representative
+Verilog code snippets. It is shown that no existing FOSS tool implements
+even close to a sufficient subset of Verilog to be usable as synthesis
+tool for a wide range existing Verilog code.</p>
+<p>The packages evaluated are:</p>
+<ul class="simple">
+<li><p>Icarus Verilog  <a class="footnote-reference brackets" href="#id6" id="id3">3</a></p></li>
+<li><p>Verilog-to-Routing (VTR) / Odin-II
+</p></li>
+<li><p>HDL Analyzer and Netlist Architect (HANA)</p></li>
+<li><p>Verilog front-end to VIS (vl2mv) </p></li>
+</ul>
+<p>In each of the following sections Verilog modules that test a certain
+Verilog language feature are presented and the support for these
+features is tested in all the tools mentioned above. It is evaluated
+whether the tools under test successfully generate netlists for the
+Verilog input and whether these netlists match the simulation behavior
+of the designs using testbenches.</p>
+<p>All test cases are verified to be synthesizeable using Xilinx XST from
+the Xilinx WebPACK suite.</p>
+<p>Trivial features such as support for simple structural Verilog are not
+explicitly tested.</p>
+<p>Vl2mv and Odin-II generate output in the BLIF (Berkeley Logic
+Interchange Format) and BLIF-MV (an extended version of BLIF) formats
+respectively. ABC is used to convert this output to Verilog for
+verification using testbenches.</p>
+<p>Icarus Verilog generates EDIF (Electronic Design Interchange Format)
+output utilizing LPM (Library of Parameterized Modules) cells. The EDIF
+files are converted to Verilog using edif2ngd and netgen from Xilinx
+WebPACK. A hand-written implementation of the LPM cells utilized by the
+generated netlists is used for verification.</p>
+<p>Following these functional tests, a quick analysis of the extensibility
+of the tools under test is provided in a separate section.</p>
+<p>The last section of this chapter finally concludes these series of
+evaluations with a summary of the results.</p>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">uut_always01</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span>
+             <span class="n">reset</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="n">clock</span><span class="p">,</span> <span class="n">reset</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">count</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">count</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span>
+     <span class="n">count</span> <span class="o">&lt;=</span> <span class="n">reset</span> <span class="o">?</span>
+             <span class="mh">0</span> <span class="o">:</span> <span class="n">count</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+
+
+
+<span class="k">endmodule</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">uut_always02</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span>
+             <span class="n">reset</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="n">clock</span><span class="p">,</span> <span class="n">reset</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">count</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">count</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span> <span class="k">begin</span>
+     <span class="n">count</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">reset</span><span class="p">)</span>
+             <span class="n">count</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">uut_always03</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span> <span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">in3</span><span class="p">,</span> <span class="n">in4</span><span class="p">,</span> <span class="n">in5</span><span class="p">,</span> <span class="n">in6</span><span class="p">,</span> <span class="n">in7</span><span class="p">,</span>
+             <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span><span class="p">,</span> <span class="n">out3</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="n">clock</span><span class="p">,</span> <span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">in3</span><span class="p">,</span> <span class="n">in4</span><span class="p">,</span> <span class="n">in5</span><span class="p">,</span> <span class="n">in6</span><span class="p">,</span> <span class="n">in7</span><span class="p">;</span>
+<span class="k">output</span> <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span><span class="p">,</span> <span class="n">out3</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span><span class="p">,</span> <span class="n">out3</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span> <span class="k">begin</span>
+     <span class="n">out1</span> <span class="o">=</span> <span class="n">in1</span><span class="p">;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">in2</span><span class="p">)</span>
+             <span class="n">out1</span> <span class="o">=</span> <span class="o">!</span><span class="n">out1</span><span class="p">;</span>
+     <span class="n">out2</span> <span class="o">&lt;=</span> <span class="n">out1</span><span class="p">;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">in3</span><span class="p">)</span>
+             <span class="n">out2</span> <span class="o">&lt;=</span> <span class="n">out2</span><span class="p">;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">in4</span><span class="p">)</span>
+             <span class="k">if</span> <span class="p">(</span><span class="n">in5</span><span class="p">)</span>
+                     <span class="n">out3</span> <span class="o">&lt;=</span> <span class="n">in6</span><span class="p">;</span>
+             <span class="k">else</span>
+                     <span class="n">out3</span> <span class="o">&lt;=</span> <span class="n">in7</span><span class="p">;</span>
+     <span class="n">out1</span> <span class="o">=</span> <span class="n">out1</span> <span class="o">^</span> <span class="n">out2</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="always-blocks-and-blocking-vs-nonblocking-assignments">
+<span id="sec-blocking-nonblocking"></span><h2>Always blocks and blocking vs. nonblocking assignments<a class="headerlink" href="#always-blocks-and-blocking-vs-nonblocking-assignments" title="Permalink to this headline">¶</a></h2>
+<p>The “always”-block is one of the most fundamental non-trivial Verilog
+language features. It can be used to model a combinatorial path (with
+optional registers on the outputs) in a way that mimics a regular
+programming language.</p>
+<p>Within an always block, if- and case-statements can be used to model
+multiplexers. Blocking assignments (<span class="math">=</span>) and nonblocking
+assignments (<span class="math">&lt;=</span>) are used to populate the leaf-nodes of these
+multiplexer trees. Unassigned leaf-nodes default to feedback paths that
+cause the output register to hold the previous value. More advanced
+synthesis tools often convert these feedback paths to register enable
+signals or even generate circuits with clock gating.</p>
+<p>Registers assigned with nonblocking assignments (<span class="math">&lt;=</span>) behave
+differently from variables in regular programming languages: In a
+simulation they are not updated immediately after being assigned.
+Instead the right-hand sides are evaluated and the results stored in
+temporary memory locations. After all pending updates have been prepared
+in this way they are executed, thus yielding semi-parallel execution of
+all nonblocking assignments.</p>
+<p>For synthesis this means that every occurrence of that register in an
+expression addresses the output port of the corresponding register
+regardless of the question whether the register has been assigned a new
+value in an earlier command in the same always block. Therefore with
+nonblocking assignments the order of the assignments has no effect on
+the resulting circuit as long as the left-hand sides of the assignments
+are unique.</p>
+<p>The three example codes in
+Fig. <a class="reference external" href="#fig:StateOfTheArt_always12">[fig:StateOfTheArt_always12]</a> and
+Fig. <a class="reference external" href="#fig:StateOfTheArt_always3">[fig:StateOfTheArt_always3]</a> use
+all these features and can thus be used to test the synthesis tools
+capabilities to synthesize always blocks correctly.</p>
+<p>The first example is only using the most fundamental Verilog features.
+All tools under test were able to successfully synthesize this design.</p>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">uut_arrays01</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span> <span class="n">we</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">wr_data</span><span class="p">,</span> <span class="n">rd_data</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="n">clock</span><span class="p">,</span> <span class="n">we</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">addr</span><span class="p">,</span> <span class="n">wr_data</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">rd_data</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">rd_data</span><span class="p">;</span>
+
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">memory</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">];</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span> <span class="k">begin</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">we</span><span class="p">)</span>
+             <span class="n">memory</span><span class="p">[</span><span class="n">addr</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">wr_data</span><span class="p">;</span>
+     <span class="n">rd_data</span> <span class="o">&lt;=</span> <span class="n">memory</span><span class="p">[</span><span class="n">addr</span><span class="p">];</span>
+<span class="k">end</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</td></tr></table></div>
+<p>The 2nd example is functionally identical to the 1st one but is using an
+if-statement inside the always block. Odin-II fails to synthesize it and
+instead produces the following error message:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="p">(</span><span class="n">File</span><span class="p">:</span> <span class="n">always02</span><span class="o">.</span><span class="n">v</span><span class="p">)</span> <span class="p">(</span><span class="n">Line</span> <span class="n">number</span><span class="p">:</span> <span class="mi">13</span><span class="p">)</span>
+<span class="n">You</span><span class="s1">&#39;ve defined the driver &quot;count~0&quot; twice</span>
+</pre></div>
+</div>
+<p>Vl2mv does not produce an error message but outputs an invalid synthesis
+result that is not using the reset input at all.</p>
+<p>Icarus Verilog also doesn’t produce an error message but generates an
+invalid output for this 2nd example. The code generated by Icarus
+Verilog only implements the reset path for the count register,
+effectively setting the output to constant 0.</p>
+<p>So of all tools under test only HANA was able to create correct
+synthesis results for the 2nd example.</p>
+<p>The 3rd example is using blocking and nonblocking assignments and many
+if statements. Odin also fails to synthesize this example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="p">(</span><span class="n">File</span><span class="p">:</span> <span class="n">always03</span><span class="o">.</span><span class="n">v</span><span class="p">)</span> <span class="p">(</span><span class="n">Line</span> <span class="n">number</span><span class="p">:</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">ODIN</span> <span class="n">doesn</span><span class="s1">&#39;t handle blocking statements in Sequential blocks</span>
+</pre></div>
+</div>
+<p>HANA, Icarus Verilog and vl2mv create invalid synthesis results for the
+3rd example.</p>
+<p>So unfortunately none of the tools under test provide a complete and
+correct implementation of blocking and nonblocking assignments.</p>
+</div>
+<div class="section" id="arrays-for-memory-modelling">
+<h2>Arrays for memory modelling<a class="headerlink" href="#arrays-for-memory-modelling" title="Permalink to this headline">¶</a></h2>
+<p>Verilog arrays are part of the synthesizeable subset of Verilog and are
+commonly used to model addressable memory. The Verilog code in
+Fig. <a class="reference external" href="#fig:StateOfTheArt_arrays">[fig:StateOfTheArt_arrays]</a>
+demonstrates this by implementing a single port memory.</p>
+<p>For this design HANA, vl2m and ODIN-II generate error messages
+indicating that arrays are not supported.</p>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">uut_forgen01</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">output</span> <span class="n">y</span><span class="p">;</span>
+
+<span class="k">integer</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">lut</span><span class="p">;</span>
+
+<span class="k">initial</span> <span class="k">begin</span>
+     <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mh">32</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span> <span class="k">begin</span>
+             <span class="n">lut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mh">1</span><span class="p">;</span>
+             <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span>
+                     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">j</span> <span class="o">==</span> <span class="mh">0</span><span class="p">)</span>
+                             <span class="n">lut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+     <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">lut</span><span class="p">[</span><span class="n">a</span><span class="p">];</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</td></tr></table></div>
+<p>Icarus Verilog produces an invalid output that is using the address only
+for reads. Instead of using the address input for writes, the generated
+design simply loads the data to all memory locations whenever the
+write-enable input is active, effectively turning the design into a
+single 4-bit D-Flip-Flop with enable input.</p>
+<p>As all tools under test already fail this simple test, there is nothing
+to gain by continuing tests on this aspect of Verilog synthesis such as
+synthesis of dual port memories, correct handling of write collisions,
+and so forth.</p>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">uut_forgen02</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">cin</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cout</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mh">8</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">input</span> <span class="n">cin</span><span class="p">;</span>
+
+<span class="k">output</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+<span class="k">output</span> <span class="n">cout</span><span class="p">;</span>
+
+<span class="k">genvar</span> <span class="n">i</span><span class="p">;</span>
+<span class="kt">wire</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">carry</span><span class="p">;</span>
+
+<span class="k">generate</span>
+     <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">WIDTH</span><span class="p">;</span> <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span><span class="n">adder</span>
+             <span class="kt">wire</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">D</span><span class="p">;</span>
+             <span class="k">assign</span> <span class="n">D</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">};</span>
+             <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mh">0</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span><span class="n">chain</span>
+                     <span class="k">assign</span> <span class="n">D</span><span class="p">[</span><span class="mh">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cin</span><span class="p">;</span>
+             <span class="k">end</span> <span class="k">else</span> <span class="k">begin</span><span class="o">:</span><span class="n">chain</span>
+                     <span class="k">assign</span> <span class="n">D</span><span class="p">[</span><span class="mh">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">carry</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mh">1</span><span class="p">];</span>
+             <span class="k">end</span>
+             <span class="k">assign</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">^</span><span class="n">D</span><span class="p">;</span>
+             <span class="k">assign</span> <span class="n">carry</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">D</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="o">|</span> <span class="p">(</span><span class="o">^</span><span class="n">D</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">D</span><span class="p">[</span><span class="mh">2</span><span class="p">]);</span>
+     <span class="k">end</span>
+<span class="k">endgenerate</span>
+
+<span class="k">assign</span> <span class="n">cout</span> <span class="o">=</span> <span class="n">carry</span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="p">];</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="for-loops-and-generate-blocks">
+<h2>For-loops and generate blocks<a class="headerlink" href="#for-loops-and-generate-blocks" title="Permalink to this headline">¶</a></h2>
+<p>For-loops and generate blocks are more advanced Verilog features. These
+features allow the circuit designer to add program code to her design
+that is evaluated during synthesis to generate (parts of) the circuits
+description; something that could only be done using a code generator
+otherwise.</p>
+<p>For-loops are only allowed in synthesizeable Verilog if they can be
+completely unrolled. Then they can be a powerful tool to generate array
+logic or static lookup tables. The code in
+Fig. <a class="reference external" href="#fig:StateOfTheArt_for">[fig:StateOfTheArt_for]</a> generates a
+circuit that tests a 5 bit value for being a prime number using a static
+lookup table.</p>
+<p>Generate blocks can be used to model array logic in complex parametric
+designs. The code in
+Fig. <a class="reference external" href="#fig:StateOfTheArt_gen">[fig:StateOfTheArt_gen]</a> implements a
+ripple-carry adder with parametric width from simple assign-statements
+and logic operations using a Verilog generate block.</p>
+<p>All tools under test failed to synthesize both test cases. HANA creates
+invalid output in both cases. Icarus Verilog creates invalid output for
+the first test and fails with an error for the second case. The other
+two tools fail with error messages for both tests.</p>
+</div>
+<div class="section" id="extensibility">
+<h2>Extensibility<a class="headerlink" href="#extensibility" title="Permalink to this headline">¶</a></h2>
+<p>This section briefly discusses the extensibility of the tools under test
+and their internal data- and control-flow. As all tools under test
+already failed to synthesize simple Verilog always-blocks correctly, not
+much resources have been spent on evaluating the extensibility of these
+tools and therefore only a very brief discussion of the topic is
+provided here.</p>
+<p>HANA synthesizes for a built-in library of standard cells using two
+passes over an AST representation of the Verilog input. This approach
+executes fast but limits the extensibility as everything happens in only
+two comparable complex AST walks and there is no universal intermediate
+representation that is flexible enough to be used in arbitrary
+optimizations.</p>
+<p>Odin-II and vl2m are both front ends to existing synthesis flows. As
+such they only try to quickly convert the Verilog input into the
+internal representation of their respective flows (BLIF). So
+extensibility is less of an issue here as potential extensions would
+likely be implemented in other components of the flow.</p>
+<p>Icarus Verilog is clearly designed to be a simulation tool rather than a
+synthesis tool. The synthesis part of Icarus Verilog is an ad-hoc add-on
+to Icarus Verilog that aims at converting an internal representation
+that is meant for generation of a virtual machine based simulation code
+to netlists.</p>
+</div>
+<div class="section" id="summary-and-outlook">
+<h2>Summary and Outlook<a class="headerlink" href="#summary-and-outlook" title="Permalink to this headline">¶</a></h2>
+<p>Table <a class="reference external" href="#tab:StateOfTheArt_sum">1.1</a> summarizes the tests performed.
+Clearly none of the tools under test make a serious attempt at providing
+a feature-complete implementation of Verilog. It can be argued that
+Odin-II performed best in the test as it never generated incorrect code
+but instead produced error messages indicating that unsupported Verilog
+features where used in the Verilog input.</p>
+<p>In conclusion, to the best knowledge of the author, there is no FOSS
+Verilog synthesis tool other than Yosys that is anywhere near feature
+completeness and therefore there is no other candidate for a generic
+Verilog front end and/or synthesis framework to be used as a basis for
+custom synthesis tools.</p>
+<p>Yosys could also replace vl2m and/or Odin-II in their respective flows
+or function as a pre-compiler that can translate full-featured Verilog
+code to the simple subset of Verilog that is understood by vl2m and
+Odin-II.</p>
+<p>Yosys is designed for extensibility. It can be used as-is to synthesize
+Verilog code to netlists, but its main purpose is to be used as basis
+for custom tools. Yosys is structured in a language dependent Verilog
+front end and language independent synthesis code (which is in itself
+structured in independent passes). This architecture will simplify
+implementing additional HDL front ends and/or additional synthesis
+passes.</p>
+<p>Chapter <a class="reference external" href="#chapter:eval">[chapter:eval]</a> contains a more detailed
+evaluation of Yosys using real-world designs that are far out of reach
+for any of the other tools discussed in this appendix.</p>
+<div class="docutils container" id="tab-stateoftheart-sum">
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-text">Summary of all test results</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>HANA</strong></p></th>
+<th class="head"><p><strong>VIS /
+vl2m</strong></p></th>
+<th class="head"><p><strong>Icarus
+V
+erilog</strong></p></th>
+<th class="head"><p><strong>O
+din-II</strong></p></th>
+<th class="head"><ul class="simple">
+<li></li>
+</ul>
+<p><em>Yosys*</em></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">al</span>
+<span class="pre">ways01</span></code></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">al</span>
+<span class="pre">ways02</span></code></p></td>
+<td></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">al</span>
+<span class="pre">ways03</span></code></p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ar</span>
+<span class="pre">rays01</span></code></p></td>
+<td></td>
+<td></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fo</span>
+<span class="pre">rgen01</span></code></p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fo</span>
+<span class="pre">rgen02</span></code></p></td>
+<td><dl class="field-list simple">
+<dt class="field-odd">math</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<p><cite>skull</cite></p>
+</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>…passed 2em …produced error 2em <span class="math">\skull</span> …incorrect output</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>This appendix is an updated version of an unpublished student
+research paper. </p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>To the author’s best knowledge, all relevant tools that existed at
+the time of this writing are included. But as there is no formal
+channel through which such tools are published it is hard to give any
+guarantees in that matter.</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>Icarus Verilog is mainly a simulation tool but also supported
+synthesis up to version 0.8. Therefore version 0.8.7 is used for this
+evaluation.)</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Evaluation of other OSS Verilog Synthesis Tools</a><ul>
+<li><a class="reference internal" href="#always-blocks-and-blocking-vs-nonblocking-assignments">Always blocks and blocking vs. nonblocking assignments</a></li>
+<li><a class="reference internal" href="#arrays-for-memory-modelling">Arrays for memory modelling</a></li>
+<li><a class="reference internal" href="#for-loops-and-generate-blocks">For-loops and generate blocks</a></li>
+<li><a class="reference internal" href="#extensibility">Extensibility</a></li>
+<li><a class="reference internal" href="#summary-and-outlook">Summary and Outlook</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Appnotes.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Application Notes</div>
+         </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

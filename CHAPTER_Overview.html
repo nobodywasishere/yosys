@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Implementation Overview &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Internal Cell Library" href="CHAPTER_CellLib.html" />
+    <link rel="prev" title="Approach" href="CHAPTER_Approach.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Implementation Overview</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_Overview.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="implementation-overview">
+<span id="chapter-overview"></span><h1>Implementation Overview<a class="headerlink" href="#implementation-overview" title="Permalink to this headline">¶</a></h1>
+<p>Yosys is an extensible open source hardware synthesis tool. It is aimed
+at designers who are looking for an easily accessible, universal, and
+vendor-independent synthesis tool, as well as scientists who do research
+in electronic design automation (EDA) and are looking for an open
+synthesis framework that can be used to test algorithms on complex
+real-world designs.</p>
+<p>Yosys can synthesize a large subset of Verilog 2005 and has been tested
+with a wide range of real-world designs, including the OpenRISC 1200 CPU
+, the openMSP430 CPU , the OpenCores I<span class="math">^2</span>C master and the k68
+CPU .</p>
+<p>As of this writing a Yosys VHDL frontend is in development.</p>
+<p>Yosys is written in C++ (using some features from the new C++11
+standard). This chapter describes some of the fundamental Yosys data
+structures. For the sake of simplicity the C++ type names used in the
+Yosys implementation are used in this chapter, even though the chapter
+only explains the conceptual idea behind it and can be used as reference
+to implement a similar system in any language.</p>
+<div class="section" id="simplified-data-flow">
+<h2>Simplified Data Flow<a class="headerlink" href="#simplified-data-flow" title="Permalink to this headline">¶</a></h2>
+<p>Figure <a class="reference external" href="#fig:Overview_flow">[fig:Overview_flow]</a> shows the simplified
+data flow within Yosys. Rectangles in the figure represent program
+modules and ellipses internal data structures that are used to exchange
+design data between the program modules.</p>
+<p>Design data is read in using one of the frontend modules. The high-level
+HDL frontends for Verilog and VHDL code generate an abstract syntax tree
+(AST) that is then passed to the AST frontend. Note that both HDL
+frontends use the same AST representation that is powerful enough to
+cover the Verilog HDL and VHDL language.</p>
+<p>The AST Frontend then compiles the AST to Yosys’s main internal data
+format, the RTL Intermediate Language (RTLIL). A more detailed
+description of this format is given in the next section.</p>
+<p>There is also a text representation of the RTLIL data structure that can
+be parsed using the RTLIL Frontend.</p>
+<p>The design data may then be transformed using a series of passes that
+all operate on the RTLIL representation of the design.</p>
+<p>Finally the design in RTLIL representation is converted back to text by
+one of the backends, namely the Verilog Backend for generating Verilog
+netlists and the RTLIL Backend for writing the RTLIL data in the same
+format that is understood by the RTLIL Frontend.</p>
+<p>With the exception of the AST Frontend, which is called by the
+high-level HDL frontends and can’t be called directly by the user, all
+program modules are called by the user (usually using a synthesis script
+that contains text commands for Yosys).</p>
+<p>By combining passes in different ways and/or adding additional passes to
+Yosys it is possible to adapt Yosys to a wide range of applications. For
+this to be possible it is key that (1) all passes operate on the same
+data structure (RTLIL) and (2) that this data structure is powerful
+enough to represent the design in different stages of the synthesis.</p>
+</div>
+<div class="section" id="the-rtl-intermediate-language">
+<h2>The RTL Intermediate Language<a class="headerlink" href="#the-rtl-intermediate-language" title="Permalink to this headline">¶</a></h2>
+<p>All frontends, passes and backends in Yosys operate on a design in RTLIL
+representation. The only exception are the high-level frontends that use
+the AST representation as an intermediate step before generating RTLIL
+data.</p>
+<p>In order to avoid reinventing names for the RTLIL classes, they are
+simply referred to by their full C++ name, i.e. including the
+<code class="docutils literal notranslate"><span class="pre">RTLIL::</span></code> namespace prefix, in this document.</p>
+<p>Figure <a class="reference external" href="#fig:Overview_RTLIL">[fig:Overview_RTLIL]</a> shows a simplified
+Entity-Relationship Diagram (ER Diagram) of RTLIL. In <span class="math">1:N</span>
+relationships the arrow points from the <span class="math">N</span> side to the <span class="math">1</span>.
+For example one RTLIL::Design contains <span class="math">N</span> (zero to many)
+instances of RTLIL::Module. A two-pointed arrow indicates a <span class="math">1:1</span>
+relationship.</p>
+<p>The RTLIL::Design is the root object of the RTLIL data structure. There
+is always one “current design” in memory which passes operate on,
+frontends add data to and backends convert to exportable formats. But in
+some cases passes internally generate additional RTLIL::Design objects.
+For example when a pass is reading an auxiliary Verilog file such as a
+cell library, it might create an additional RTLIL::Design object and
+call the Verilog frontend with this other object to parse the cell
+library.</p>
+<p>There is only one active RTLIL::Design object that is used by all
+frontends, passes and backends called by the user, e.g. using a
+synthesis script. The RTLIL::Design then contains zero to many
+RTLIL::Module objects. This corresponds to modules in Verilog or
+entities in VHDL. Each module in turn contains objects from three
+different categories:</p>
+<ul class="simple">
+<li><p>RTLIL::Cell and RTLIL::Wire objects represent classical netlist data.</p></li>
+<li><p>RTLIL::Process objects represent the decision trees (if-then-else
+statements, etc.) and synchronization declarations (clock signals and
+sensitivity) from Verilog <code class="docutils literal notranslate"><span class="pre">always</span></code> and VHDL <code class="docutils literal notranslate"><span class="pre">process</span></code> blocks.</p></li>
+<li><p>RTLIL::Memory objects represent addressable memories (arrays).</p></li>
+</ul>
+<p>Usually the output of the synthesis procedure is a netlist, i.e. all
+RTLIL::Process and RTLIL::Memory objects must be replaced by RTLIL::Cell
+and RTLIL::Wire objects by synthesis passes.</p>
+<p>All features of the HDL that cannot be mapped directly to these RTLIL
+classes must be transformed to an RTLIL-compatible representation by the
+HDL frontend. This includes Verilog-features such as generate-blocks,
+loops and parameters.</p>
+<p>The following sections contain a more detailed description of the
+different parts of RTLIL and rationale behind some of the design
+decisions.</p>
+<div class="section" id="rtlil-identifiers">
+<h3>RTLIL Identifiers<a class="headerlink" href="#rtlil-identifiers" title="Permalink to this headline">¶</a></h3>
+<p>All identifiers in RTLIL (such as module names, port names, signal
+names, cell types, etc.) follow the following naming convention: they
+must either start with a backslash () or a dollar sign ($).</p>
+<p>Identifiers starting with a backslash are public visible identifiers.
+Usually they originate from one of the HDL input files. For example the
+signal name “<code class="docutils literal notranslate"><span class="pre">\sig42</span></code>” is most likely a signal that was declared using
+the name “<code class="docutils literal notranslate"><span class="pre">sig42</span></code>” in an HDL input file. On the other hand the signal
+name “<code class="docutils literal notranslate"><span class="pre">$sig42</span></code>” is an auto-generated signal name. The backends convert
+all identifiers that start with a dollar sign to identifiers that do not
+collide with identifiers that start with a backslash.</p>
+<p>This has three advantages:</p>
+<ul class="simple">
+<li><p>First, it is impossible that an auto-generated identifier collides
+with an identifier that was provided by the user.</p></li>
+<li><p>Second, the information about which identifiers were originally
+provided by the user is always available which can help guide some
+optimizations. For example the “opt_rmunused” tries to preserve
+signals with a user-provided name but doesn’t hesitate to delete
+signals that have auto-generated names when they just duplicate other
+signals.</p></li>
+<li><p>Third, the delicate job of finding suitable auto-generated public
+visible names is deferred to one central location. Internally
+auto-generated names that may hold important information for Yosys
+developers can be used without disturbing external tools. For example
+the Verilog backend assigns names in the form <code class="docutils literal notranslate"><span class="pre">_integer_</span></code>.</p></li>
+</ul>
+<p>Whitespace and control characters (any character with an ASCII code 32
+or less) are not allowed in RTLIL identifiers; most frontends and
+backends cannot support these characters in identifiers.</p>
+<p>In order to avoid programming errors, the RTLIL data structures check if
+all identifiers start with either a backslash or a dollar sign, and
+contain no whitespace or control characters. Violating these rules
+results in a runtime error.</p>
+<p>All RTLIL identifiers are case sensitive.</p>
+<p>Some transformations, such as flattening, may have to change identifiers
+provided by the user to avoid name collisions. When that happens,
+attribute “<code class="docutils literal notranslate"><span class="pre">hdlname</span></code>“ is attached to the object with the changed
+identifier. This attribute contains one name (if emitted directly by the
+frontend, or is a result of disambiguation) or multiple names separated
+by spaces (if a result of flattening). All names specified in the
+“<code class="docutils literal notranslate"><span class="pre">hdlname</span></code>“ attribute are public and do not include the leading
+““.</p>
+</div>
+<div class="section" id="rtlil-design-and-rtlil-module">
+<h3>RTLIL::Design and RTLIL::Module<a class="headerlink" href="#rtlil-design-and-rtlil-module" title="Permalink to this headline">¶</a></h3>
+<p>The RTLIL::Design object is basically just a container for RTLIL::Module
+objects. In addition to a list of RTLIL::Module objects the
+RTLIL::Design also keeps a list of <em>selected objects</em>, i.e. the objects
+that passes should operate on. In most cases the whole design is
+selected and therefore passes operate on the whole design. But this
+mechanism can be useful for more complex synthesis jobs in which only
+parts of the design should be affected by certain passes.</p>
+<p>Besides the objects shown in the ER diagram in
+Fig. <a class="reference external" href="#fig:Overview_RTLIL">[fig:Overview_RTLIL]</a> an RTLIL::Module
+object contains the following additional properties:</p>
+<ul class="simple">
+<li><p>The module name</p></li>
+<li><p>A list of attributes</p></li>
+<li><p>A list of connections between wires</p></li>
+<li><p>An optional frontend callback used to derive parametrized variations
+of the module</p></li>
+</ul>
+<p>The attributes can be Verilog attributes imported by the Verilog
+frontend or attributes assigned by passes. They can be used to store
+additional metadata about modules or just mark them to be used by
+certain part of the synthesis script but not by others.</p>
+<p>Verilog and VHDL both support parametric modules (known as “generic
+entities” in VHDL). The RTLIL format does not support parametric modules
+itself. Instead each module contains a callback function into the AST
+frontend to generate a parametrized variation of the RTLIL::Module as
+needed. This callback then returns the auto-generated name of the
+parametrized variation of the module. (A hash over the parameters and
+the module name is used to prohibit the same parametrized variation from
+being generated twice. For modules with only a few parameters, a name
+directly containing all parameters is generated instead of a hash
+string.)</p>
+</div>
+<div class="section" id="rtlil-cell-and-rtlil-wire">
+<span id="sec-rtlil-cell-wire"></span><h3>RTLIL::Cell and RTLIL::Wire<a class="headerlink" href="#rtlil-cell-and-rtlil-wire" title="Permalink to this headline">¶</a></h3>
+<p>A module contains zero to many RTLIL::Cell and RTLIL::Wire objects.
+Objects of these types are used to model netlists. Usually the goal of
+all synthesis efforts is to convert all modules to a state where the
+functionality of the module is implemented only by cells from a given
+cell library and wires to connect these cells with each other. Note that
+module ports are just wires with a special property.</p>
+<p>An RTLIL::Wire object has the following properties:</p>
+<ul class="simple">
+<li><p>The wire name</p></li>
+<li><p>A list of attributes</p></li>
+<li><p>A width (buses are just wires with a width &gt; 1)</p></li>
+<li><p>Bus direction (MSB to LSB or vice versa)</p></li>
+<li><p>Lowest valid bit index (LSB or MSB depending on bus direction)</p></li>
+<li><p>If the wire is a port: port number and direction (input/output/inout)</p></li>
+</ul>
+<p>As with modules, the attributes can be Verilog attributes imported by
+the Verilog frontend or attributes assigned by passes.</p>
+<p>In Yosys, busses (signal vectors) are represented using a single wire
+object with a width &gt; 1. So Yosys does not convert signal vectors to
+individual signals. This makes some aspects of RTLIL more complex but
+enables Yosys to be used for coarse grain synthesis where the cells of
+the target architecture operate on entire signal vectors instead of
+single bit wires.</p>
+<p>In Verilog and VHDL, busses may have arbitrary bounds, and LSB can have
+either the lowest or the highest bit index. In RTLIL, bit 0 always
+corresponds to LSB; however, information from the HDL frontend is
+preserved so that the bus will be correctly indexed in error messages,
+backend output, constraint files, etc.</p>
+<p>An RTLIL::Cell object has the following properties:</p>
+<ul class="simple">
+<li><p>The cell name and type</p></li>
+<li><p>A list of attributes</p></li>
+<li><p>A list of parameters (for parametric cells)</p></li>
+<li><p>Cell ports and the connections of ports to wires and constants</p></li>
+</ul>
+<p>The connections of ports to wires are coded by assigning an
+RTLIL::SigSpec to each cell port. The RTLIL::SigSpec data type is
+described in the next section.</p>
+</div>
+<div class="section" id="rtlil-sigspec">
+<span id="sec-rtlil-sigspec"></span><h3>RTLIL::SigSpec<a class="headerlink" href="#rtlil-sigspec" title="Permalink to this headline">¶</a></h3>
+<p>A “signal” is everything that can be applied to a cell port. I.e.</p>
+<ul>
+<li><div class="line-block">
+<div class="line">Any constant value of arbitrary bit-width</div>
+<div class="line">1em For example: <code class="docutils literal notranslate"><span class="pre">1337,</span> <span class="pre">16'b0000010100111001,</span> <span class="pre">1'b1,</span> <span class="pre">1'bx</span></code></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">All bits of a wire or a selection of bits from a wire</div>
+<div class="line">1em For example: <code class="docutils literal notranslate"><span class="pre">mywire,</span> <span class="pre">mywire[24],</span> <span class="pre">mywire[15:8]</span></code></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Concatenations of the above</div>
+<div class="line">1em For example: <code class="docutils literal notranslate"><span class="pre">{16'd1337,</span> <span class="pre">mywire[15:8]}</span></code></div>
+</div>
+</li>
+</ul>
+<p>The RTLIL::SigSpec data type is used to represent signals. The
+RTLIL::Cell object contains one RTLIL::SigSpec for each cell port.</p>
+<p>In addition, connections between wires are represented using a pair of
+RTLIL::SigSpec objects. Such pairs are needed in different locations.
+Therefore the type name RTLIL::SigSig was defined for such a pair.</p>
+</div>
+<div class="section" id="rtlil-process">
+<span id="sec-rtlil-process"></span><h3>RTLIL::Process<a class="headerlink" href="#rtlil-process" title="Permalink to this headline">¶</a></h3>
+<p>When a high-level HDL frontend processes behavioural code it splits it
+up into data path logic (e.g. the expression <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code> is replaced by
+the output of an adder that takes <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> as inputs) and an
+RTLIL::Process that models the control logic of the behavioural code.
+Let’s consider a simple example:</p>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">ff_with_en_and_async_reset</span><span class="p">(</span><span class="n">clock</span><span class="p">,</span> <span class="n">reset</span><span class="p">,</span> <span class="n">enable</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">q</span><span class="p">);</span>
+<span class="k">input</span> <span class="n">clock</span><span class="p">,</span> <span class="n">reset</span><span class="p">,</span> <span class="n">enable</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
+<span class="k">output</span> <span class="kt">reg</span> <span class="n">q</span><span class="p">;</span>
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">,</span> <span class="k">posedge</span> <span class="n">reset</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">reset</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">enable</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</td></tr></table></div>
+<p>In this example there is no data path and therefore the RTLIL::Module
+generated by the frontend only contains a few RTLIL::Wire objects and an
+RTLIL::Process. The RTLIL::Process in RTLIL syntax:</p>
+<div class="highlight-rtlil notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>process $proc$ff_with_en_and_async_reset.v:4$1
+    assign $0\q[0:0] \q
+    switch \reset
+        case 1&#39;1
+            assign $0\q[0:0] 1&#39;0
+        case
+            switch \enable
+                case 1&#39;1
+                    assign $0\q[0:0] \d
+                case
+            end
+    end
+    sync posedge \clock
+        update \q $0\q[0:0]
+    sync posedge \reset
+        update \q $0\q[0:0]
+end
+</pre></div>
+</td></tr></table></div>
+<p>This RTLIL::Process contains two RTLIL::SyncRule objects, two
+RTLIL::SwitchRule objects and five RTLIL::CaseRule objects. The wire
+<code class="docutils literal notranslate"><span class="pre">$0\q[0:0]</span></code> is an automatically created wire that holds the next value
+of <code class="docutils literal notranslate"><span class="pre">\q</span></code>. The lines <span class="math">2 \dots 12</span> describe how <code class="docutils literal notranslate"><span class="pre">$0\q[0:0]</span></code>
+should be calculated. The lines <span class="math">13 \dots 16</span> describe how the
+value of <code class="docutils literal notranslate"><span class="pre">$0\q[0:0]</span></code> is used to update <code class="docutils literal notranslate"><span class="pre">\q</span></code>.</p>
+<p>An RTLIL::Process is a container for zero or more RTLIL::SyncRule
+objects and exactly one RTLIL::CaseRule object, which is called the
+<em>root case</em>.</p>
+<p>An RTLIL::SyncRule object contains an (optional) synchronization
+condition (signal and edge-type), zero or more assignments
+(RTLIL::SigSig), and zero or more memory writes (RTLIL::MemWriteAction).
+The <code class="docutils literal notranslate"><span class="pre">always</span></code> synchronization condition is used to break combinatorial
+loops when a latch should be inferred instead.</p>
+<p>An RTLIL::CaseRule is a container for zero or more assignments
+(RTLIL::SigSig) and zero or more RTLIL::SwitchRule objects. An
+RTLIL::SwitchRule objects is a container for zero or more
+RTLIL::CaseRule objects.</p>
+<p>In the above example the lines <span class="math">2 \dots 12</span> are the root case.
+Here <code class="docutils literal notranslate"><span class="pre">$0\q[0:0]</span></code> is first assigned the old value <code class="docutils literal notranslate"><span class="pre">\q</span></code> as default
+value (line 2). The root case also contains an RTLIL::SwitchRule object
+(lines <span class="math">3 \dots 12</span>). Such an object is very similar to the C
+<code class="docutils literal notranslate"><span class="pre">switch</span></code> statement as it uses a control signal (<code class="docutils literal notranslate"><span class="pre">\reset</span></code> in this
+case) to determine which of its cases should be active. The
+RTLIL::SwitchRule object then contains one RTLIL::CaseRule object per
+case. In this example there is a case <a class="footnote-reference brackets" href="#id2" id="id1">1</a> for <code class="docutils literal notranslate"><span class="pre">\reset</span> <span class="pre">==</span> <span class="pre">1</span></code> that
+causes <code class="docutils literal notranslate"><span class="pre">$0\q[0:0]</span></code> to be set (lines 4 and 5) and a default case that
+in turn contains a switch that sets <code class="docutils literal notranslate"><span class="pre">$0\q[0:0]</span></code> to the value of <code class="docutils literal notranslate"><span class="pre">\d</span></code>
+if <code class="docutils literal notranslate"><span class="pre">\enable</span></code> is active (lines <span class="math">6 \dots 11</span>).</p>
+<p>A case can specify zero or more compare values that will determine
+whether it matches. Each of the compare values must be the exact same
+width as the control signal. When more than one compare value is
+specified, the case matches if any of them matches the control signal;
+when zero compare values are specified, the case always matches (i.e. it
+is the default case).</p>
+<p>A switch prioritizes cases from first to last: multiple cases can match,
+but only the first matched case becomes active. This normally
+synthesizes to a priority encoder. The <code class="docutils literal notranslate"><span class="pre">parallel_case</span></code> attribute
+allows passes to assume that no more than one case will match, and
+<code class="docutils literal notranslate"><span class="pre">full_case</span></code> attribute allows passes to assume that exactly one case
+will match; if these invariants are ever dynamically violated, the
+behavior is undefined. These attributes are useful when an invariant
+invisible to the synthesizer causes the control signal to never take
+certain bit patterns.</p>
+<p>The lines <span class="math">13 \dots 16</span> then cause <code class="docutils literal notranslate"><span class="pre">\q</span></code> to be updated whenever
+there is a positive clock edge on <code class="docutils literal notranslate"><span class="pre">\clock</span></code> or <code class="docutils literal notranslate"><span class="pre">\reset</span></code>.</p>
+<p>In order to generate such a representation, the language frontend must
+be able to handle blocking and nonblocking assignments correctly.
+However, the language frontend does not need to identify the correct
+type of storage element for the output signal or generate multiplexers
+for the decision tree. This is done by passes that work on the RTLIL
+representation. Therefore it is relatively easy to substitute these
+steps with other algorithms that target different target architectures
+or perform optimizations or other transformations on the decision trees
+before further processing them.</p>
+<p>One of the first actions performed on a design in RTLIL representation
+in most synthesis scripts is identifying asynchronous resets. This is
+usually done using the <code class="docutils literal notranslate"><span class="pre">proc_arst</span></code> pass. This pass transforms the
+above example to the following RTLIL::Process:</p>
+<div class="highlight-rtlil notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>process $proc$ff_with_en_and_async_reset.v:4$1
+    assign $0\q[0:0] \q
+    switch \enable
+        case 1&#39;1
+            assign $0\q[0:0] \d
+        case
+    end
+    sync posedge \clock
+        update \q $0\q[0:0]
+    sync high \reset
+        update \q 1&#39;0
+end
+</pre></div>
+</td></tr></table></div>
+<p>This pass has transformed the outer RTLIL::SwitchRule into a modified
+RTLIL::SyncRule object for the <code class="docutils literal notranslate"><span class="pre">\reset</span></code> signal. Further processing
+converts the RTLIL::Process into e.g. a d-type flip-flop with
+asynchronous reset and a multiplexer for the enable signal:</p>
+<div class="highlight-rtlil notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>cell $adff $procdff$6
+    parameter \ARST_POLARITY 1&#39;1
+    parameter \ARST_VALUE 1&#39;0
+    parameter \CLK_POLARITY 1&#39;1
+    parameter \WIDTH 1
+    connect \ARST \reset
+    connect \CLK \clock
+    connect \D $0\q[0:0]
+    connect \Q \q
+end
+cell $mux $procmux$3
+    parameter \WIDTH 1
+    connect \A \q
+    connect \B \d
+    connect \S \enable
+    connect \Y $0\q[0:0]
+end
+</pre></div>
+</td></tr></table></div>
+<p>Different combinations of passes may yield different results. Note that
+<code class="docutils literal notranslate"><span class="pre">$adff</span></code> and <code class="docutils literal notranslate"><span class="pre">$mux</span></code> are internal cell types that still need to be
+mapped to cell types from the target cell library.</p>
+<p>Some passes refuse to operate on modules that still contain
+RTLIL::Process objects as the presence of these objects in a module
+increases the complexity. Therefore the passes to translate processes to
+a netlist of cells are usually called early in a synthesis script. The
+<code class="docutils literal notranslate"><span class="pre">proc</span></code> pass calls a series of other passes that together perform this
+conversion in a way that is suitable for most synthesis tasks.</p>
+</div>
+<div class="section" id="rtlil-memory">
+<span id="sec-rtlil-memory"></span><h3>RTLIL::Memory<a class="headerlink" href="#rtlil-memory" title="Permalink to this headline">¶</a></h3>
+<p>For every array (memory) in the HDL code an RTLIL::Memory object is
+created. A memory object has the following properties:</p>
+<ul class="simple">
+<li><p>The memory name</p></li>
+<li><p>A list of attributes</p></li>
+<li><p>The width of an addressable word</p></li>
+<li><p>The size of the memory in number of words</p></li>
+</ul>
+<p>All read accesses to the memory are transformed to <code class="docutils literal notranslate"><span class="pre">$memrd</span></code> cells and
+all write accesses to <code class="docutils literal notranslate"><span class="pre">$memwr</span></code> cells by the language frontend. These
+cells consist of independent read- and write-ports to the memory. Memory
+initialization is transformed to <code class="docutils literal notranslate"><span class="pre">$meminit</span></code> cells by the language
+frontend. The parameter on these cells is used to link them together and
+to the RTLIL::Memory object they belong to.</p>
+<p>The rationale behind using separate cells for the individual ports
+versus creating a large multiport memory cell right in the language
+frontend is that the separate <code class="docutils literal notranslate"><span class="pre">$memrd</span></code> and <code class="docutils literal notranslate"><span class="pre">$memwr</span></code> cells can be
+consolidated using resource sharing. As resource sharing is a
+non-trivial optimization problem where different synthesis tasks can
+have different requirements it lends itself to do the optimisation in
+separate passes and merge the RTLIL::Memory objects and <code class="docutils literal notranslate"><span class="pre">$memrd</span></code> and
+<code class="docutils literal notranslate"><span class="pre">$memwr</span></code> cells to multiport memory blocks after resource sharing is
+completed.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">memory</span></code> pass performs this conversion and can (depending on the
+options passed to it) transform the memories directly to d-type
+flip-flops and address logic or yield multiport memory blocks
+(represented using <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cells).</p>
+<p>See Sec. <a class="reference external" href="#sec:memcells">[sec:memcells]</a> for details about the memory
+cell types.</p>
+</div>
+</div>
+<div class="section" id="command-interface-and-synthesis-scripts">
+<h2>Command Interface and Synthesis Scripts<a class="headerlink" href="#command-interface-and-synthesis-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Yosys reads and processes commands from synthesis scripts, command line
+arguments and an interactive command prompt. Yosys commands consist of a
+command name and an optional whitespace separated list of arguments.
+Commands are terminated using the newline character or a semicolon
+(<code class="docutils literal notranslate"><span class="pre">;</span></code>). Empty lines and lines starting with the hash sign (<code class="docutils literal notranslate"><span class="pre">#</span></code>) are
+ignored. See Sec. <a class="reference external" href="#sec:typusecase">[sec:typusecase]</a> for an example
+synthesis script.</p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">help</span></code> can be used to access the command reference manual.</p>
+<p>Most commands can operate not only on the entire design but also
+specifically on <em>selected</em> parts of the design. For example the command
+<code class="docutils literal notranslate"><span class="pre">dump</span></code> will print all selected objects in the current design while
+<code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">foobar</span></code> will only print the module <code class="docutils literal notranslate"><span class="pre">foobar</span></code> and <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">*</span></code>
+will print the entire design regardless of the current selection.</p>
+<p>The selection mechanism is very powerful. For example the command
+<code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">*/t:$add</span> <span class="pre">%x:+[A]</span> <span class="pre">*/w:*</span> <span class="pre">%i</span></code> will print all wires that are
+connected to the port of a <code class="docutils literal notranslate"><span class="pre">$add</span></code> cell. Detailed documentation of the
+select framework can be found in the command reference for the
+<code class="docutils literal notranslate"><span class="pre">select</span></code> command.</p>
+</div>
+<div class="section" id="source-tree-and-build-system">
+<h2>Source Tree and Build System<a class="headerlink" href="#source-tree-and-build-system" title="Permalink to this headline">¶</a></h2>
+<p>The Yosys source tree is organized into the following top-level
+directories:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">backends/</span></code></div>
+<div class="line">This directory contains a subdirectory for each of the backend
+modules.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">frontends/</span></code></div>
+<div class="line">This directory contains a subdirectory for each of the frontend
+modules.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">kernel/</span></code></div>
+<div class="line">This directory contains all the core functionality of Yosys. This
+includes the functions and definitions for working with the RTLIL
+data structures (<code class="docutils literal notranslate"><span class="pre">rtlil.h</span></code> and <code class="docutils literal notranslate"><span class="pre">rtlil.cc</span></code>), the main() function
+(<code class="docutils literal notranslate"><span class="pre">driver.cc</span></code>), the internal framework for generating log messages
+(<code class="docutils literal notranslate"><span class="pre">log.h</span></code> and <code class="docutils literal notranslate"><span class="pre">log.cc</span></code>), the internal framework for registering
+and calling passes (<code class="docutils literal notranslate"><span class="pre">register.h</span></code> and <code class="docutils literal notranslate"><span class="pre">register.cc</span></code>), some core
+commands that are not really passes (<code class="docutils literal notranslate"><span class="pre">select.cc</span></code>, <code class="docutils literal notranslate"><span class="pre">show.cc</span></code>, …)
+and a couple of other small utility libraries.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">passes/</span></code></div>
+<div class="line">This directory contains a subdirectory for each pass or group of
+passes. For example as of this writing the directory
+<code class="docutils literal notranslate"><span class="pre">passes/opt/</span></code> contains the code for seven passes: <code class="docutils literal notranslate"><span class="pre">opt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">opt_expr</span></code>, <code class="docutils literal notranslate"><span class="pre">opt_muxtree</span></code>, <code class="docutils literal notranslate"><span class="pre">opt_reduce</span></code>, <code class="docutils literal notranslate"><span class="pre">opt_rmdff</span></code>,
+<code class="docutils literal notranslate"><span class="pre">opt_rmunused</span></code> and <code class="docutils literal notranslate"><span class="pre">opt_merge</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">techlibs/</span></code></div>
+<div class="line">This directory contains simulation models and standard
+implementations for the cells from the internal cell library.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">tests/</span></code></div>
+<div class="line">This directory contains a couple of test cases. Most of the smaller
+tests are executed automatically when <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> is called. The
+larger tests must be executed manually. Most of the larger tests
+require downloading external HDL source code and/or external tools.
+The tests range from comparing simulation results of the
+synthesized design to the original sources to logic equivalence
+checking of entire CPU cores.</div>
+</div>
+</li>
+</ul>
+<p>The top-level Makefile includes <code class="docutils literal notranslate"><span class="pre">frontends/*/Makefile.inc</span></code>,
+<code class="docutils literal notranslate"><span class="pre">passes/*/Makefile.inc</span></code> and <code class="docutils literal notranslate"><span class="pre">backends/*/Makefile.inc</span></code>. So when
+extending Yosys it is enough to create a new directory in
+<code class="docutils literal notranslate"><span class="pre">frontends/</span></code>, <code class="docutils literal notranslate"><span class="pre">passes/</span></code> or <code class="docutils literal notranslate"><span class="pre">backends/</span></code> with your sources and a
+<code class="docutils literal notranslate"><span class="pre">Makefile.inc</span></code>. The Yosys kernel automatically detects all commands
+linked with Yosys. So it is not needed to add additional commands to a
+central list of commands.</p>
+<p>Good starting points for reading example source code to learn how to
+write passes are <code class="docutils literal notranslate"><span class="pre">passes/opt/opt_rmdff.cc</span></code> and
+<code class="docutils literal notranslate"><span class="pre">passes/opt/opt_merge.cc</span></code>.</p>
+<p>See the top-level README file for a quick <em>Getting Started</em> guide and
+build instructions. The Yosys build is based solely on Makefiles.</p>
+<p>Users of the Qt Creator IDE can generate a QT Creator project file using
+<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">qtcreator</span></code>. Users of the Eclipse IDE can use the “Makefile
+Project with Existing Code” project type in the Eclipse “New Project”
+dialog (only available after the CDT plugin has been installed) to
+create an Eclipse project in order to programming extensions to Yosys or
+just browse the Yosys code base.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>The syntax <code class="docutils literal notranslate"><span class="pre">1’1</span></code> in the RTLIL code specifies a constant with a
+length of one bit (the first “1”), and this bit is a one (the second
+“1”).</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Implementation Overview</a><ul>
+<li><a class="reference internal" href="#simplified-data-flow">Simplified Data Flow</a></li>
+<li><a class="reference internal" href="#the-rtl-intermediate-language">The RTL Intermediate Language</a><ul>
+<li><a class="reference internal" href="#rtlil-identifiers">RTLIL Identifiers</a></li>
+<li><a class="reference internal" href="#rtlil-design-and-rtlil-module">RTLIL::Design and RTLIL::Module</a></li>
+<li><a class="reference internal" href="#rtlil-cell-and-rtlil-wire">RTLIL::Cell and RTLIL::Wire</a></li>
+<li><a class="reference internal" href="#rtlil-sigspec">RTLIL::SigSpec</a></li>
+<li><a class="reference internal" href="#rtlil-process">RTLIL::Process</a></li>
+<li><a class="reference internal" href="#rtlil-memory">RTLIL::Memory</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#command-interface-and-synthesis-scripts">Command Interface and Synthesis Scripts</a></li>
+<li><a class="reference internal" href="#source-tree-and-build-system">Source Tree and Build System</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Approach.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Approach</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_CellLib.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>Internal Cell Library</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

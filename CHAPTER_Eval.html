@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Evaluation, Conclusion, Future Work &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Auxiliary Libraries" href="CHAPTER_Auxlibs.html" />
+    <link rel="prev" title="Technology Mapping" href="CHAPTER_Techmap.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Evaluation, Conclusion, Future Work</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_Eval.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="evaluation-conclusion-future-work">
+<span id="chapter-eval"></span><h1>Evaluation, Conclusion, Future Work<a class="headerlink" href="#evaluation-conclusion-future-work" title="Permalink to this headline">¶</a></h1>
+<p>The Yosys source tree contains over 200 test cases <a class="footnote-reference brackets" href="#id21" id="id1">1</a> which are used
+in the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> make-target. Besides these there is an external
+Yosys benchmark and test case package that contains a few larger designs
+. This package contains the designs listed in
+Tab. <a class="reference external" href="#tab:yosys-test-designs">1.1</a>.</p>
+<div class="docutils container" id="tab-yosys-test-designs">
+<table class="docutils align-default" id="id25">
+<caption><span class="caption-text">Tests included in the yosys-tests package.</span><a class="headerlink" href="#id25" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 28%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Test-Design</p></th>
+<th class="head"><p>Source</p></th>
+<th class="head"><p>Gates</p></th>
+<th class="head"><p>Description /
+Comments</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aes_core</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p>:
+math:<cite>41{,}837</cite></p></td>
+<td><p>AES Cipher
+written by
+Rudolf
+Usselmann</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">i2c</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p><span class="math">1{,}072</span></p></td>
+<td><p>WISHBONE
+compliant I2C
+Master by
+Richard
+Herveille</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">openmsp430</span></code></p></td>
+<td><p>OpenCores</p></td>
+<td><p><span class="math">7{,}173</span></p></td>
+<td><p>MSP430
+compatible CPU
+by Olivier
+Girard</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">or1200</span></code></p></td>
+<td><p>OpenCores</p></td>
+<td><p>:
+math:<cite>42{,}675</cite></p></td>
+<td><p>The OpenRISC
+1200 CPU by
+Damjan Lampret</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sasc</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p><span class="math">456</span></p></td>
+<td><p>Simple Async.
+Serial Comm.
+Device by
+Rudolf
+Usselmann</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">simple_spi</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p><span class="math">690</span></p></td>
+<td><p>MC68HC11E based
+SPI interface
+by Richard
+Herveille</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">spi</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p><span class="math">2{,}478</span></p></td>
+<td><p>SPI IP core by
+Simon Srot</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ss_pcm</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p><span class="math">279</span></p></td>
+<td><p>PCM IO Slave by
+Rudolf
+Usselmann</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">systemcaes</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p><span class="math">6{,}893</span></p></td>
+<td><p>AES core (using
+SystemC to
+Verilog) by
+Javier Castillo</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">usb_phy</span></code></p></td>
+<td><p>IWLS2005</p></td>
+<td><p><span class="math">515</span></p></td>
+<td><p>USB 1.1 PHY by
+Rudolf
+Usselmann</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="correctness-of-synthesis-results">
+<h2>Correctness of Synthesis Results<a class="headerlink" href="#correctness-of-synthesis-results" title="Permalink to this headline">¶</a></h2>
+<p>The following measures were taken to increase the confidence in the
+correctness of the Yosys synthesis results:</p>
+<ul>
+<li><p>Yosys comes with a large selection <a class="footnote-reference brackets" href="#id22" id="id2">2</a> of small test cases that are
+evaluated when the command <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> is executed. During
+development of Yosys it was shown that this collection of test cases
+is sufficient to catch most bugs. The following more sophisticated
+test procedures only caught a few additional bugs. Whenever this
+happened, an appropriate test case was added to the collection of
+small test cases for <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code> to ensure better testability of
+the feature in question in the future.</p></li>
+<li><p>The designs listed in Tab. <a class="reference external" href="#tab:yosys-test-designs">1.1</a> where
+validated using the formal verification tool Synopsys Formality. The
+Yosys synthesis scripts used to synthesize the individual designs for
+this test are slightly different per design in order to broaden the
+coverage of Yosys features. The large majority of all errors
+encountered using these tests are false-negatives, mostly related to
+FSM encoding or signal naming in large array logic (such as in memory
+blocks). Therefore the <code class="docutils literal notranslate"><span class="pre">fsm_recode</span></code> pass was extended so it can be
+used to generate TCL commands for Synopsys Formality that describe
+the relationship between old and new state encodings. Also the method
+used to generate signal and cell names in the Verilog backend was
+slightly modified in order to improve the automatic matching of net
+names in Synopsys Formality. With these changes in place all designs
+in Tab. <a class="reference external" href="#tab:yosys-test-designs">1.1</a> validate successfully using
+Formality.</p></li>
+<li><p>VlogHammer is a set of scripts that auto-generate a large collection
+of test cases <a class="footnote-reference brackets" href="#id23" id="id3">3</a> and synthesize them using Yosys and the following
+freely available proprietary synthesis tools.</p>
+<ul class="simple">
+<li><p>Xilinx Vivado WebPack (2013.2)</p></li>
+<li><p>Xilinx ISE (XST) WebPack (14.5)</p></li>
+<li><p>Altera Quartus II Web Edition (13.0)</p></li>
+</ul>
+<p>The built-in SAT solver of Yosys is used to formally verify the Yosys
+RTL- and Gate-Level netlists against the netlists generated by this
+other tools. <a class="footnote-reference brackets" href="#id24" id="id4">4</a> When differences are found, the input pattern that
+result in different outputs are used for simulating the original
+Verilog code as well as the synthesis results using the following
+Verilog simulators.</p>
+<ul class="simple">
+<li><p>Xilinx ISIM (from Xilinx ISE 14.5 )</p></li>
+<li><p>Modelsim 10.1d (from Quartus II 13.0 )</p></li>
+<li><p>Icarus Verilog (no specific version)</p></li>
+</ul>
+<p>The set of tests performed by VlogHammer systematically verify the
+correct behaviour of</p>
+<ul class="simple">
+<li><p>Yosys Verilog Frontend and RTL generation</p></li>
+<li><p>Yosys Gate-Level Technology Mapping</p></li>
+<li><p>Yosys SAT Models for RTL- and Gate-Level cells</p></li>
+<li><p>Yosys Constant Evaluator Models for RTL- and Gate-Level cells</p></li>
+</ul>
+<p>against the reference provided by the other tools. A few bugs related
+to sign extensions and bit-width extensions where found (and have
+been fixed meanwhile) using this approach. This test also revealed a
+small number of bugs in the other tools (i.e. Vivado, XST, Quartus,
+ISIM and Icarus Verilog; no bugs where found in Modelsim using
+vlogHammer so far).</p>
+</li>
+</ul>
+<p>Although complex software can never be expected to be fully bug-free
+, it has been shown that Yosys is mature and
+feature-complete enough to handle most real-world cases correctly.</p>
+</div>
+<div class="section" id="quality-of-synthesis-results">
+<h2>Quality of synthesis results<a class="headerlink" href="#quality-of-synthesis-results" title="Permalink to this headline">¶</a></h2>
+<p>In this section an attempt to evaluate the quality of Yosys synthesis
+results is made. To this end the synthesis results of a commercial FPGA
+synthesis tool when presented with the original HDL code vs. when
+presented with the Yosys synthesis result are compared.</p>
+<p>The OpenMSP430 and the OpenRISC 1200 test cases were synthesized using
+the following Yosys synthesis script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hierarchy</span> <span class="o">-</span><span class="n">check</span>
+<span class="n">proc</span><span class="p">;</span> <span class="n">opt</span><span class="p">;</span> <span class="n">fsm</span><span class="p">;</span> <span class="n">opt</span><span class="p">;</span> <span class="n">memory</span><span class="p">;</span> <span class="n">opt</span>
+<span class="n">techmap</span><span class="p">;</span> <span class="n">opt</span><span class="p">;</span> <span class="n">abc</span><span class="p">;</span> <span class="n">opt</span>
+</pre></div>
+</div>
+<p>The original RTL and the Yosys output where both passed to the Xilinx
+XST 14.5 FPGA synthesis tool. The following setting where used for XST:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">p</span> <span class="n">artix7</span>
+<span class="o">-</span><span class="n">use_dsp48</span> <span class="n">NO</span>
+<span class="o">-</span><span class="n">iobuf</span> <span class="n">NO</span>
+<span class="o">-</span><span class="n">ram_extract</span> <span class="n">NO</span>
+<span class="o">-</span><span class="n">rom_extract</span> <span class="n">NO</span>
+<span class="o">-</span><span class="n">fsm_extract</span> <span class="n">YES</span>
+<span class="o">-</span><span class="n">fsm_encoding</span> <span class="n">Auto</span>
+</pre></div>
+</div>
+<p>The results of this comparison is summarized in
+Tab. <a class="reference external" href="#tab:synth-test">1.2</a>. The used FPGA resources (registers and
+LUTs) and performance (maximum frequency as reported by XST) are given
+per module (indentation indicates module hierarchy, the numbers are
+including all contained modules).</p>
+<p>For most modules the results are very similar between XST and Yosys. XST
+is used in both cases for the final mapping of logic to LUTs. So this
+comparison only compares the high-level synthesis functions (such as FSM
+extraction and encoding) of Yosys and XST.</p>
+<div class="docutils container" id="tab-synth-test">
+<p>OpenRISC 1200</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 10%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td><p>Without
+Yosys</p></td>
+<td></td>
+<td></td>
+<td><p>With
+Yosys</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Module</p></td>
+<td><p>Regs</p></td>
+<td><p>LUTs</p></td>
+<td><p>Max.
+Freq.</p></td>
+<td><p>Regs</p></td>
+<td><p>LUTs</p></td>
+<td><p>Max.
+Freq.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">open</span>
+<span class="pre">MSP430</span></code></p></td>
+<td><p>689</p></td>
+<td><p>2210</p></td>
+<td><p>71 MHz</p></td>
+<td><p>719</p></td>
+<td><p>2779</p></td>
+<td><p>53 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>`
+<cite>1em oms
+p_clock_
+module`</cite></p></td>
+<td><p>21</p></td>
+<td><p>30</p></td>
+<td><p>645 MHz</p></td>
+<td><p>21</p></td>
+<td><p>30</p></td>
+<td><p>644 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>``
+1em 1em
+omsp_syn
+c_cell``</p></td>
+<td><p>2</p></td>
+<td><p>—</p></td>
+<td><p>1542 MHz</p></td>
+<td><p>2</p></td>
+<td><p>—</p></td>
+<td><p>1542 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span>
+<span class="pre">em</span> <span class="pre">1em</span> <span class="pre">o</span>
+<span class="pre">msp_sync</span>
+<span class="pre">_reset</span></code></p></td>
+<td><p>2</p></td>
+<td><p>—</p></td>
+<td><p>1542 MHz</p></td>
+<td><p>2</p></td>
+<td><p>—</p></td>
+<td><p>1542 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1em</span> <span class="pre">om</span>
+<span class="pre">sp_dbg</span></code></p></td>
+<td><p>143</p></td>
+<td><p>344</p></td>
+<td><p>292 MHz</p></td>
+<td><p>149</p></td>
+<td><p>430</p></td>
+<td><p>353 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>`
+<a href="#id5"><span class="problematic" id="id6">`</span></a>1em 1em</p>
+<blockquote>
+<div><p>omsp_db</p>
+</div></blockquote>
+<p>g_uart``</p>
+</td>
+<td><p>76</p></td>
+<td><p>135</p></td>
+<td><p>377 MHz</p></td>
+<td><p>79</p></td>
+<td><p>139</p></td>
+<td><p>389 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span>
+<span class="pre">em</span> <span class="pre">omsp_</span>
+<span class="pre">executio</span>
+<span class="pre">n_unit</span></code></p></td>
+<td><p>266</p></td>
+<td><p>911</p></td>
+<td><p>80 MHz</p></td>
+<td><p>266</p></td>
+<td><p>1034</p></td>
+<td><p>137 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1e</span>
+<span class="pre">m</span> <span class="pre">1em</span> <span class="pre">om</span>
+<span class="pre">sp_alu</span></code></p></td>
+<td><p>—</p></td>
+<td><p>202</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>263</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1em</span>
+<span class="pre">1em</span> <span class="pre">omsp</span>
+<span class="pre">_registe</span>
+<span class="pre">r_file</span></code></p></td>
+<td><p>231</p></td>
+<td><p>478</p></td>
+<td><p>285 MHz</p></td>
+<td><p>231</p></td>
+<td><p>506</p></td>
+<td><p>293 MHz</p></td>
+</tr>
+<tr class="row-even"><td><dl class="simple">
+<dt><a href="#id7"><span class="problematic" id="id8">``</span></a>1em</dt><dd><p>omsp_fr</p>
+</dd>
+</dl>
+<p>ontend``</p>
+</td>
+<td><p>115</p></td>
+<td><p>340</p></td>
+<td><p>178 MHz</p></td>
+<td><p>118</p></td>
+<td><p>527</p></td>
+<td><p>206 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>`
+<cite>1em oms
+p_mem_ba
+ckbone`</cite></p></td>
+<td><p>38</p></td>
+<td><p>141</p></td>
+<td><p>1087 MHz</p></td>
+<td><p>38</p></td>
+<td><p>144</p></td>
+<td><p>1087 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1em</span> <span class="pre">o</span>
+<span class="pre">msp_mult</span>
+<span class="pre">iplier</span></code></p></td>
+<td><p>73</p></td>
+<td><p>397</p></td>
+<td><p>129 MHz</p></td>
+<td><p>102</p></td>
+<td><p>1053</p></td>
+<td><p>55 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1em</span> <span class="pre">om</span>
+<span class="pre">sp_sfr</span></code></p></td>
+<td><p>6</p></td>
+<td><p>18</p></td>
+<td><p>1023 MHz</p></td>
+<td><p>6</p></td>
+<td><p>20</p></td>
+<td><p>1023 MHz</p></td>
+</tr>
+<tr class="row-even"><td><dl class="simple">
+<dt><a href="#id9"><span class="problematic" id="id10">``</span></a>1em</dt><dd><p>omsp_wa</p>
+</dd>
+</dl>
+<p>tchdog``</p>
+</td>
+<td><p>24</p></td>
+<td><p>53</p></td>
+<td><p>362 MHz</p></td>
+<td><p>24</p></td>
+<td><p>70</p></td>
+<td><p>360 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">or12</span>
+<span class="pre">00_top</span></code></p></td>
+<td><p>7148</p></td>
+<td><p>9969</p></td>
+<td><p>135 MHz</p></td>
+<td><p>7173</p></td>
+<td><p>10238</p></td>
+<td><p>108 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>``
+1em or12
+00_alu``</p></td>
+<td><p>—</p></td>
+<td><p>681</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>641</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span>
+<span class="pre">em</span> <span class="pre">or120</span>
+<span class="pre">0_cfgr</span></code></p></td>
+<td><p>—</p></td>
+<td><p>11</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>11</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span>
+<span class="pre">em</span> <span class="pre">or120</span>
+<span class="pre">0_ctrl</span></code></p></td>
+<td><p>175</p></td>
+<td><p>186</p></td>
+<td><p>464 MHz</p></td>
+<td><p>174</p></td>
+<td><p>279</p></td>
+<td><p>377 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><dl class="simple">
+<dt><a href="#id11"><span class="problematic" id="id12">``</span></a>1em</dt><dd><p><a href="#id26"><span class="problematic" id="id27">or1200_</span></a></p>
+</dd>
+</dl>
+<p>except``</p>
+</td>
+<td><p>241</p></td>
+<td><p>451</p></td>
+<td><p>313 MHz</p></td>
+<td><p>241</p></td>
+<td><p>353</p></td>
+<td><p>301 MHz</p></td>
+</tr>
+<tr class="row-even"><td><dl class="simple">
+<dt><a href="#id13"><span class="problematic" id="id14">``</span></a>1em</dt><dd><p><a href="#id28"><span class="problematic" id="id29">or1200_</span></a></p>
+</dd>
+</dl>
+<p>freeze``</p>
+</td>
+<td><p>6</p></td>
+<td><p>18</p></td>
+<td><p>507 MHz</p></td>
+<td><p>6</p></td>
+<td><p>16</p></td>
+<td><p>515 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>`
+<cite>1em or1
+200_if`</cite></p></td>
+<td><p>68</p></td>
+<td><p>143</p></td>
+<td><p>806 MHz</p></td>
+<td><p>68</p></td>
+<td><p>139</p></td>
+<td><p>790 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>``
+1em or12
+00_lsu``</p></td>
+<td><p>8</p></td>
+<td><p>138</p></td>
+<td><p>—</p></td>
+<td><p>12</p></td>
+<td><p>205</p></td>
+<td><p>1306 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>``
+1em 1em
+or1200_m
+em2reg``</p></td>
+<td><p>—</p></td>
+<td><p>60</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>66</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>``
+1em 1em
+or1200_r
+eg2mem``</p></td>
+<td><p>—</p></td>
+<td><p>29</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>29</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1em</span> <span class="pre">o</span>
+<span class="pre">r1200_mu</span>
+<span class="pre">lt_mac</span></code></p></td>
+<td><p>394</p></td>
+<td><p>2209</p></td>
+<td><p>240 MHz</p></td>
+<td><p>394</p></td>
+<td><p>2230</p></td>
+<td><p>241 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1em</span> <span class="pre">1e</span>
+<span class="pre">m</span> <span class="pre">or1200</span>
+<span class="pre">_amultp2</span>
+<span class="pre">_32x32</span></code></p></td>
+<td><p>256</p></td>
+<td><p>1783</p></td>
+<td><p>240 MHz</p></td>
+<td><p>256</p></td>
+<td><p>1770</p></td>
+<td><p>241 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span>
+<span class="pre">em</span> <span class="pre">or120</span>
+<span class="pre">0_operan</span>
+<span class="pre">dmuxes</span></code></p></td>
+<td><p>65</p></td>
+<td><p>129</p></td>
+<td><p>1145 MHz</p></td>
+<td><p>65</p></td>
+<td><p>129</p></td>
+<td><p>1145 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>`
+<cite>1em or1
+200_rf`</cite></p></td>
+<td><p>1041</p></td>
+<td><p>1722</p></td>
+<td><p>822 MHz</p></td>
+<td><p>1042</p></td>
+<td><p>1722</p></td>
+<td><p>581 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span>
+<span class="pre">em</span> <span class="pre">or120</span>
+<span class="pre">0_sprs</span></code></p></td>
+<td><p>18</p></td>
+<td><p>432</p></td>
+<td><p>724 MHz</p></td>
+<td><p>18</p></td>
+<td><p>469</p></td>
+<td><p>722 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1e</span>
+<span class="pre">m</span> <span class="pre">or1200</span>
+<span class="pre">_wbmux</span></code></p></td>
+<td><p>33</p></td>
+<td><p>93</p></td>
+<td><p>—</p></td>
+<td><p>33</p></td>
+<td><p>78</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><dl class="simple">
+<dt><a href="#id15"><span class="problematic" id="id16">``</span></a>1em</dt><dd><p><a href="#id30"><span class="problematic" id="id31">or1200_</span></a></p>
+</dd>
+</dl>
+<p>dc_top``</p>
+</td>
+<td><p>—</p></td>
+<td><p>5</p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>5</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1em</span> <span class="pre">o</span>
+<span class="pre">r1200_dm</span>
+<span class="pre">mu_top</span></code></p></td>
+<td><p>2445</p></td>
+<td><p>1004</p></td>
+<td><p>—</p></td>
+<td><p>2445</p></td>
+<td><p>1043</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span>
+<span class="pre">em</span> <span class="pre">1em</span> <span class="pre">o</span>
+<span class="pre">r1200_dm</span>
+<span class="pre">mu_tlb</span></code></p></td>
+<td><p>2444</p></td>
+<td><p>975</p></td>
+<td><p>—</p></td>
+<td><p>2444</p></td>
+<td><p>1013</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>`
+<cite>1em or1
+200_du`</cite></p></td>
+<td><p>67</p></td>
+<td><p>56</p></td>
+<td><p>859 MHz</p></td>
+<td><p>67</p></td>
+<td><p>56</p></td>
+<td><p>859 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><dl class="simple">
+<dt><a href="#id17"><span class="problematic" id="id18">``</span></a>1em</dt><dd><p><a href="#id32"><span class="problematic" id="id33">or1200_</span></a></p>
+</dd>
+</dl>
+<p>ic_top``</p>
+</td>
+<td><p>39</p></td>
+<td><p>100</p></td>
+<td><p>527 MHz</p></td>
+<td><p>41</p></td>
+<td><p>136</p></td>
+<td><p>514 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>`
+<a href="#id19"><span class="problematic" id="id20">`</span></a>1em 1em</p>
+<blockquote>
+<div><p><a href="#id34"><span class="problematic" id="id35">or1200_</span></a></p>
+</div></blockquote>
+<p>ic_fsm``</p>
+</td>
+<td><p>40</p></td>
+<td><p>42</p></td>
+<td><p>408 MHz</p></td>
+<td><p>40</p></td>
+<td><p>75</p></td>
+<td><p>484 MHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>``
+1em or12
+00_pic``</p></td>
+<td><p>38</p></td>
+<td><p>50</p></td>
+<td><p>1169 MHz</p></td>
+<td><p>38</p></td>
+<td><p>50</p></td>
+<td><p>1177 MHz</p></td>
+</tr>
+<tr class="row-even"><td><p>`
+<cite>1em or1
+200_tt`</cite></p></td>
+<td><p>64</p></td>
+<td><p>112</p></td>
+<td><p>370 MHz</p></td>
+<td><p>64</p></td>
+<td><p>186</p></td>
+<td><p>437 MHz</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="conclusion-and-future-work">
+<h2>Conclusion and Future Work<a class="headerlink" href="#conclusion-and-future-work" title="Permalink to this headline">¶</a></h2>
+<p>Yosys is capable of correctly synthesizing real-world Verilog designs.
+The generated netlists are of a decent quality. However, in cases where
+dedicated hardware resources should be used for certain functions it is
+of course necessary to implement proper technology mapping for these
+functions in Yosys. This can be as easy as calling the <code class="docutils literal notranslate"><span class="pre">techmap</span></code> pass
+with an architecture-specific mapping file in the synthesis script. As
+no such thing has been done in the above tests, it is only natural that
+the resulting designs cannot benefit from these dedicated hardware
+resources.</p>
+<p>Therefore future work includes the implementation of
+architecture-specific technology mappings besides additional frontends
+(VHDL), backends (EDIF), and above all else, application specific
+passes. After all, this was the main motivation for the development of
+Yosys in the first place.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Most of this test cases are copied from HANA or the ASIC-WORLD
+website .</p>
+</dd>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>At the time of this writing 269 test cases.</p>
+</dd>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>At the time of this writing over 6600 test cases.</p>
+</dd>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>A SAT solver is a program that can solve the boolean satisfiability
+problem. The built-in SAT solver in Yosys can be used for formal
+equivalence checking, amongst other things. See
+Sec. <a class="reference external" href="#cmd:sat">[cmd:sat]</a> for details.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Evaluation, Conclusion, Future Work</a><ul>
+<li><a class="reference internal" href="#correctness-of-synthesis-results">Correctness of Synthesis Results</a></li>
+<li><a class="reference internal" href="#quality-of-synthesis-results">Quality of synthesis results</a></li>
+<li><a class="reference internal" href="#conclusion-and-future-work">Conclusion and Future Work</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Techmap.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Technology Mapping</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_Auxlibs.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>Auxiliary Libraries</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

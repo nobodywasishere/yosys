@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Introduction to Yosys &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Introduction to Yosys</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/PRESENTATION_Intro.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="introduction-to-yosys">
+<h1>Introduction to Yosys<a class="headerlink" href="#introduction-to-yosys" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="representations-of-digital-circuits">
+<h2>Representations of (digital) Circuits<a class="headerlink" href="#representations-of-digital-circuits" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Graphical</p>
+<ul>
+<li><p>Schematic Diagram</p></li>
+<li><p>Physical Layout</p></li>
+</ul>
+</li>
+<li><p>Non-graphical</p>
+<ul>
+<li><p>Netlists</p></li>
+<li><p>Hardware Description Languages (HDLs)</p></li>
+</ul>
+</li>
+</ul>
+<div class="block docutils container">
+<p>Definition:</p>
+</div>
+</div>
+</div>
+<div class="section" id="levels-of-abstraction-for-digital-circuits">
+<h2>Levels of Abstraction for Digital Circuits<a class="headerlink" href="#levels-of-abstraction-for-digital-circuits" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>System Level</p></li>
+<li><p>High Level</p></li>
+<li><p>Behavioral Level</p></li>
+<li><p>Register-Transfer Level (RTL)</p></li>
+<li><p>Logical Gate Level</p></li>
+<li><p>Physical Gate Level</p></li>
+<li><p>Switch Level</p></li>
+</ul>
+<div class="block docutils container">
+<p>Definition:</p>
+</div>
+</div>
+</div>
+<div class="section" id="digital-circuit-synthesis">
+<h2>Digital Circuit Synthesis<a class="headerlink" href="#digital-circuit-synthesis" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Synthesis Tools (such as Yosys) can transform HDL code to circuits:</p>
+</div>
+</div>
+<div class="section" id="what-yosys-can-and-cant-do">
+<h2>What Yosys can and can’t do<a class="headerlink" href="#what-yosys-can-and-cant-do" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Things Yosys can do:</p>
+<ul class="simple">
+<li><p>Read and process (most of) modern Verilog-2005 code.</p></li>
+<li><p>Perform all kinds of operations on netlist (RTL, Logic, Gate).</p></li>
+<li><p>Perform logic optimizations and gate mapping with ABC <a class="footnote-reference brackets" href="#id8" id="id1">1</a>.</p></li>
+</ul>
+<p>Things Yosys can’t do:</p>
+<ul class="simple">
+<li><p>Process high-level languages such as C/C++/SystemC.</p></li>
+<li><p>Create physical layouts (place&amp;route).</p></li>
+</ul>
+<p>A typical flow combines Yosys with with a low-level implementation
+tool, such as Qflow <a class="footnote-reference brackets" href="#id9" id="id2">2</a> for ASIC designs.</p>
+</div>
+</div>
+<div class="section" id="yosys-data-and-control-flow">
+<h2>Yosys Data- and Control-Flow<a class="headerlink" href="#yosys-data-and-control-flow" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>A (usually short) synthesis script controls Yosys.</p>
+<p>This scripts contain three types of commands:</p>
+<ul class="simple">
+<li><p><strong>Frontends</strong>, that read input files (usually Verilog).</p></li>
+<li><p><strong>Passes</strong>, that perform transformations on the design in memory.</p></li>
+<li><p><strong>Backends</strong>, that write the design in memory to a file (various
+formats are available: Verilog, BLIF, EDIF, SPICE, BTOR, …).</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="program-components-and-data-formats">
+<h2>Program Components and Data Formats<a class="headerlink" href="#program-components-and-data-formats" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+</div>
+</div>
+<div class="section" id="example-project">
+<h2>Example Project<a class="headerlink" href="#example-project" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>The following slides cover an example project. This project contains
+three files:</p>
+<ul class="simple">
+<li><p>A simple ASIC synthesis script</p></li>
+<li><p>A digital design written in Verilog</p></li>
+<li><p>A simple CMOS cell library</p></li>
+</ul>
+<div class="line-block">
+<div class="line">Direct link to the files:</div>
+<div class="line"><a class="reference external" href="https://github.com/cliffordwolf/yosys/tree/master/manual/PRESENTATION_Intro">https://github.com/cliffordwolf/yosys/tree/master/manual/PRESENTATION_Intro</a></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Synthesis Script</p>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">read</span> <span class="pre">design</span></code></p>
+<div class="line-block">
+<div class="line"># the high-level stuff</div>
+<div class="line">; ; ; ; ;</div>
+</div>
+<div class="line-block">
+<div class="line"># mapping to internal cell library</div>
+<div class="line">;</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">mapping</span> <span class="pre">flip-flops</span> <span class="pre">to</span> <span class="pre">mycells.lib</span></code></p>
+<div class="line-block">
+<div class="line"># mapping logic to mycells.lib</div>
+</div>
+<div class="line-block">
+<div class="line"># cleanup</div>
+</div>
+<div class="line-block">
+<div class="line"># write synthesized design</div>
+</div>
+<div class="block docutils container">
+<p>Command: <a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">``</span></a></p>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Verilog Source: <code class="docutils literal notranslate"><span class="pre">counter.v</span></code></p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">counter</span> <span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">rst</span><span class="p">,</span> <span class="n">en</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+
+  <span class="k">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">rst</span><span class="p">,</span> <span class="n">en</span><span class="p">;</span>
+  <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">count</span><span class="p">;</span>
+
+  <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span>
+          <span class="k">if</span> <span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+                  <span class="n">count</span> <span class="o">&lt;=</span> <span class="mh">2</span><span class="mi">&#39;d0</span><span class="p">;</span>
+          <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">en</span><span class="p">)</span>
+                  <span class="n">count</span> <span class="o">&lt;=</span> <span class="n">count</span> <span class="o">+</span> <span class="mh">2</span><span class="mi">&#39;d1</span><span class="p">;</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Cell Library: <code class="docutils literal notranslate"><span class="pre">mycells.lib</span></code></p>
+<div class="columns docutils container">
+<div class="highlight-liberty notranslate"><div class="highlight"><pre><span></span>library(demo) {
+  cell(BUF) {
+    area: 6;
+    pin(A) { direction: input; }
+    pin(Y) { direction: output;
+              function: &quot;A&quot;; }
+  }
+  cell(NOT) {
+    area: 3;
+    pin(A) { direction: input; }
+    pin(Y) { direction: output;
+              function: &quot;A&#39;&quot;; }
+  }
+  cell(NAND) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: &quot;(A*B)&#39;&quot;; }
+  }
+</pre></div>
+</div>
+<div class="highlight-liberty notranslate"><div class="highlight"><pre><span></span>  cell(NOR) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: &quot;(A+B)&#39;&quot;; }
+  }
+  cell(DFF) {
+    area: 18;
+    ff(IQ, IQN) { clocked_on: C;
+                  next_state: D; }
+    pin(C) { direction: input;
+                 clock: true; }
+    pin(D) { direction: input; }
+    pin(Q) { direction: output;
+              function: &quot;IQ&quot;; }
+  }
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="running-the-synthesis-script">
+<h2>Running the Synthesis Script<a class="headerlink" href="#running-the-synthesis-script" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>– Step 1/4</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">read_verilog</span> <span class="n">counter</span><span class="o">.</span><span class="n">v</span>
+<span class="n">hierarchy</span> <span class="o">-</span><span class="n">check</span> <span class="o">-</span><span class="n">top</span> <span class="n">counter</span>
+</pre></div>
+</div>
+<img alt="image" src="PRESENTATION_Intro/counter_00.pdf" />
+</div>
+<div class="frame docutils container">
+<p>– Step 2/4</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proc</span><span class="p">;</span> <span class="n">opt</span><span class="p">;</span> <span class="n">fsm</span><span class="p">;</span> <span class="n">opt</span><span class="p">;</span> <span class="n">memory</span><span class="p">;</span> <span class="n">opt</span>
+</pre></div>
+</div>
+<img alt="image" src="PRESENTATION_Intro/counter_01.pdf" />
+</div>
+<div class="frame docutils container">
+<p>– Step 3/4</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">techmap</span><span class="p">;</span> <span class="n">opt</span>
+</pre></div>
+</div>
+<img alt="image" src="PRESENTATION_Intro/counter_02.pdf" />
+</div>
+<div class="frame docutils container">
+<p>– Step 4/4</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dfflibmap</span> <span class="o">-</span><span class="n">liberty</span> <span class="n">mycells</span><span class="o">.</span><span class="n">lib</span>
+<span class="n">abc</span> <span class="o">-</span><span class="n">liberty</span> <span class="n">mycells</span><span class="o">.</span><span class="n">lib</span>
+<span class="n">clean</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="PRESENTATION_Intro/counter_03.pdf"><img alt="image" src="PRESENTATION_Intro/counter_03.pdf" style="width: 10cm;" /></a>
+</div>
+</div>
+<div class="section" id="the-synth-command">
+<h2>The synth command<a class="headerlink" href="#the-synth-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Yosys contains a default (recommended example) synthesis script in
+form of the <code class="docutils literal notranslate"><span class="pre">synth</span></code> command. The following commands are executed by
+this synthesis command:</p>
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>begin:
+    hierarchy -check [-top &lt;top&gt;]
+
+coarse:
+    proc
+    opt
+    wreduce
+    alumacc
+    share
+    opt
+    fsm
+    opt -fast
+    memory -nomap
+    opt_clean
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>fine:
+    opt -fast -full
+    memory_map
+    opt -full
+    techmap
+    opt -fast
+
+abc:
+    abc -fast
+    opt -fast
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="yosys-commands">
+<h2>Yosys Commands<a class="headerlink" href="#yosys-commands" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>1/3 (excerpt) Command reference:</p>
+<ul class="simple">
+<li><p>Use “<code class="docutils literal notranslate"><span class="pre">help</span></code>” for a command list and “<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">command</span></code>” for
+details.</p></li>
+<li><p>Or run “<code class="docutils literal notranslate"><span class="pre">yosys</span> <span class="pre">-H</span></code>” or “<code class="docutils literal notranslate"><span class="pre">yosys</span> <span class="pre">-h</span> <span class="pre">command</span></code>”.</p></li>
+<li><p>Or go to <a class="reference external" href="http://www.clifford.at/yosys/documentation.html">http://www.clifford.at/yosys/documentation.html</a>.</p></li>
+</ul>
+<p>Commands for design navigation and investigation:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>cd                   # a shortcut for &#39;select -module &lt;name&gt;&#39;
+    ls                   # list modules or objects in modules
+    dump                 # print parts of the design in RTLIL format
+    show                 # generate schematics using graphviz
+    select               # modify and view the list of selected objects
+</pre></div>
+</div>
+<p>Commands for executing scripts or entering interactive mode:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>shell                # enter interactive command mode
+    history              # show last interactive commands
+    script               # execute commands from script file
+    tcl                  # execute a TCL script file
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>2/3 (excerpt) Commands for reading and elaborating the design:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_rtlil           # read modules from RTLIL file
+    read_verilog         # read modules from Verilog file
+    hierarchy            # check, expand and clean up design hierarchy
+</pre></div>
+</div>
+<p>Commands for high-level synthesis:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>proc                 # translate processes to netlists
+    fsm                  # extract and optimize finite state machines
+    memory               # translate memories to basic cells
+    opt                  # perform simple optimizations
+</pre></div>
+</div>
+<p>Commands for technology mapping:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>techmap              # generic technology mapper
+    abc                  # use ABC for technology mapping
+    dfflibmap            # technology mapping of flip-flops
+    hilomap              # technology mapping of constant hi- and/or lo-drivers
+    iopadmap             # technology mapping of i/o pads (or buffers)
+    flatten              # flatten design
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>3/3 (excerpt) Commands for writing the results:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>write_blif           # write design to BLIF file
+    write_btor           # write design to BTOR file
+    write_edif           # write design to EDIF netlist file
+    write_rtlil          # write design to RTLIL file
+    write_spice          # write design to SPICE netlist file
+    write_verilog        # write design to Verilog file
+</pre></div>
+</div>
+<p>Script-Commands for standard synthesis tasks:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>synth                # generic synthesis script
+    synth_xilinx         # synthesis for Xilinx FPGAs
+</pre></div>
+</div>
+<p>Commands for model checking:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>sat                  # solve a SAT problem in the circuit
+    miter                # automatically create a miter circuit
+    scc                  # detect strongly connected components (logic loops)
+</pre></div>
+</div>
+<p>… and many many more.</p>
+</div>
+</div>
+<div class="section" id="more-verilog-examples">
+<h2>More Verilog Examples<a class="headerlink" href="#more-verilog-examples" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>1/3</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">detectprime</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">input</span> <span class="p">[</span><span class="mh">4</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">output</span> <span class="n">y</span><span class="p">;</span>
+
+    <span class="k">integer</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="kt">reg</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">lut</span><span class="p">;</span>
+
+    <span class="k">initial</span> <span class="k">begin</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mh">32</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span> <span class="k">begin</span>
+            <span class="n">lut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mh">1</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mh">2</span><span class="p">;</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">j</span> <span class="o">==</span> <span class="mh">0</span><span class="p">)</span>
+                    <span class="n">lut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">lut</span><span class="p">[</span><span class="n">a</span><span class="p">];</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>2/3</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">carryadd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">parameter</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mh">8</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="k">output</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+
+    <span class="k">genvar</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">generate</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">WIDTH</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span> <span class="k">begin</span><span class="o">:</span><span class="n">STAGE</span>
+            <span class="kt">wire</span> <span class="n">IN1</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">IN2</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="kt">wire</span> <span class="n">C</span><span class="p">,</span> <span class="n">Y</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mh">0</span><span class="p">)</span>
+                <span class="k">assign</span> <span class="n">C</span> <span class="o">=</span> <span class="n">IN1</span> <span class="o">&amp;</span> <span class="n">IN2</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">IN1</span> <span class="o">^</span> <span class="n">IN2</span><span class="p">;</span>
+            <span class="k">else</span>
+                <span class="k">assign</span> <span class="n">C</span> <span class="o">=</span> <span class="p">(</span><span class="n">IN1</span> <span class="o">&amp;</span> <span class="n">IN2</span><span class="p">)</span> <span class="o">|</span> <span class="p">((</span><span class="n">IN1</span> <span class="o">|</span> <span class="n">IN2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">STAGE</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mh">1</span><span class="p">].</span><span class="n">C</span><span class="p">),</span>
+                       <span class="n">Y</span> <span class="o">=</span> <span class="n">IN1</span> <span class="o">^</span> <span class="n">IN2</span> <span class="o">^</span> <span class="n">STAGE</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mh">1</span><span class="p">].</span><span class="n">C</span><span class="p">;</span>
+            <span class="k">assign</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Y</span><span class="p">;</span>
+        <span class="k">end</span>
+    <span class="k">endgenerate</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>3/3</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">cam</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">wr_enable</span><span class="p">,</span> <span class="n">wr_addr</span><span class="p">,</span> <span class="n">wr_data</span><span class="p">,</span> <span class="n">rd_data</span><span class="p">,</span> <span class="n">rd_addr</span><span class="p">,</span> <span class="n">rd_match</span><span class="p">);</span>
+    <span class="k">parameter</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mh">8</span><span class="p">;</span>
+    <span class="k">parameter</span> <span class="n">DEPTH</span> <span class="o">=</span> <span class="mh">16</span><span class="p">;</span>
+    <span class="k">localparam</span> <span class="n">ADDR_BITS</span> <span class="o">=</span> <span class="n">$clog2</span><span class="p">(</span><span class="n">DEPTH</span><span class="o">-</span><span class="mh">1</span><span class="p">);</span>
+
+    <span class="k">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">wr_enable</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="n">ADDR_BITS</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">wr_addr</span><span class="p">;</span>
+    <span class="k">input</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">wr_data</span><span class="p">,</span> <span class="n">rd_data</span><span class="p">;</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="n">ADDR_BITS</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">rd_addr</span><span class="p">;</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="n">rd_match</span><span class="p">;</span>
+
+    <span class="k">integer</span> <span class="n">i</span><span class="p">;</span>
+    <span class="kt">reg</span> <span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">mem</span> <span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="n">DEPTH</span><span class="o">-</span><span class="mh">1</span><span class="p">];</span>
+
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+        <span class="n">rd_addr</span> <span class="o">&lt;=</span> <span class="p">&#39;</span><span class="n">bx</span><span class="p">;</span>
+        <span class="n">rd_match</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">DEPTH</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">rd_data</span><span class="p">)</span> <span class="k">begin</span>
+                <span class="n">rd_addr</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span>
+                <span class="n">rd_match</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+            <span class="k">end</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">wr_enable</span><span class="p">)</span>
+            <span class="n">mem</span><span class="p">[</span><span class="n">wr_addr</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">wr_data</span><span class="p">;</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="currently-unsupported-verilog-2005-language-features">
+<h2>Currently unsupported Verilog-2005 language features<a class="headerlink" href="#currently-unsupported-verilog-2005-language-features" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Tri-state logic</p></li>
+<li><p>The wor/wand wire types (maybe for 0.5)</p></li>
+<li><p>Latched logic (is synthesized as logic with feedback loops)</p></li>
+<li><p>Some non-synthesizable features that should be ignored in
+synthesis are not supported by the parser and cause a parser error
+(file a bug report if you encounter this problem)</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="verification-of-yosys">
+<h2>Verification of Yosys<a class="headerlink" href="#verification-of-yosys" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Continuously checking the correctness of Yosys and making sure that
+new features do not break old ones is a high priority in Yosys.</p>
+<p>Two external test suites have been built for Yosys: VlogHammer and
+yosys-bigsim (see next slides)</p>
+<p>In addition to that, yosys comes with <span class="math">\approx\!200</span> test cases
+used in “<code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code>”.</p>
+<p>A debug build of Yosys also contains a lot of asserts and checks the
+integrity of the internal state after each command.</p>
+</div>
+<div class="frame docutils container">
+<p>– VlogHammer VlogHammer is a Verilog regression test suite developed
+to test the different subsystems in Yosys by comparing them to each
+other and to the output created by some other tools (Xilinx Vivado,
+Xilinx XST, Altera Quartus II, …).</p>
+<p>Yosys Subsystems tested: Verilog frontend, const folding, const eval,
+technology mapping, simulation models, SAT models.</p>
+<p>Thousands of auto-generated test cases containing code such as:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">assign</span> <span class="n">y9</span> <span class="o">=</span> <span class="n">$signed</span><span class="p">(((</span><span class="o">+</span><span class="n">$signed</span><span class="p">((</span><span class="o">^</span><span class="p">(</span><span class="mh">6</span><span class="mi">&#39;d2</span> <span class="o">**</span> <span class="n">a2</span><span class="p">))))</span><span class="o">&lt;</span><span class="n">$unsigned</span><span class="p">(</span><span class="n">$unsigned</span><span class="p">(((</span><span class="o">+</span><span class="n">a3</span><span class="p">))))));</span>
+<span class="k">assign</span> <span class="n">y10</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="o">+</span><span class="p">((</span><span class="o">+</span><span class="p">{</span><span class="mh">2</span><span class="p">{(</span><span class="o">~^</span><span class="n">p13</span><span class="p">)}})))</span><span class="o">^~</span><span class="p">(</span><span class="o">!</span><span class="p">{{</span><span class="n">b5</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">a0</span><span class="p">},(</span><span class="n">a1</span><span class="o">&amp;</span><span class="n">p12</span><span class="p">),(</span><span class="n">a4</span><span class="o">+</span><span class="n">a3</span><span class="p">)})));</span>
+<span class="k">assign</span> <span class="n">y11</span> <span class="o">=</span> <span class="p">(</span><span class="o">~&amp;</span><span class="p">(</span><span class="o">-</span><span class="p">{(</span><span class="o">-</span><span class="mh">3</span><span class="p">&#39;</span><span class="n">sd3</span><span class="p">),(</span><span class="n">$unsigned</span><span class="p">(</span><span class="n">$signed</span><span class="p">(</span><span class="n">$unsigned</span><span class="p">({</span><span class="n">p0</span><span class="p">,</span><span class="n">b4</span><span class="p">,</span><span class="n">b1</span><span class="p">}))))}));</span>
+</pre></div>
+</div>
+<p>Some bugs in Yosys where found and fixed thanks to VlogHammer. Over
+50 bugs in the other tools used as external reference where found and
+reported so far.</p>
+</div>
+<div class="frame docutils container">
+<p>– yosys-bigsim yosys-bigsim is a collection of real-world open-source
+Verilog designs and test benches. yosys-bigsim compares the testbench
+outputs of simulations of the original Verilog code and synthesis
+results.</p>
+<p>The following designs are included in yosys-bigsim (excerpt):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">openmsp430</span></code> – an MSP430 compatible 16 bit CPU</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aes_5cycle_2stage</span></code> – an AES encryption core</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">softusb_navre</span></code> – an AVR compatible 8 bit CPU</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">amber23</span></code> – an ARMv2 compatible 32 bit CPU</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lm32</span></code> – another 32 bit CPU from Lattice Semiconductor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verilog-pong</span></code> – a hardware pong game with VGA output</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">elliptic_curve_group</span></code> – ECG point-add and point-scalar-mul core</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reed_solomon_decoder</span></code> – a Reed-Solomon Error Correction Decoder</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="benefits-of-open-source-hdl-synthesis">
+<h2>Benefits of Open Source HDL Synthesis<a class="headerlink" href="#benefits-of-open-source-hdl-synthesis" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Cost (also applies to “free as in free beer” solutions)</p></li>
+<li><p>Availability and Reproducibility</p></li>
+<li><p>Framework- and all-in-one-aspects</p></li>
+<li><p>Educational Tool</p></li>
+</ul>
+<p>Yosys is open source under the ISC license.</p>
+</div>
+<div class="frame docutils container">
+<p>– 1/3</p>
+<ul>
+<li><p>Cost (also applies to “free as in free beer” solutions):</p>
+<p>Today the cost for a mask set in <span class="math">\unit[180]{nm}</span> technology
+is far less than the cost for the design tools needed to design
+the mask layouts. Open Source ASIC flows are an important enabler
+for ASIC-level Open Source Hardware.</p>
+</li>
+<li><p>Availability and Reproducibility:</p>
+<p>If you are a researcher who is publishing, you want to use tools
+that everyone else can also use. Even if most universities have
+access to all major commercial tools, you usually do not have easy
+access to the version that was used in a research project a couple
+of years ago. With Open Source tools you can even release the
+source code of the tool you have used alongside your data.</p>
+</li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– 2/3</p>
+<ul>
+<li><p>Framework:</p>
+<p>Yosys is not only a tool. It is a framework that can be used as
+basis for other developments, so researchers and hackers alike do
+not need to re-invent the basic functionality. Extensibility was
+one of Yosys’ design goals.</p>
+</li>
+<li><p>All-in-one:</p>
+<p>Because of the framework characteristics of Yosys, an increasing
+number of features become available in one tool. Yosys not only
+can be used for circuit synthesis but also for formal equivalence
+checking, SAT solving, and for circuit analysis, to name just a
+few other application domains. With proprietary software one needs
+to learn a new tool for each of these applications.</p>
+</li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– 3/3</p>
+<ul>
+<li><p>Educational Tool:</p>
+<p>Proprietary synthesis tools are at times very secretive about
+their inner workings. They often are “black boxes”. Yosys is very
+open about its internals and it is easy to observe the different
+steps of synthesis.</p>
+</li>
+</ul>
+<div class="block docutils container">
+<p>Yosys is licensed under the ISC license: Permission to use, copy,
+modify, and/or distribute this software for any purpose with or
+without fee is hereby granted, provided that the above copyright
+notice and this permission notice appear in all copies.</p>
+</div>
+</div>
+</div>
+<div class="section" id="typical-applications-for-yosys">
+<h2>Typical Applications for Yosys<a class="headerlink" href="#typical-applications-for-yosys" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Synthesis of final production designs</p></li>
+<li><p>Pre-production synthesis (trial runs before investing in other
+tools)</p></li>
+<li><p>Conversion of full-featured Verilog to simple Verilog</p></li>
+<li><p>Conversion of Verilog to other formats (BLIF, BTOR, etc)</p></li>
+<li><p>Demonstrating synthesis algorithms (e.g. for educational purposes)</p></li>
+<li><p>Framework for experimenting with new algorithms</p></li>
+<li><p>Framework for building custom flows <a class="footnote-reference brackets" href="#id10" id="id7">3</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="projects-that-i-know-of-using-yosys">
+<h2>Projects (that I know of) using Yosys<a class="headerlink" href="#projects-that-i-know-of-using-yosys" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>– (1/2)</p>
+<ul>
+<li><div class="line-block">
+<div class="line">Ongoing PhD project on coarse grain synthesis</div>
+<div class="line">Johann Glaser and Clifford Wolf. Methodology and Example-Driven
+Interconnect Synthesis for Designing Heterogeneous Coarse-Grain
+Reconfigurable Architectures. In Jan Haase, editor, <em>Models,
+Methods, and Tools for Complex Chip Design. Lecture Notes in
+Electrical Engineering. Volume 265, 2014, pp 201-221. Springer,
+2013.</em></div>
+</div>
+</li>
+<li><p>I know several people that use Yosys simply as Verilog frontend
+for other flows (using either the BLIF and BTOR backends).</p></li>
+<li><p>I know some analog chip designers that use Yosys for small digital
+control logic because it is simpler than setting up a commercial
+flow.</p></li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>– (2/2)</p>
+<ul>
+<li><p>Efabless</p>
+<ul>
+<li><p>Not much information on the website (<a class="reference external" href="http://efabless.com">http://efabless.com</a>) yet.</p></li>
+<li><p>Very cheap 180nm prototyping process (partnering with various
+fabs)</p></li>
+<li><p>A semiconductor company, NOT an EDA company</p></li>
+<li><p>Web-based design environment</p></li>
+<li><p>HDL Synthesis using Yosys</p></li>
+<li><p>Custom place&amp;route tool</p></li>
+<li><div class="line-block">
+<div class="line">efabless is building an Open Source IC as reference design.</div>
+<div class="line">(to be announced soon: <a class="reference external" href="http://www.openic.io">http://www.openic.io</a>)</div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="supported-platforms">
+<h2>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Main development OS: Kubuntu 14.04</p></li>
+<li><p>There is a PPA for ubuntu (not maintained by me)</p></li>
+<li><p>Any current Debian-based system should work out of the box</p></li>
+<li><p>When building on other Linux distributions:</p>
+<ul>
+<li><p>Needs compiler with some C++11 support</p></li>
+<li><p>See README file for build instructions</p></li>
+<li><p>Post to the subreddit if you get stuck</p></li>
+</ul>
+</li>
+<li><p>Ported to OS X (Darwin) and OpenBSD</p></li>
+<li><p>Native win32 build with VisualStudio</p></li>
+<li><p>Cross win32 build with MXE</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="other-open-source-tools">
+<h2>Other Open Source Tools<a class="headerlink" href="#other-open-source-tools" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul>
+<li><div class="line-block">
+<div class="line">Icarus Verilog</div>
+<div class="line">Verilog Simulation (and also a good syntax checker)</div>
+<div class="line"><a class="reference external" href="http://iverilog.icarus.com/">http://iverilog.icarus.com/</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Qflow (incl. TimberWolf, qrouter and Magic)</div>
+<div class="line">A complete ASIC synthesis flow, using Yosys and ABC</div>
+<div class="line"><a class="reference external" href="http://opencircuitdesign.com/qflow/">http://opencircuitdesign.com/qflow/</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">ABC</div>
+<div class="line">Logic optimization, technology mapping, and more</div>
+<div class="line"><a class="reference external" href="http://www.eecs.berkeley.edu/~alanmi/abc/">http://www.eecs.berkeley.edu/~alanmi/abc/</a></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="yosys-needs-you">
+<h2>Yosys needs you<a class="headerlink" href="#yosys-needs-you" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>…as an active user:</p>
+<ul class="simple">
+<li><p>Use Yosys for on your own projects</p></li>
+<li></li>
+<li><p>Join the discussion on the Subreddit</p></li>
+<li><p>Report bugs and send in feature requests</p></li>
+</ul>
+<p>…as a developer:</p>
+<ul class="simple">
+<li><p>Use Yosys as environment for your (research) work</p></li>
+<li></li>
+<li><p>Fork the project on github or create loadable plugins</p></li>
+<li><p>We need a VHDL frontend or a good VHDL-to-Verilog converter</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="documentation-downloads-contacts">
+<h2>Documentation, Downloads, Contacts<a class="headerlink" href="#documentation-downloads-contacts" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul>
+<li><div class="line-block">
+<div class="line">Website:</div>
+<div class="line"><a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Manual, Command Reference, Application Notes:</div>
+<div class="line"><a class="reference external" href="http://www.clifford.at/yosys/documentation.html">http://www.clifford.at/yosys/documentation.html</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Instead of a mailing list we have a SubReddit:</div>
+<div class="line"><a class="reference external" href="http://www.reddit.com/r/yosys/">http://www.reddit.com/r/yosys/</a></div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line">Direct link to the source code:</div>
+<div class="line"><a class="reference external" href="https://github.com/cliffordwolf/yosys">https://github.com/cliffordwolf/yosys</a></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Yosys is a powerful tool and framework for Verilog synthesis.</p></li>
+<li><p>It uses a command-based interface and can be controlled by
+scripts.</p></li>
+<li><p>By combining existing commands and implementing new commands Yosys
+can be used in a wide range of application far beyond simple
+synthesis.</p></li>
+</ul>
+<div class="center docutils container">
+<p>Questions?</p>
+</div>
+<div class="center docutils container">
+<p><a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></p>
+</div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="http://www.eecs.berkeley.edu/~alanmi/abc/">http://www.eecs.berkeley.edu/~alanmi/abc/</a></p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p><a class="reference external" href="http://opencircuitdesign.com/qflow/">http://opencircuitdesign.com/qflow/</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id7">3</a></span></dt>
+<dd><p>Not limited to synthesis but also formal verification, reverse
+engineering, …</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Introduction to Yosys</a><ul>
+<li><a class="reference internal" href="#representations-of-digital-circuits">Representations of (digital) Circuits</a></li>
+<li><a class="reference internal" href="#levels-of-abstraction-for-digital-circuits">Levels of Abstraction for Digital Circuits</a></li>
+<li><a class="reference internal" href="#digital-circuit-synthesis">Digital Circuit Synthesis</a></li>
+<li><a class="reference internal" href="#what-yosys-can-and-cant-do">What Yosys can and can’t do</a></li>
+<li><a class="reference internal" href="#yosys-data-and-control-flow">Yosys Data- and Control-Flow</a></li>
+<li><a class="reference internal" href="#program-components-and-data-formats">Program Components and Data Formats</a></li>
+<li><a class="reference internal" href="#example-project">Example Project</a></li>
+<li><a class="reference internal" href="#running-the-synthesis-script">Running the Synthesis Script</a></li>
+<li><a class="reference internal" href="#the-synth-command">The synth command</a></li>
+<li><a class="reference internal" href="#yosys-commands">Yosys Commands</a></li>
+<li><a class="reference internal" href="#more-verilog-examples">More Verilog Examples</a></li>
+<li><a class="reference internal" href="#currently-unsupported-verilog-2005-language-features">Currently unsupported Verilog-2005 language features</a></li>
+<li><a class="reference internal" href="#verification-of-yosys">Verification of Yosys</a></li>
+<li><a class="reference internal" href="#benefits-of-open-source-hdl-synthesis">Benefits of Open Source HDL Synthesis</a></li>
+<li><a class="reference internal" href="#typical-applications-for-yosys">Typical Applications for Yosys</a></li>
+<li><a class="reference internal" href="#projects-that-i-know-of-using-yosys">Projects (that I know of) using Yosys</a></li>
+<li><a class="reference internal" href="#supported-platforms">Supported Platforms</a></li>
+<li><a class="reference internal" href="#other-open-source-tools">Other Open Source Tools</a></li>
+<li><a class="reference internal" href="#yosys-needs-you">Yosys needs you</a></li>
+<li><a class="reference internal" href="#documentation-downloads-contacts">Documentation, Downloads, Contacts</a></li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

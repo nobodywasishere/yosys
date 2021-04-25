@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Internal Cell Library &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Programming Yosys Extensions" href="CHAPTER_Prog.html" />
+    <link rel="prev" title="Implementation Overview" href="CHAPTER_Overview.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Internal Cell Library</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_CellLib.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="internal-cell-library">
+<span id="chapter-celllib"></span><h1>Internal Cell Library<a class="headerlink" href="#internal-cell-library" title="Permalink to this headline">¶</a></h1>
+<p>Most of the passes in Yosys operate on netlists, i.e. they only care
+about the RTLIL::Wire and RTLIL::Cell objects in an RTLIL::Module. This
+chapter discusses the cell types used by Yosys to represent a
+behavioural design internally.</p>
+<p>This chapter is split in two parts. In the first part the internal RTL
+cells are covered. These cells are used to represent the design on a
+coarse grain level. Like in the original HDL code on this level the
+cells operate on vectors of signals and complex cells like adders exist.
+In the second part the internal gate cells are covered. These cells are
+used to represent the design on a fine-grain gate-level. All cells from
+this category operate on single bit signals.</p>
+<div class="section" id="rtl-cells">
+<h2>RTL Cells<a class="headerlink" href="#rtl-cells" title="Permalink to this headline">¶</a></h2>
+<p>Most of the RTL cells closely resemble the operators available in HDLs
+such as Verilog or VHDL. Therefore Verilog operators are used in the
+following sections to define the behaviour of the RTL cells.</p>
+<p>Note that all RTL cells have parameters indicating the size of inputs
+and outputs. When passes modify RTL cells they must always keep the
+values of these parameters in sync with the size of the signals
+connected to the inputs and outputs.</p>
+<p>Simulation models for the RTL cells can be found in the file
+<code class="docutils literal notranslate"><span class="pre">techlibs/common/simlib.v</span></code> in the Yosys source tree.</p>
+<div class="section" id="unary-operators">
+<h3>Unary Operators<a class="headerlink" href="#unary-operators" title="Permalink to this headline">¶</a></h3>
+<p>All unary RTL cells have one input port and one output port . They also
+have the following parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Set to a non-zero value if the input is signed and therefore should
+be sign-extended when needed.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of the input port .</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of the output port .</div>
+</div>
+</li>
+</ul>
+<p>Table <a class="reference external" href="#tab:CellLib_unary">[tab:CellLib_unary]</a> lists all cells for
+unary RTL operators.</p>
+<div class="tabular docutils container">
+<div class="line-block">
+<div class="line">ll Verilog &amp; Cell Type</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">~A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$not</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">+A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$pos</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">-A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$neg</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">&amp;A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$reduce_and</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">|A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$reduce_or</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">^A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$reduce_xor</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~^A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$reduce_xnor</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">|A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$reduce_bool</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span>&#160; <span class="pre">!A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$logic_not</span></code></div>
+</div>
+</div>
+<p>For the unary cells that output a logical value (<code class="docutils literal notranslate"><span class="pre">$reduce_and</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$reduce_or</span></code>, <code class="docutils literal notranslate"><span class="pre">$reduce_xor</span></code>, <code class="docutils literal notranslate"><span class="pre">$reduce_xnor</span></code>, <code class="docutils literal notranslate"><span class="pre">$reduce_bool</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$logic_not</span></code>), when the parameter is greater than 1, the output is
+zero-extended, and only the least significant bit varies.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">$reduce_or</span></code> and <code class="docutils literal notranslate"><span class="pre">$reduce_bool</span></code> actually represent the
+same logic function. But the HDL frontends generate them in different
+situations. A <code class="docutils literal notranslate"><span class="pre">$reduce_or</span></code> cell is generated when the prefix <code class="docutils literal notranslate"><span class="pre">|</span></code>
+operator is being used. A <code class="docutils literal notranslate"><span class="pre">$reduce_bool</span></code> cell is generated when a bit
+vector is used as a condition in an <code class="docutils literal notranslate"><span class="pre">if</span></code>-statement or
+<code class="docutils literal notranslate"><span class="pre">?:</span></code>-expression.</p>
+</div>
+<div class="section" id="binary-operators">
+<h3>Binary Operators<a class="headerlink" href="#binary-operators" title="Permalink to this headline">¶</a></h3>
+<p>All binary RTL cells have two input ports and and one output port . They
+also have the following parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Set to a non-zero value if the input is signed and therefore should
+be sign-extended when needed.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of the input port .</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Set to a non-zero value if the input is signed and therefore should
+be sign-extended when needed.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of the input port .</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of the output port .</div>
+</div>
+</li>
+</ul>
+<p>Table <a class="reference external" href="#tab:CellLib_binary">1.1</a> lists all cells for binary RTL
+operators.</p>
+<div class="tabular docutils container">
+<div class="line-block">
+<div class="line">ll Verilog &amp; Cell Type</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">&amp;</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$and</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">|</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$or</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">^</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$xor</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">~^</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$xnor</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&lt;&lt;</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$shl</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&gt;&gt;</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$shr</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&lt;&lt;&lt;</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$sshl</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&gt;&gt;&gt;</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$sshr</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&amp;&amp;</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$logic_and</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">||</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$logic_or</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">===</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$eqx</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">!==</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$nex</span></code></div>
+</div>
+</div>
+<div class="docutils container" id="tab-celllib-binary">
+<p>Verilog expressions.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 66%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Verilog</p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&lt;</span>&#160; <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$lt</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&lt;=</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$le</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">==</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$eq</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">!=</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$ne</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&gt;=</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$ge</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&gt;</span>&#160; <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$gt</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">+</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$add</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">-</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$sub</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">*</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$mul</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">/</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$div</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span>&#160; <span class="pre">%</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$mod</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$divfloor</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">[N/A]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$modfoor</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">**</span> <span class="pre">B</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$pow</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">$shl</span></code> and <code class="docutils literal notranslate"><span class="pre">$shr</span></code> cells implement logical shifts, whereas the
+<code class="docutils literal notranslate"><span class="pre">$sshl</span></code> and <code class="docutils literal notranslate"><span class="pre">$sshr</span></code> cells implement arithmetic shifts. The <code class="docutils literal notranslate"><span class="pre">$shl</span></code>
+and <code class="docutils literal notranslate"><span class="pre">$sshl</span></code> cells implement the same operation. All four of these
+cells interpret the second operand as unsigned, and require to be zero.</p>
+<p>Two additional shift operator cells are available that do not directly
+correspond to any operator in Verilog, <code class="docutils literal notranslate"><span class="pre">$shift</span></code> and <code class="docutils literal notranslate"><span class="pre">$shiftx</span></code>. The
+<code class="docutils literal notranslate"><span class="pre">$shift</span></code> cell performs a right logical shift if the second operand is
+positive (or unsigned), and a left logical shift if it is negative. The
+<code class="docutils literal notranslate"><span class="pre">$shiftx</span></code> cell performs the same operation as the <code class="docutils literal notranslate"><span class="pre">$shift</span></code> cell, but
+the vacated bit positions are filled with undef (x) bits, and
+corresponds to the Verilog indexed part-select expression.</p>
+<p>For the binary cells that output a logical value (<code class="docutils literal notranslate"><span class="pre">$logic_and</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$logic_or</span></code>, <code class="docutils literal notranslate"><span class="pre">$eqx</span></code>, <code class="docutils literal notranslate"><span class="pre">$nex</span></code>, <code class="docutils literal notranslate"><span class="pre">$lt</span></code>, <code class="docutils literal notranslate"><span class="pre">$le</span></code>, <code class="docutils literal notranslate"><span class="pre">$eq</span></code>, <code class="docutils literal notranslate"><span class="pre">$ne</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$ge</span></code>, <code class="docutils literal notranslate"><span class="pre">$gt</span></code>), when the parameter is greater than 1, the output is
+zero-extended, and only the least significant bit varies.</p>
+<p>Division and modulo cells are available in two rounding modes. The
+original <code class="docutils literal notranslate"><span class="pre">$div</span></code> and <code class="docutils literal notranslate"><span class="pre">$mod</span></code> cells are based on truncating division,
+and correspond to the semantics of the verilog <code class="docutils literal notranslate"><span class="pre">/</span></code> and <code class="docutils literal notranslate"><span class="pre">%</span></code>
+operators. The <code class="docutils literal notranslate"><span class="pre">$divfloor</span></code> and <code class="docutils literal notranslate"><span class="pre">$modfloor</span></code> cells represent flooring
+division and flooring modulo, the latter of which is also known as
+“remainder” in several languages. See
+table <a class="reference external" href="#tab:CellLib_divmod">1.2</a> for a side-by-side comparison
+between the different semantics.</p>
+<div class="docutils container" id="tab-celllib-divmod">
+<p>and modulo cells.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 13%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Division</p></td>
+<td><p>Result</p></td>
+<td><p>Truncating</p></td>
+<td></td>
+<td><p>Flooring</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$div</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$mod</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$divfloor</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$modfloor</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-10</span> <span class="pre">/</span> <span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-3.3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">/</span> <span class="pre">-3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-3.3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-10</span> <span class="pre">/</span> <span class="pre">-3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3.3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">10</span> <span class="pre">/</span> <span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3.3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="multiplexers">
+<h3>Multiplexers<a class="headerlink" href="#multiplexers" title="Permalink to this headline">¶</a></h3>
+<p>Multiplexers are generated by the Verilog HDL frontend for
+<code class="docutils literal notranslate"><span class="pre">?:</span></code>-expressions. Multiplexers are also generated by the <code class="docutils literal notranslate"><span class="pre">proc</span></code> pass
+to map the decision trees from RTLIL::Process objects to logic.</p>
+<p>The simplest multiplexer cell type is <code class="docutils literal notranslate"><span class="pre">$mux</span></code>. Cells of this type have
+a parameter and data inputs and and a data output , all of the specified
+width. This cell also has a single bit control input . If is 0 the value
+from the input is sent to the output, if it is 1 the value from the
+input is sent to the output. So the <code class="docutils literal notranslate"><span class="pre">$mux</span></code> cell implements the
+function <code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">S</span> <span class="pre">?</span> <span class="pre">B</span> <span class="pre">:</span> <span class="pre">A</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$pmux</span></code> cell is used to multiplex between many inputs using a
+one-hot select signal. Cells of this type have a and a parameter and
+inputs , , and and an output . The input is bits wide. The input and the
+output are both bits wide and the input is * bits wide. When all bits
+of are zero, the value from input is sent to the output. If the
+<span class="math">n</span>’th bit from is set, the value <span class="math">n</span>’th bits wide slice
+of the input is sent to the output. When more than one bit from is set
+the output is undefined. Cells of this type are used to model “parallel
+cases” (defined by using the <code class="docutils literal notranslate"><span class="pre">parallel_case</span></code> attribute or detected by
+an optimization).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$tribuf</span></code> cell is used to implement tristate logic. Cells of this
+type have a parameter and inputs and and an output . The input and
+output are bits wide, and the input is one bit wide. When is 0, the
+output is not driven. When is 1, the value from input is sent to the
+output. Therefore, the <code class="docutils literal notranslate"><span class="pre">$tribuf</span></code> cell implements the function
+<code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">EN</span> <span class="pre">?</span> <span class="pre">A</span> <span class="pre">:</span> <span class="pre">'bz</span></code>.</p>
+<p>Behavioural code with cascaded <code class="docutils literal notranslate"><span class="pre">if-then-else</span></code>- and <code class="docutils literal notranslate"><span class="pre">case</span></code>-statements
+usually results in trees of multiplexer cells. Many passes (from various
+optimizations to FSM extraction) heavily depend on these multiplexer
+trees to understand dependencies between signals. Therefore
+optimizations should not break these multiplexer trees (e.g. by
+replacing a multiplexer between a calculated signal and a constant zero
+with an <code class="docutils literal notranslate"><span class="pre">$and</span></code> gate).</p>
+</div>
+<div class="section" id="registers">
+<h3>Registers<a class="headerlink" href="#registers" title="Permalink to this headline">¶</a></h3>
+<p>SR-type latches are represented by <code class="docutils literal notranslate"><span class="pre">$sr</span></code> cells. These cells have input
+ports and and an output port . They have the following parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of inputs and and output .</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The set input bits are active-high if this parameter has the value
+<code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and active-low if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The reset input bits are active-high if this parameter has the
+value <code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and active-low if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+</ul>
+<p>Both set and reset inputs have separate bits for every output bit. When
+both the set and reset inputs of an <code class="docutils literal notranslate"><span class="pre">$sr</span></code> cell are active for a given
+bit index, the reset input takes precedence.</p>
+<p>D-type flip-flops are represented by <code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells. These cells have a
+clock port , an input port and an output port . The following parameters
+are available for <code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of input and output .</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Clock is active on the positive edge if this parameter has the
+value <code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and on the negative edge if this parameter is
+<code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+</ul>
+<p>D-type flip-flops with asynchronous reset are represented by <code class="docutils literal notranslate"><span class="pre">$adff</span></code>
+cells. As the <code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells they have , and ports. In addition they
+also have a single-bit input port for the reset pin and the following
+additional two parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The asynchronous reset is active-high if this parameter has the
+value <code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and active-low if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The state of will be set to this value when the reset is active.</div>
+</div>
+</li>
+</ul>
+<p>Usually these cells are generated by the <code class="docutils literal notranslate"><span class="pre">proc</span></code> pass using the
+information in the designs RTLIL::Process objects.</p>
+<p>D-type flip-flops with synchronous reset are represented by <code class="docutils literal notranslate"><span class="pre">$sdff</span></code>
+cells. As the <code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells they have , and ports. In addition they
+also have a single-bit input port for the reset pin and the following
+additional two parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The synchronous reset is active-high if this parameter has the
+value <code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and active-low if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The state of will be set to this value when the reset is active.</div>
+</div>
+</li>
+</ul>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">$adff</span></code> and <code class="docutils literal notranslate"><span class="pre">$sdff</span></code> cells can only be used when the
+reset value is constant.</p>
+<p>D-type flip-flops with asynchronous set and reset are represented by
+<code class="docutils literal notranslate"><span class="pre">$dffsr</span></code> cells. As the <code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells they have , and ports. In
+addition they also have multi-bit and input ports and the corresponding
+polarity parameters, like <code class="docutils literal notranslate"><span class="pre">$sr</span></code> cells.</p>
+<p>D-type flip-flops with enable are represented by <code class="docutils literal notranslate"><span class="pre">$dffe</span></code>, <code class="docutils literal notranslate"><span class="pre">$adffe</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$dffsre</span></code>, <code class="docutils literal notranslate"><span class="pre">$sdffe</span></code>, and <code class="docutils literal notranslate"><span class="pre">$sdffce</span></code> cells, which are enhanced
+variants of <code class="docutils literal notranslate"><span class="pre">$dff</span></code>, <code class="docutils literal notranslate"><span class="pre">$adff</span></code>, <code class="docutils literal notranslate"><span class="pre">$dffsr</span></code>, <code class="docutils literal notranslate"><span class="pre">$sdff</span></code> (with reset over
+enable) and <code class="docutils literal notranslate"><span class="pre">$sdff</span></code> (with enable over reset) cells, respectively. They
+have the same ports and parameters as their base cell. In addition they
+also have a single-bit input port for the enable pin and the following
+parameter:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The enable input is active-high if this parameter has the value
+<code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and active-low if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+</ul>
+<p>D-type latches are represented by <code class="docutils literal notranslate"><span class="pre">$dlatch</span></code> cells. These cells have an
+enable port , an input port , and an output port . The following
+parameters are available for <code class="docutils literal notranslate"><span class="pre">$dlatch</span></code> cells:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The width of input and output .</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The enable input is active-high if this parameter has the value
+<code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and active-low if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+</ul>
+<p>The latch is transparent when the input is active.</p>
+<p>D-type latches with reset are represented by <code class="docutils literal notranslate"><span class="pre">$adlatch</span></code> cells. In
+addition to <code class="docutils literal notranslate"><span class="pre">$dlatch</span></code> ports and parameters, they also have a
+single-bit input port for the reset pin and the following additional
+parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The asynchronous reset is active-high if this parameter has the
+value <code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and active-low if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The state of will be set to this value when the reset is active.</div>
+</div>
+</li>
+</ul>
+<p>D-type latches with set and reset are represented by <code class="docutils literal notranslate"><span class="pre">$dlatchsr</span></code>
+cells. In addition to <code class="docutils literal notranslate"><span class="pre">$dlatch</span></code> ports and parameters, they also have
+multi-bit and input ports and the corresponding polarity parameters,
+like <code class="docutils literal notranslate"><span class="pre">$sr</span></code> cells.</p>
+</div>
+<div class="section" id="memories">
+<span id="sec-memcells"></span><h3>Memories<a class="headerlink" href="#memories" title="Permalink to this headline">¶</a></h3>
+<p>Memories are either represented using RTLIL::Memory objects, <code class="docutils literal notranslate"><span class="pre">$memrd</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$memwr</span></code>, and <code class="docutils literal notranslate"><span class="pre">$meminit</span></code> cells, or by <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cells alone.</p>
+<p>In the first alternative the RTLIL::Memory objects hold the general
+metadata for the memory (bit width, size in number of words, etc.) and
+for each port a <code class="docutils literal notranslate"><span class="pre">$memrd</span></code> (read port) or <code class="docutils literal notranslate"><span class="pre">$memwr</span></code> (write port) cell
+is created. Having individual cells for read and write ports has the
+advantage that they can be consolidated using resource sharing passes.
+In some cases this drastically reduces the number of required ports on
+the memory cell. In this alternative, memory initialization data is
+represented by <code class="docutils literal notranslate"><span class="pre">$meminit</span></code> cells, which allow delaying constant folding
+for initialization addresses and data until after the frontend finishes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$memrd</span></code> cells have a clock input , an enable input , an address
+input , and a data output . They also have the following parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The name of the RTLIL::Memory object that is associated with this
+read port.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of address bits (width of the input port).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of data bits (width of the output port).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">When this parameter is non-zero, the clock is used. Otherwise this
+read port is asynchronous and the input is not used.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Clock is active on the positive edge if this parameter has the
+value <code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and on the negative edge if this parameter is
+<code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">If this parameter is set to <code class="docutils literal notranslate"><span class="pre">1’b1</span></code>, a read and write to the same
+address in the same cycle will return the new value. Otherwise the
+old value is returned.</div>
+</div>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">$memwr</span></code> cells have a clock input , an enable input (one enable
+bit for each data bit), an address input and a data input . They also
+have the following parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The name of the RTLIL::Memory object that is associated with this
+write port.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of address bits (width of the input port).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of data bits (width of the output port).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">When this parameter is non-zero, the clock is used. Otherwise this
+write port is asynchronous and the input is not used.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">Clock is active on positive edge if this parameter has the value
+<code class="docutils literal notranslate"><span class="pre">1’b1</span></code> and on the negative edge if this parameter is <code class="docutils literal notranslate"><span class="pre">1’b0</span></code>.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The cell with the higher integer value in this parameter wins a
+write conflict.</div>
+</div>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">$meminit</span></code> cells have an address input and a data input , with the
+width of the port equal to parameter times parameter. Both of the inputs
+must resolve to a constant for synthesis to succeed.</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The name of the RTLIL::Memory object that is associated with this
+initialization cell.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of address bits (width of the input port).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of data bits per memory location.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of consecutive memory locations initialized by this
+cell.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The cell with the higher integer value in this parameter wins an
+initialization conflict.</div>
+</div>
+</li>
+</ul>
+<p>The HDL frontend models a memory using RTLIL::Memory objects and
+asynchronous <code class="docutils literal notranslate"><span class="pre">$memrd</span></code> and <code class="docutils literal notranslate"><span class="pre">$memwr</span></code> cells. The <code class="docutils literal notranslate"><span class="pre">memory</span></code> pass
+(i.e. its various sub-passes) migrates <code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells into the
+<code class="docutils literal notranslate"><span class="pre">$memrd</span></code> and <code class="docutils literal notranslate"><span class="pre">$memwr</span></code> cells making them synchronous, then converts
+them to a single <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cell and (optionally) maps this cell type to
+<code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells for the individual words and multiplexer-based address
+decoders for the read and write interfaces. When the last step is
+disabled or not possible, a <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cell is left in the design.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cell provides the following parameters:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The name of the original RTLIL::Memory object that became this
+<code class="docutils literal notranslate"><span class="pre">$mem</span></code> cell.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of words in the memory.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of address bits.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of data bits per word.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The initial memory contents.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of read ports on this memory cell.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This parameter is bits wide, containing a clock enable bit for each
+read port.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This parameter is bits wide, containing a clock polarity bit for
+each read port.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This parameter is bits wide, containing a transparent bit for each
+read port.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">The number of write ports on this memory cell.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This parameter is bits wide, containing a clock enable bit for each
+write port.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This parameter is bits wide, containing a clock polarity bit for
+each write port.</div>
+</div>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cell has the following ports:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is bits wide, containing all clock signals for the read
+ports.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is bits wide, containing all enable signals for the read
+ports.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is * bits wide, containing all address signals for the
+read ports.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is * bits wide, containing all data signals for the
+read ports.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is bits wide, containing all clock signals for the write
+ports.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is * bits wide, containing all enable signals for the
+write ports.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is * bits wide, containing all address signals for the
+write ports.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><br /></div>
+<div class="line">This input is * bits wide, containing all data signals for the
+write ports.</div>
+</div>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">memory_collect</span></code> pass can be used to convert discrete <code class="docutils literal notranslate"><span class="pre">$memrd</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$memwr</span></code>, and <code class="docutils literal notranslate"><span class="pre">$meminit</span></code> cells belonging to the same memory to a
+single <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cell, whereas the <code class="docutils literal notranslate"><span class="pre">memory_unpack</span></code> pass performs the
+inverse operation. The <code class="docutils literal notranslate"><span class="pre">memory_dff</span></code> pass can combine asynchronous
+memory ports that are fed by or feeding registers into synchronous
+memory ports. The <code class="docutils literal notranslate"><span class="pre">memory_bram</span></code> pass can be used to recognize <code class="docutils literal notranslate"><span class="pre">$mem</span></code>
+cells that can be implemented with a block RAM resource on an FPGA. The
+<code class="docutils literal notranslate"><span class="pre">memory_map</span></code> pass can be used to implement <code class="docutils literal notranslate"><span class="pre">$mem</span></code> cells as basic
+logic: word-wide DFFs and address decoders.</p>
+</div>
+<div class="section" id="finite-state-machines">
+<h3>Finite State Machines<a class="headerlink" href="#finite-state-machines" title="Permalink to this headline">¶</a></h3>
+<div class="fixme docutils container">
+<p>Add a brief description of the <code class="docutils literal notranslate"><span class="pre">$fsm</span></code> cell type.</p>
+</div>
+</div>
+<div class="section" id="specify-rules">
+<h3>Specify rules<a class="headerlink" href="#specify-rules" title="Permalink to this headline">¶</a></h3>
+<div class="fixme docutils container">
+<p>Add information about <code class="docutils literal notranslate"><span class="pre">$specify2</span></code>, <code class="docutils literal notranslate"><span class="pre">$specify3</span></code>, and <code class="docutils literal notranslate"><span class="pre">$specrule</span></code>
+cells.</p>
+</div>
+</div>
+<div class="section" id="formal-verification-cells">
+<h3>Formal verification cells<a class="headerlink" href="#formal-verification-cells" title="Permalink to this headline">¶</a></h3>
+<div class="fixme docutils container">
+<p>Add information about <code class="docutils literal notranslate"><span class="pre">$assert</span></code>, <code class="docutils literal notranslate"><span class="pre">$assume</span></code>, <code class="docutils literal notranslate"><span class="pre">$live</span></code>, <code class="docutils literal notranslate"><span class="pre">$fair</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$cover</span></code>, <code class="docutils literal notranslate"><span class="pre">$equiv</span></code>, <code class="docutils literal notranslate"><span class="pre">$initstate</span></code>, <code class="docutils literal notranslate"><span class="pre">$anyconst</span></code>, <code class="docutils literal notranslate"><span class="pre">$anyseq</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$allconst</span></code>, <code class="docutils literal notranslate"><span class="pre">$allseq</span></code> cells.</p>
+</div>
+<div class="fixme docutils container">
+<p>Add information about <code class="docutils literal notranslate"><span class="pre">$ff</span></code> and <code class="docutils literal notranslate"><span class="pre">$_FF_</span></code> cells.</p>
+</div>
+</div>
+</div>
+<div class="section" id="gates">
+<span id="sec-celllib-gates"></span><h2>Gates<a class="headerlink" href="#gates" title="Permalink to this headline">¶</a></h2>
+<p>For gate level logic networks, fixed function single bit cells are used
+that do not provide any parameters.</p>
+<p>Simulation models for these cells can be found in the file
+<code class="docutils literal notranslate"><span class="pre">techlibs/common/simcells.v</span></code> in the Yosys source tree.</p>
+<div class="tabular docutils container">
+<div class="line-block">
+<div class="line">ll Verilog &amp; Cell Type</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_BUF_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_NOT_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&amp;</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_AND_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~(A</span> <span class="pre">&amp;</span> <span class="pre">B)</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_NAND_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">&amp;</span> <span class="pre">~B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_ANDNOT_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">|</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_OR_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~(A</span> <span class="pre">|</span> <span class="pre">B)</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_NOR_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">|</span> <span class="pre">~B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_ORNOT_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">^</span> <span class="pre">B</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_XOR_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~(A</span> <span class="pre">^</span> <span class="pre">B)</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_XNOR_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~((A</span> <span class="pre">&amp;</span> <span class="pre">B)</span> <span class="pre">|</span> <span class="pre">C)</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_AOI3_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~((A</span> <span class="pre">|</span> <span class="pre">B)</span> <span class="pre">&amp;</span> <span class="pre">C)</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_OAI3_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~((A</span> <span class="pre">&amp;</span> <span class="pre">B)</span> <span class="pre">|</span> <span class="pre">(C</span> <span class="pre">&amp;</span> <span class="pre">D))</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_AOI4_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~((A</span> <span class="pre">|</span> <span class="pre">B)</span> <span class="pre">&amp;</span> <span class="pre">(C</span> <span class="pre">|</span> <span class="pre">D))</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_OAI4_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">S</span> <span class="pre">?</span> <span class="pre">B</span> <span class="pre">:</span> <span class="pre">A</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_MUX_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">~(S</span> <span class="pre">?</span> <span class="pre">B</span> <span class="pre">:</span> <span class="pre">A)</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_NMUX_</span></code></div>
+<div class="line">(see below) &amp; <code class="docutils literal notranslate"><span class="pre">$_MUX4_</span></code></div>
+<div class="line">(see below) &amp; <code class="docutils literal notranslate"><span class="pre">$_MUX8_</span></code></div>
+<div class="line">(see below) &amp; <code class="docutils literal notranslate"><span class="pre">$_MUX16_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Y</span> <span class="pre">=</span> <span class="pre">EN</span> <span class="pre">?</span> <span class="pre">A</span> <span class="pre">:</span> <span class="pre">1'bz</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_TBUF_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">always</span> <span class="pre">&#64;(negedge</span> <span class="pre">C)</span> <span class="pre">Q</span> <span class="pre">&lt;=</span> <span class="pre">D</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_DFF_N_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">always</span> <span class="pre">&#64;(posedge</span> <span class="pre">C)</span> <span class="pre">Q</span> <span class="pre">&lt;=</span> <span class="pre">D</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_DFF_P_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">always</span> <span class="pre">&#64;*</span> <span class="pre">if</span> <span class="pre">(!E)</span> <span class="pre">Q</span> <span class="pre">&lt;=</span> <span class="pre">D</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_DLATCH_N_</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">always</span> <span class="pre">&#64;*</span> <span class="pre">if</span> <span class="pre">(E)</span>&#160; <span class="pre">Q</span> <span class="pre">&lt;=</span> <span class="pre">D</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">$_DLATCH_P_</span></code></div>
+</div>
+</div>
+<div class="docutils container" id="tab-celllib-gates-adff">
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Cell types for gate level logic networks (FFs with reset)</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>:
+math:<cite>ClkEdge</cite></p></th>
+<th class="head"><p><span class="math">RstLvl</span></p></th>
+<th class="head"><p><span class="math">RstVal</span></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>`
+<cite>$_DFF_NN0_`</cite>,
+`
+<cite>$_SDFF_NN0_`</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>`
+<cite>$_DFF_NN1_`</cite>,
+`
+<cite>$_SDFF_NN1_`</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>`
+<cite>$_DFF_NP0_`</cite>,
+`
+<cite>$_SDFF_NP0_`</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>`
+<cite>$_DFF_NP1_`</cite>,
+`
+<cite>$_SDFF_NP1_`</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>`
+<cite>$_DFF_PN0_`</cite>,
+`
+<cite>$_SDFF_PN0_`</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>`
+<cite>$_DFF_PN1_`</cite>,
+`
+<cite>$_SDFF_PN1_`</cite></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>`
+<cite>$_DFF_PP0_`</cite>,
+`
+<cite>$_SDFF_PP0_`</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>`
+<cite>$_DFF_PP1_`</cite>,
+`
+<cite>$_SDFF_PP1_`</cite></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="docutils container" id="tab-celllib-gates-dffe">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Cell types for gate level logic networks (FFs with enable)</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 31%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math">ClkEdge</span></p></th>
+<th class="head"><p><span class="math">EnLvl</span></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFE_NN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFE_NP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFE_PN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFE_PP_</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="docutils container" id="tab-celllib-gates-adffe">
+<p>and enable)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>:mat
+h:<cite>ClkEdge</cite></p></th>
+<th class="head"><p>:ma
+th:<cite>RstLvl</cite></p></th>
+<th class="head"><p>:ma
+th:<cite>RstVal</cite></p></th>
+<th class="head"><p>:m
+ath:<cite>EnLvl</cite></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NN0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NN0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NN0N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NN0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NN0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NN0P_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NN1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NN1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NN1N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NN1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NN1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NN1P_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NP0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NP0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NP0N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NP0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NP0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NP0P_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NP1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NP1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NP1N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_NP1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_NP1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_NP1P_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PN0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PN0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PN0N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PN0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PN0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PN0P_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PN1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PN1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PN1N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PN1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PN1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PN1P_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PP0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PP0N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PP0N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PP0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PP0P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PP0P_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PP1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PP1N_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PP1N_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DF</span>
+<span class="pre">FE_PP1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FE_PP1P_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_SDF</span>
+<span class="pre">FCE_PP1P_</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="docutils container" id="tab-celllib-gates-dffsr">
+<p>reset)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math">ClkEdge</span></p></th>
+<th class="head"><p><span class="math">SetLvl</span></p></th>
+<th class="head"><p><span class="math">RstLvl</span></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_NNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_NNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_NPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_NPP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_PNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_PNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_PPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFFSR_PPP_</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="docutils container" id="tab-celllib-gates-dffsre">
+<p>reset and enable)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>:mat
+h:<cite>ClkEdge</cite></p></th>
+<th class="head"><p>:ma
+th:<cite>SetLvl</cite></p></th>
+<th class="head"><p>:ma
+th:<cite>RstLvl</cite></p></th>
+<th class="head"><p>:m
+ath:<cite>EnLvl</cite></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NNNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NNNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NNPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NNPP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NPNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NPNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NPPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">negedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_NPPP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PNNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PNNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PNPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PNPP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PPNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PPNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PPPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">posedge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DFF</span>
+<span class="pre">SRE_PPPP_</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="docutils container" id="tab-celllib-gates-adlatch">
+<p>reset)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math">EnLvl</span></p></th>
+<th class="head"><p><span class="math">RstLvl</span></p></th>
+<th class="head"><p><span class="math">RstVal</span></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_NN0_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_NN1_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_NP0_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_NP1_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_PN0_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_PN1_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_PP0_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCH_PP1_</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="docutils container" id="tab-celllib-gates-dlatchsr">
+<p>and reset)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math">EnLvl</span></p></th>
+<th class="head"><p><span class="math">SetLvl</span></p></th>
+<th class="head"><p><span class="math">RstLvl</span></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_NNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_NNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_NPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_NPP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_PNN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_PNP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_PPN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_PPP_</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="docutils container" id="tab-celllib-gates-sr">
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Cell types for gate level logic networks (SR latches)</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 35%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><span class="math">SetLvl</span></p></th>
+<th class="head"><p><span class="math">RstLvl</span></p></th>
+<th class="head"><p>Cell Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_SR_NN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_SR_NP_</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_SR_PN_</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">$_SR_PP_</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Tables <a class="reference external" href="#tab:CellLib_gates">[tab:CellLib_gates]</a>,
+<a class="reference external" href="#tab:CellLib_gates_dffe">1.4</a>, <a class="reference external" href="#tab:CellLib_gates_adff">1.3</a>,
+<a class="reference external" href="#tab:CellLib_gates_adffe">1.5</a>, <a class="reference external" href="#tab:CellLib_gates_dffsr">1.6</a>,
+<a class="reference external" href="#tab:CellLib_gates_dffsre">1.7</a>,
+<a class="reference external" href="#tab:CellLib_gates_adlatch">1.8</a>,
+<a class="reference external" href="#tab:CellLib_gates_dlatchsr">1.9</a> and
+<a class="reference external" href="#tab:CellLib_gates_sr">1.10</a> list all cell types used for gate level
+logic. The cell types <code class="docutils literal notranslate"><span class="pre">$_BUF_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_NOT_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_AND_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_NAND_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_ANDNOT_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_OR_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_NOR_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_ORNOT_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_XOR_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_XNOR_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_AOI3_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_OAI3_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_AOI4_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_OAI4_</span></code>,
+<code class="docutils literal notranslate"><span class="pre">$_MUX_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_MUX4_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_MUX8_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_MUX16_</span></code> and <code class="docutils literal notranslate"><span class="pre">$_NMUX_</span></code> are
+used to model combinatorial logic. The cell type <code class="docutils literal notranslate"><span class="pre">$_TBUF_</span></code> is used to
+model tristate logic.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">$_MUX4_</span></code>, <code class="docutils literal notranslate"><span class="pre">$_MUX8_</span></code> and <code class="docutils literal notranslate"><span class="pre">$_MUX16_</span></code> cells are used to model
+wide muxes, and correspond to the following Verilog code:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="c1">// $_MUX4_</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">T</span> <span class="o">?</span> <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">D</span> <span class="o">:</span> <span class="n">C</span><span class="p">)</span> <span class="o">:</span>
+               <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">B</span> <span class="o">:</span> <span class="n">A</span><span class="p">);</span>
+<span class="c1">// $_MUX8_</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">U</span> <span class="o">?</span> <span class="n">T</span> <span class="o">?</span> <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">H</span> <span class="o">:</span> <span class="n">G</span><span class="p">)</span> <span class="o">:</span>
+                   <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">F</span> <span class="o">:</span> <span class="n">E</span><span class="p">)</span> <span class="o">:</span>
+               <span class="n">T</span> <span class="o">?</span> <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">D</span> <span class="o">:</span> <span class="n">C</span><span class="p">)</span> <span class="o">:</span>
+                   <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">B</span> <span class="o">:</span> <span class="n">A</span><span class="p">);</span>
+<span class="c1">// $_MUX16_</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">V</span> <span class="o">?</span> <span class="n">U</span> <span class="o">?</span> <span class="n">T</span> <span class="o">?</span> <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">P</span> <span class="o">:</span> <span class="n">O</span><span class="p">)</span> <span class="o">:</span>
+                       <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">N</span> <span class="o">:</span> <span class="n">M</span><span class="p">)</span> <span class="o">:</span>
+                   <span class="n">T</span> <span class="o">?</span> <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">L</span> <span class="o">:</span> <span class="n">K</span><span class="p">)</span> <span class="o">:</span>
+                       <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">J</span> <span class="o">:</span> <span class="n">I</span><span class="p">)</span> <span class="o">:</span>
+               <span class="n">U</span> <span class="o">?</span> <span class="n">T</span> <span class="o">?</span> <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">H</span> <span class="o">:</span> <span class="n">G</span><span class="p">)</span> <span class="o">:</span>
+                       <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">F</span> <span class="o">:</span> <span class="n">E</span><span class="p">)</span> <span class="o">:</span>
+                   <span class="n">T</span> <span class="o">?</span> <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">D</span> <span class="o">:</span> <span class="n">C</span><span class="p">)</span> <span class="o">:</span>
+                       <span class="p">(</span><span class="n">S</span> <span class="o">?</span> <span class="n">B</span> <span class="o">:</span> <span class="n">A</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DFF_N_</span></code> and <code class="docutils literal notranslate"><span class="pre">$_DFF_P_</span></code> represent d-type
+flip-flops.</p>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DFFE_[NP][NP]_</span></code> implement d-type flip-flops with
+enable. The values in the table for these cell types relate to the
+following Verilog code template.</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C)
+        if (EN == $EnLvl$)
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DFF_[NP][NP][01]_</span></code> implement d-type flip-flops with
+asynchronous reset. The values in the table for these cell types relate
+to the following Verilog code template, where <code class="docutils literal notranslate"><span class="pre">$RstEdge$</span></code> is
+<code class="docutils literal notranslate"><span class="pre">posedge</span></code> if <code class="docutils literal notranslate"><span class="pre">$RstLvl$</span></code> if <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">negedge</span></code> otherwise.</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C, $RstEdge$ R)
+        if (R == $RstLvl$)
+            Q &lt;= $RstVal$;
+        else
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_SDFF_[NP][NP][01]_</span></code> implement d-type flip-flops with
+synchronous reset. The values in the table for these cell types relate
+to the following Verilog code template:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C)
+        if (R == $RstLvl$)
+            Q &lt;= $RstVal$;
+        else
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DFFE_[NP][NP][01][NP]_</span></code> implement d-type flip-flops
+with asynchronous reset and enable. The values in the table for these
+cell types relate to the following Verilog code template, where
+<code class="docutils literal notranslate"><span class="pre">$RstEdge$</span></code> is <code class="docutils literal notranslate"><span class="pre">posedge</span></code> if <code class="docutils literal notranslate"><span class="pre">$RstLvl$</span></code> if <code class="docutils literal notranslate"><span class="pre">1</span></code>, and <code class="docutils literal notranslate"><span class="pre">negedge</span></code>
+otherwise.</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C, $RstEdge$ R)
+        if (R == $RstLvl$)
+            Q &lt;= $RstVal$;
+        else if (EN == $EnLvl$)
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_SDFFE_[NP][NP][01][NP]_</span></code> implement d-type flip-flops
+with synchronous reset and enable, with reset having priority over
+enable. The values in the table for these cell types relate to the
+following Verilog code template:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C)
+        if (R == $RstLvl$)
+            Q &lt;= $RstVal$;
+        else if (EN == $EnLvl$)
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_SDFFCE_[NP][NP][01][NP]_</span></code> implement d-type
+flip-flops with synchronous reset and enable, with enable having
+priority over reset. The values in the table for these cell types relate
+to the following Verilog code template:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C)
+        if (EN == $EnLvl$)
+            if (R == $RstLvl$)
+                Q &lt;= $RstVal$;
+            else
+                Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DFFSR_[NP][NP][NP]_</span></code> implement d-type flip-flops
+with asynchronous set and reset. The values in the table for these cell
+types relate to the following Verilog code template, where <code class="docutils literal notranslate"><span class="pre">$RstEdge$</span></code>
+is <code class="docutils literal notranslate"><span class="pre">posedge</span></code> if <code class="docutils literal notranslate"><span class="pre">$RstLvl$</span></code> if <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">negedge</span></code> otherwise, and
+<code class="docutils literal notranslate"><span class="pre">$SetEdge$</span></code> is <code class="docutils literal notranslate"><span class="pre">posedge</span></code> if <code class="docutils literal notranslate"><span class="pre">$SetLvl$</span></code> if <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">negedge</span></code>
+otherwise.</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C, $RstEdge$ R, $SetEdge$ S)
+        if (R == $RstLvl$)
+            Q &lt;= 0;
+        else if (S == $SetLvl$)
+            Q &lt;= 1;
+        else
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DFFSRE_[NP][NP][NP][NP]_</span></code> implement d-type
+flip-flops with asynchronous set and reset and enable. The values in the
+table for these cell types relate to the following Verilog code
+template, where <code class="docutils literal notranslate"><span class="pre">$RstEdge$</span></code> is <code class="docutils literal notranslate"><span class="pre">posedge</span></code> if <code class="docutils literal notranslate"><span class="pre">$RstLvl$</span></code> if <code class="docutils literal notranslate"><span class="pre">1</span></code>,
+<code class="docutils literal notranslate"><span class="pre">negedge</span></code> otherwise, and <code class="docutils literal notranslate"><span class="pre">$SetEdge$</span></code> is <code class="docutils literal notranslate"><span class="pre">posedge</span></code> if <code class="docutils literal notranslate"><span class="pre">$SetLvl$</span></code>
+if <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">negedge</span></code> otherwise.</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @($ClkEdge$ C, $RstEdge$ R, $SetEdge$ S)
+        if (R == $RstLvl$)
+            Q &lt;= 0;
+        else if (S == $SetLvl$)
+            Q &lt;= 1;
+        else if (E == $EnLvl$)
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DLATCH_N_</span></code> and <code class="docutils literal notranslate"><span class="pre">$_DLATCH_P_</span></code> represent d-type
+latches.</p>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DLATCH_[NP][NP][01]_</span></code> implement d-type latches with
+reset. The values in the table for these cell types relate to the
+following Verilog code template:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @*
+        if (R == $RstLvl$)
+            Q &lt;= $RstVal$;
+        else if (E == $EnLvl$)
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_DLATCHSR_[NP][NP][NP]_</span></code> implement d-type latches
+with set and reset. The values in the table for these cell types relate
+to the following Verilog code template:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @*
+        if (R == $RstLvl$)
+            Q &lt;= 0;
+        else if (S == $SetLvl$)
+            Q &lt;= 1;
+        else if (E == $EnLvl$)
+            Q &lt;= D;
+</pre></div>
+</div>
+<p>The cell types <code class="docutils literal notranslate"><span class="pre">$_SR_[NP][NP]_</span></code> implement sr-type latches. The values
+in the table for these cell types relate to the following Verilog code
+template:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span>always @*
+        if (R == $RstLvl$)
+            Q &lt;= 0;
+        else if (S == $SetLvl$)
+            Q &lt;= 1;
+</pre></div>
+</div>
+<p>In most cases gate level logic networks are created from RTL networks
+using the <code class="docutils literal notranslate"><span class="pre">techmap</span></code> pass. The flip-flop cells from the gate level
+logic network can be mapped to physical flip-flop cells from a Liberty
+file using the <code class="docutils literal notranslate"><span class="pre">dfflibmap</span></code> pass. The combinatorial logic cells can be
+mapped to physical cells from a Liberty file via ABC using the <code class="docutils literal notranslate"><span class="pre">abc</span></code>
+pass.</p>
+<div class="fixme docutils container">
+<p>Add information about <code class="docutils literal notranslate"><span class="pre">$slice</span></code> and <code class="docutils literal notranslate"><span class="pre">$concat</span></code> cells.</p>
+</div>
+<div class="fixme docutils container">
+<p>Add information about <code class="docutils literal notranslate"><span class="pre">$lut</span></code> and <code class="docutils literal notranslate"><span class="pre">$sop</span></code> cells.</p>
+</div>
+<div class="fixme docutils container">
+<p>Add information about <code class="docutils literal notranslate"><span class="pre">$alu</span></code>, <code class="docutils literal notranslate"><span class="pre">$macc</span></code>, <code class="docutils literal notranslate"><span class="pre">$fa</span></code>, and <code class="docutils literal notranslate"><span class="pre">$lcu</span></code>
+cells.</p>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Internal Cell Library</a><ul>
+<li><a class="reference internal" href="#rtl-cells">RTL Cells</a><ul>
+<li><a class="reference internal" href="#unary-operators">Unary Operators</a></li>
+<li><a class="reference internal" href="#binary-operators">Binary Operators</a></li>
+<li><a class="reference internal" href="#multiplexers">Multiplexers</a></li>
+<li><a class="reference internal" href="#registers">Registers</a></li>
+<li><a class="reference internal" href="#memories">Memories</a></li>
+<li><a class="reference internal" href="#finite-state-machines">Finite State Machines</a></li>
+<li><a class="reference internal" href="#specify-rules">Specify rules</a></li>
+<li><a class="reference internal" href="#formal-verification-cells">Formal verification cells</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#gates">Gates</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Overview.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Implementation Overview</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_Prog.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>Programming Yosys Extensions</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

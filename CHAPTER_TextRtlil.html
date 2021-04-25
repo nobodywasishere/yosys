@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>RTLIL Text Representation &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Application Notes" href="CHAPTER_Appnotes.html" />
+    <link rel="prev" title="Auxiliary Programs" href="CHAPTER_Auxprogs.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">RTLIL Text Representation</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_TextRtlil.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="rtlil-text-representation">
+<span id="chapter-textrtlil"></span><h1>RTLIL Text Representation<a class="headerlink" href="#rtlil-text-representation" title="Permalink to this headline">¶</a></h1>
+<p>This appendix documents the text representation of RTLIL in extended
+Backus-Naur form (EBNF).</p>
+<p>The grammar is not meant to represent semantic limitations. That is, the
+grammar is “permissive”, and later stages of processing perform more
+rigorous checks.</p>
+<p>The grammar is also not meant to represent the exact grammar used in the
+RTLIL frontend, since that grammar is specific to processing by lex and
+yacc, is even more permissive, and is somewhat less understandable than
+simple EBNF notation.</p>
+<p>Finally, note that all statements (rules ending in <code class="docutils literal notranslate"><span class="pre">-stmt</span></code>) terminate
+in an end-of-line. Because of this, a statement cannot be broken into
+multiple lines.</p>
+<div class="section" id="lexical-elements">
+<h2>Lexical elements<a class="headerlink" href="#lexical-elements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="characters">
+<h3>Characters<a class="headerlink" href="#characters" title="Permalink to this headline">¶</a></h3>
+<p>An RTLIL file is a stream of bytes. Strictly speaking, a “character” in
+an RTLIL file is a single byte. The lexer treats multi-byte encoded
+characters as consecutive single-byte characters. While other encodings
+<em>may</em> work, UTF-8 is known to be safe to use. Byte order marks at the
+beginning of the file will cause an error.</p>
+<p>ASCII spaces (32) and tabs (9) separate lexer tokens.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">nonws</span></code> character, used in identifiers, is any character whose
+encoding consists solely of bytes above ASCII space (32).</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">eol</span></code> is one or more consecutive ASCII newlines (10) and carriage
+returns (13).</p>
+</div>
+<div class="section" id="identifiers">
+<h3>Identifiers<a class="headerlink" href="#identifiers" title="Permalink to this headline">¶</a></h3>
+<p>There are two types of identifiers in RTLIL:</p>
+<ul class="simple">
+<li><p>Publically visible identifiers</p></li>
+<li><p>Auto-generated identifiers</p></li>
+</ul>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;id&gt; ::= &lt;public-id&gt; | &lt;autogen-id&gt;</p>
+<p>&lt;public-id&gt; ::= “&quot; &lt;nonws&gt;<span class="math">+</span></p>
+<p>&lt;autogen-id&gt; ::= “” &lt;nonws&gt;<span class="math">+</span></p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="values">
+<h3>Values<a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h3>
+<p>A <em>value</em> consists of a width in bits and a bit representation, most
+significant bit first. Bits may be any of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: A logic zero value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code>: A logic one value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: An unknown logic value (or don’t care in case patterns)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">z</span></code>: A high-impedance value (or don’t care in case patterns)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>: A marked bit (internal use only)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-</span></code>: A don’t care value</p></li>
+</ul>
+<p>An <em>integer</em> is simply a signed integer value in decimal format.
+<strong>Warning:</strong> Integer constants are limited to 32 bits. That is, they may
+only be in the range <span class="math">[-2147483648, 2147483648)</span>. Integers outside
+this range will result in an error.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;value&gt; ::= &lt;decimal-digit&gt;<span class="math">+</span> <code class="docutils literal notranslate"><span class="pre">’</span></code>
+&lt;binary-digit&gt;<span class="math">*</span></p>
+<p>&lt;decimal-digit&gt; ::= “0” | “1” | “2” | “3” | “4” | “5” | “6” |
+“7” | “8” | “9”</p>
+<p>&lt;binary-digit&gt; ::= “0” | “1” | “x” | “z” | “m” | “-“</p>
+<p>&lt;integer&gt; ::= “-“<span class="math">?</span> &lt;decimal-digit&gt;<span class="math">+</span></p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="strings">
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<p>A string is a series of characters delimited by double-quote characters.
+Within a string, any character except ASCII NUL (0) may be used. In
+addition, certain escapes can be used:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">\n</span></code>: A newline</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\t</span></code>: A tab</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\ooo</span></code>: A character specified as a one, two, or three digit octal
+value</p></li>
+</ul>
+<p>All other characters may be escaped by a backslash, and become the
+following character. Thus:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">\\</span></code>: A backslash</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\”</span></code>: A double-quote</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">\r</span></code>: An ’r’ character</p></li>
+</ul>
+</div>
+<div class="section" id="comments">
+<h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
+<p>A comment starts with a <code class="docutils literal notranslate"><span class="pre">#</span></code> character and proceeds to the end of the
+line. All comments are ignored.</p>
+</div>
+</div>
+<div class="section" id="file">
+<h2>File<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h2>
+<p>A file consists of an optional autoindex statement followed by zero or
+more modules.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;file&gt; ::= &lt;autoidx-stmt&gt;<span class="math">?</span> &lt;module&gt;*</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="autoindex-statements">
+<h3>Autoindex statements<a class="headerlink" href="#autoindex-statements" title="Permalink to this headline">¶</a></h3>
+<p>The autoindex statement sets the global autoindex value used by Yosys
+when it needs to generate a unique name, e.g. <code class="docutils literal notranslate"><span class="pre">flattenN</span></code>. The N part
+is filled with the value of the global autoindex value, which is
+subsequently incremented. This global has to be dumped into RTLIL,
+otherwise e.g. dumping and running a pass would have different
+properties than just running a pass on a warm design.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;autoidx-stmt&gt; ::= “autoidx” &lt;integer&gt; &lt;eol&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<p>Declares a module, with zero or more attributes, consisting of zero or
+more wires, memories, cells, processes, and connections.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;module&gt; ::= &lt;attr-stmt&gt;<span class="math">*</span> &lt;module-stmt&gt; &lt;module-body&gt;
+&lt;module-end-stmt&gt;</p>
+<p>&lt;module-stmt&gt; ::= “module” &lt;id&gt; &lt;eol&gt;</p>
+<p>&lt;module-body&gt; ::= (&lt;param-stmt&gt; &lt;wire&gt; &lt;memory&gt; &lt;cell&gt; &lt;process&gt;
+)<span class="math">*</span></p>
+<p>&lt;param-stmt&gt; ::= “parameter” &lt;id&gt; &lt;constant&gt;<span class="math">?</span> &lt;eol&gt;</p>
+<p>&lt;constant&gt; ::= &lt;value&gt; | &lt;integer&gt; | &lt;string&gt;</p>
+<p>&lt;module-end-stmt&gt; ::= “end” &lt;eol&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="attribute-statements">
+<h3>Attribute statements<a class="headerlink" href="#attribute-statements" title="Permalink to this headline">¶</a></h3>
+<p>Declares an attribute with the given identifier and value.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;attr-stmt&gt; ::= “attribute” &lt;id&gt; &lt;constant&gt; &lt;eol&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="signal-specifications">
+<h3>Signal specifications<a class="headerlink" href="#signal-specifications" title="Permalink to this headline">¶</a></h3>
+<p>A signal is anything that can be applied to a cell port, i.e. a constant
+value, all bits or a selection of bits from a wire, or concatenations of
+those.</p>
+<p><strong>Warning:</strong> When an integer constant is a sigspec, it is always 32 bits
+wide, 2’s complement. For example, a constant of <span class="math">-1</span> is the same
+as <code class="docutils literal notranslate"><span class="pre">32’11111111111111111111111111111111</span></code>, while a constant of
+<span class="math">1</span> is the same as <code class="docutils literal notranslate"><span class="pre">32’1</span></code>.</p>
+<p>See Sec. <a class="reference external" href="#sec:rtlil_sigspec">[sec:rtlil_sigspec]</a> for an overview of
+signal specifications.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;sigspec&gt; ::= &lt;constant&gt; &lt;sigspec&gt; “[” &lt;integer&gt; (“:”
+&lt;integer&gt;)<span class="math">?</span> “]” “{” &lt;sigspec&gt;<span class="math">*</span> “}”</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="connections">
+<h3>Connections<a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h3>
+<p>Declares a connection between the given signals.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;conn-stmt&gt; ::= “connect” &lt;sigspec&gt; &lt;sigspec&gt; &lt;eol&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="wires">
+<h3>Wires<a class="headerlink" href="#wires" title="Permalink to this headline">¶</a></h3>
+<p>Declares a wire, with zero or more attributes, with the given identifier
+and options in the enclosing module.</p>
+<p>See Sec. <a class="reference external" href="#sec:rtlil_cell_wire">[sec:rtlil_cell_wire]</a> for an
+overview of wires.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;wire&gt; ::= &lt;attr-stmt&gt;<span class="math">*</span> &lt;wire-stmt&gt;</p>
+<p>&lt;wire-stmt&gt; ::= “wire” &lt;wire-option&gt;<span class="math">*</span> &lt;wire-id&gt; &lt;eol&gt;</p>
+<p>&lt;wire-id&gt; ::= &lt;id&gt;</p>
+<p>&lt;wire-option&gt; ::= “width” &lt;integer&gt; “offset” &lt;integer&gt; “input”
+&lt;integer&gt; “output” &lt;integer&gt; “inout” &lt;integer&gt; “upto” “signed”</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="memories">
+<h3>Memories<a class="headerlink" href="#memories" title="Permalink to this headline">¶</a></h3>
+<p>Declares a memory, with zero or more attributes, with the given
+identifier and options in the enclosing module.</p>
+<p>See Sec. <a class="reference external" href="#sec:rtlil_memory">[sec:rtlil_memory]</a> for an overview of
+memory cells, and Sec. <a class="reference external" href="#sec:memcells">[sec:memcells]</a> for details
+about memory cell types.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;memory&gt; ::= &lt;attr-stmt&gt;<span class="math">*</span> &lt;memory-stmt&gt;</p>
+<p>&lt;memory-stmt&gt; ::= “memory” &lt;memory-option&gt;<span class="math">*</span> &lt;id&gt; &lt;eol&gt;</p>
+<p>&lt;memory-option&gt; ::= “width” &lt;integer&gt; “size” &lt;integer&gt; “offset”
+&lt;integer&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="cells">
+<h3>Cells<a class="headerlink" href="#cells" title="Permalink to this headline">¶</a></h3>
+<p>Declares a cell, with zero or more attributes, with the given identifier
+and type in the enclosing module.</p>
+<p>Cells perform functions on input signals. See
+Chap. <a class="reference external" href="#chapter:celllib">[chapter:celllib]</a> for a detailed list of
+cell types.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;cell&gt; ::= &lt;attr-stmt&gt;<span class="math">*</span> &lt;cell-stmt&gt;
+&lt;cell-body-stmt&gt;<span class="math">*</span> &lt;cell-end-stmt&gt;</p>
+<p>&lt;cell-stmt&gt; ::= “cell” &lt;cell-id&gt; &lt;cell-type&gt; &lt;eol&gt;</p>
+<p>&lt;cell-id&gt; ::= &lt;id&gt;</p>
+<p>&lt;cell-type&gt; ::= &lt;id&gt;</p>
+<p>&lt;cell-body-stmt&gt; ::= “parameter” (“signed” | “real”)<span class="math">?</span> &lt;id&gt;
+&lt;constant&gt; &lt;eol&gt; “connect” &lt;id&gt; &lt;sigspec&gt; &lt;eol&gt;</p>
+<p>&lt;cell-end-stmt&gt; ::= “end” &lt;eol&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="processes">
+<h3>Processes<a class="headerlink" href="#processes" title="Permalink to this headline">¶</a></h3>
+<p>Declares a process, with zero or more attributes, with the given
+identifier in the enclosing module. The body of a process consists of
+zero or more assignments, exactly one switch, and zero or more syncs.</p>
+<p>See Sec. <a class="reference external" href="#sec:rtlil_process">[sec:rtlil_process]</a> for an overview of
+processes.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;process&gt; ::= &lt;attr-stmt&gt;<span class="math">*</span> &lt;proc-stmt&gt; &lt;process-body&gt;
+&lt;proc-end-stmt&gt;</p>
+<p>&lt;proc-stmt&gt; ::= “process” &lt;id&gt; &lt;eol&gt;</p>
+<p>&lt;process-body&gt; ::= &lt;assign-stmt&gt;<span class="math">*</span> &lt;switch&gt;<span class="math">?</span>
+&lt;assign-stmt&gt;<span class="math">*</span> &lt;sync&gt;<span class="math">*</span></p>
+<p>&lt;assign-stmt&gt; ::= “assign” &lt;dest-sigspec&gt; &lt;src-sigspec&gt; &lt;eol&gt;</p>
+<p>&lt;dest-sigspec&gt; ::= &lt;sigspec&gt;</p>
+<p>&lt;src-sigspec&gt; ::= &lt;sigspec&gt;</p>
+<p>&lt;proc-end-stmt&gt; ::= “end” &lt;eol&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="switches">
+<h3>Switches<a class="headerlink" href="#switches" title="Permalink to this headline">¶</a></h3>
+<p>Switches test a signal for equality against a list of cases. Each case
+specifies a comma-separated list of signals to check against. If there
+are no signals in the list, then the case is the default case. The body
+of a case consists of zero or more switches and assignments. Both
+switches and cases may have zero or more attributes.</p>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;switch&gt; ::= &lt;switch-stmt&gt; &lt;case&gt;<span class="math">*</span> &lt;switch-end-stmt&gt;</p>
+<p>&lt;switch-stmt&gt; := &lt;attr-stmt&gt;<span class="math">*</span> “switch” &lt;sigspec&gt; &lt;eol&gt;</p>
+<p>&lt;case&gt; ::= &lt;attr-stmt&gt;<span class="math">*</span> &lt;case-stmt&gt; &lt;case-body&gt;</p>
+<p>&lt;case-stmt&gt; ::= “case” &lt;compare&gt;<span class="math">?</span> &lt;eol&gt;</p>
+<p>&lt;compare&gt; ::= &lt;sigspec&gt; (“,” &lt;sigspec&gt;)<span class="math">*</span></p>
+<p>&lt;case-body&gt; ::= (&lt;switch&gt; | &lt;assign-stmt&gt;)<span class="math">*</span></p>
+<p>&lt;switch-end-stmt&gt; ::= “end” &lt;eol&gt;</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="syncs">
+<h3>Syncs<a class="headerlink" href="#syncs" title="Permalink to this headline">¶</a></h3>
+<p>Syncs update signals with other signals when an event happens. Such an
+event may be:</p>
+<ul class="simple">
+<li><p>An edge or level on a signal</p></li>
+<li><p>Global clock ticks</p></li>
+<li><p>Initialization</p></li>
+<li><p>Always</p></li>
+</ul>
+<hr class="docutils" />
+<div class="grammar docutils container">
+<p>&lt;sync&gt; ::= &lt;sync-stmt&gt; &lt;update-stmt&gt;<span class="math">*</span></p>
+<p>&lt;sync-stmt&gt; ::= “sync” &lt;sync-type&gt; &lt;sigspec&gt; &lt;eol&gt; “sync” “global”
+&lt;eol&gt; “sync” “init” &lt;eol&gt; “sync” “always” &lt;eol&gt;</p>
+<p>&lt;sync-type&gt; ::= “low” | “high” | “posedge” | “negedge” | “edge”</p>
+<p>&lt;update-stmt&gt; ::= “update” &lt;dest-sigspec&gt; &lt;src-sigspec&gt; &lt;eol&gt;</p>
+</div>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">RTLIL Text Representation</a><ul>
+<li><a class="reference internal" href="#lexical-elements">Lexical elements</a><ul>
+<li><a class="reference internal" href="#characters">Characters</a></li>
+<li><a class="reference internal" href="#identifiers">Identifiers</a></li>
+<li><a class="reference internal" href="#values">Values</a></li>
+<li><a class="reference internal" href="#strings">Strings</a></li>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#file">File</a><ul>
+<li><a class="reference internal" href="#autoindex-statements">Autoindex statements</a></li>
+<li><a class="reference internal" href="#modules">Modules</a></li>
+<li><a class="reference internal" href="#attribute-statements">Attribute statements</a></li>
+<li><a class="reference internal" href="#signal-specifications">Signal specifications</a></li>
+<li><a class="reference internal" href="#connections">Connections</a></li>
+<li><a class="reference internal" href="#wires">Wires</a></li>
+<li><a class="reference internal" href="#memories">Memories</a></li>
+<li><a class="reference internal" href="#cells">Cells</a></li>
+<li><a class="reference internal" href="#processes">Processes</a></li>
+<li><a class="reference internal" href="#switches">Switches</a></li>
+<li><a class="reference internal" href="#syncs">Syncs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Auxprogs.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Auxiliary Programs</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_Appnotes.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>Application Notes</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

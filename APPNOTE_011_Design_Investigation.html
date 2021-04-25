@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Installation and Prerequisites &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Installation and Prerequisites</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/APPNOTE_011_Design_Investigation.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <hr class="docutils" />
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Clifford Wolf</p>
+</dd>
+</dl>
+<p>Original Version December 2013</p>
+<div class="section" id="installation-and-prerequisites">
+<h1>Installation and Prerequisites<a class="headerlink" href="#installation-and-prerequisites" title="Permalink to this headline">¶</a></h1>
+<p>This Application Note is based on the Yosys 
+GIT Rev. <code class="docutils literal notranslate"><span class="pre">2b90ba1</span></code> from 2013-12-08. The <code class="docutils literal notranslate"><span class="pre">README</span></code> file covers how to
+install Yosys. The <code class="docutils literal notranslate"><span class="pre">show</span></code> command requires a working installation of
+GraphViz  and  for
+generating the actual circuit diagrams.</p>
+</div>
+<div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>This application note is structured as follows:</p>
+<p>Sec. <a class="reference external" href="#intro_show">3</a> introduces the <code class="docutils literal notranslate"><span class="pre">show</span></code> command and explains
+the symbols used in the circuit diagrams generated by it.</p>
+<p>Sec. <a class="reference external" href="#navigate">4</a> introduces additional commands used to navigate
+in the design, select portions of the design, and print additional
+information on the elements in the design that are not contained in the
+circuit diagrams.</p>
+<p>Sec. <a class="reference external" href="#poke">5</a> introduces commands to evaluate the design and solve
+SAT problems within the design.</p>
+<p>Sec. <a class="reference external" href="#conclusion">6</a> concludes the document and summarizes the key
+points.</p>
+</div>
+<div class="section" id="introduction-to-the-show-command">
+<span id="intro-show"></span><h1>Introduction to the <code class="docutils literal notranslate"><span class="pre">show</span></code> command<a class="headerlink" href="#introduction-to-the-show-command" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat example.ys
+read_verilog example.v
+show -pause
+proc
+show -pause
+opt
+show -pause
+
+$ cat example.v
+module example(input clk, a, b, c,
+               output reg [1:0] y);
+    always @(posedge clk)
+        if (c)
+            y &lt;= c ? a + b : 2&#39;d0;
+endmodule
+</pre></div>
+</div>
+<p><a href="#id16"><span class="problematic" id="id17">|Output of the three ``show`` commands from
+Fig. |\ `[example_src] &lt;#example_src&gt;`__
+|image1|</span></a><a class="reference external" href="#example_src">[example_src]</a>
+<a href="#id18"><span class="problematic" id="id19">|image2|</span></a><a class="reference external" href="#example_src">[example_src]</a></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">show</span></code> command generates a circuit diagram for the design in its
+current state. Various options can be used to change the appearance of
+the circuit diagram, set the name and format for the output file, and so
+forth. When called without any special options, it saves the circuit
+diagram in a temporary file and launches <code class="docutils literal notranslate"><span class="pre">xdot</span></code> to display the
+diagram. Subsequent calls to <code class="docutils literal notranslate"><span class="pre">show</span></code> re-use the <code class="docutils literal notranslate"><span class="pre">xdot</span></code> instance (if
+still running).</p>
+<div class="section" id="a-simple-circuit">
+<h2>A simple circuit<a class="headerlink" href="#a-simple-circuit" title="Permalink to this headline">¶</a></h2>
+<p>Fig. <a class="reference external" href="#example_src">[example_src]</a> shows a simple synthesis script
+and a Verilog file that demonstrate the usage of <code class="docutils literal notranslate"><span class="pre">show</span></code> in a simple
+setting. Note that <code class="docutils literal notranslate"><span class="pre">show</span></code> is called with the <code class="docutils literal notranslate"><span class="pre">-pause</span></code> option, that
+halts execution of the Yosys script until the user presses the Enter
+key. The <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">-pause</span></code> command also allows the user to enter an
+interactive shell to further investigate the circuit before continuing
+synthesis.</p>
+<p>So this script, when executed, will show the design after each of the
+three synthesis commands. The generated circuit diagrams are shown in
+Fig. <a class="reference external" href="#example_out">3</a>.</p>
+<p>The first diagram (from top to bottom) shows the design directly after
+being read by the Verilog front-end. Input and output ports are
+displayed as octagonal shapes. Cells are displayed as rectangles with
+inputs on the left and outputs on the right side. The cell labels are
+two lines long: The first line contains a unique identifier for the cell
+and the second line contains the cell type. Internal cell types are
+prefixed with a dollar sign. The Yosys manual contains a chapter on the
+internal cell library used in Yosys.</p>
+<p>Constants are shown as ellipses with the constant value as label. The
+syntax <code class="docutils literal notranslate"><span class="pre">&lt;bit_width&gt;’&lt;bits&gt;</span></code> is used for for constants that are not
+32-bit wide and/or contain bits that are not 0 or 1 (i.e. <code class="docutils literal notranslate"><span class="pre">x</span></code> or
+<code class="docutils literal notranslate"><span class="pre">z</span></code>). Ordinary 32-bit constants are written using decimal numbers.</p>
+<p>Single-bit signals are shown as thin arrows pointing from the driver to
+the load. Signals that are multiple bits wide are shown as think arrows.</p>
+<p>Finally <em>processes</em> are shown in boxes with round corners. Processes are
+Yosys’ internal representation of the decision-trees and synchronization
+events modelled in a Verilog <code class="docutils literal notranslate"><span class="pre">always</span></code>-block. The label reads <code class="docutils literal notranslate"><span class="pre">PROC</span></code>
+followed by a unique identifier in the first line and contains the
+source code location of the original <code class="docutils literal notranslate"><span class="pre">always</span></code>-block in the 2nd line.
+Note how the multiplexer from the <code class="docutils literal notranslate"><span class="pre">?:</span></code>-expression is represented as a
+<code class="docutils literal notranslate"><span class="pre">$mux</span></code> cell but the multiplexer from the <code class="docutils literal notranslate"><span class="pre">if</span></code>-statement is yet still
+hidden within the process.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">proc</span></code> command transforms the process from the first diagram into
+a multiplexer and a d-type flip-flip, which brings us to the 2nd
+diagram.</p>
+<p>The Rhombus shape to the right is a dangling wire. (Wire nodes are only
+shown if they are dangling or have “public” names, for example names
+assigned from the Verilog input.) Also note that the design now contains
+two instances of a <code class="docutils literal notranslate"><span class="pre">BUF</span></code>-node. This are artefacts left behind by the
+<code class="docutils literal notranslate"><span class="pre">proc</span></code>-command. It is quite usual to see such artefacts after calling
+commands that perform changes in the design, as most commands only care
+about doing the transformation in the least complicated way, not about
+cleaning up after them. The next call to <code class="docutils literal notranslate"><span class="pre">clean</span></code> (or <code class="docutils literal notranslate"><span class="pre">opt</span></code>, which
+includes <code class="docutils literal notranslate"><span class="pre">clean</span></code> as one of its operations) will clean up this
+artefacts. This operation is so common in Yosys scripts that it can
+simply be abbreviated with the <code class="docutils literal notranslate"><span class="pre">;;</span></code> token, which doubles as separator
+for commands. Unless one wants to specifically analyze this artefacts
+left behind some operations, it is therefore recommended to always call
+<code class="docutils literal notranslate"><span class="pre">clean</span></code> before calling <code class="docutils literal notranslate"><span class="pre">show</span></code>.</p>
+<p>In this script we directly call <code class="docutils literal notranslate"><span class="pre">opt</span></code> as next step, which finally
+leads us to the 3rd diagram in Fig. <a class="reference external" href="#example_out">3</a>. Here we see
+that the <code class="docutils literal notranslate"><span class="pre">opt</span></code> command not only has removed the artifacts left behind
+by <code class="docutils literal notranslate"><span class="pre">proc</span></code>, but also determined correctly that it can remove the first
+<code class="docutils literal notranslate"><span class="pre">$mux</span></code> cell without changing the behavior of the circuit.</p>
+<div class="figure align-default" id="splice-dia">
+<img alt="Output of ``yosys -p ’proc; opt; show’ splice.v``" src="APPNOTE_011_Design_Investigation/splice.pdf" />
+<p class="caption"><span class="caption-text">Output of <code class="docutils literal notranslate"><span class="pre">yosys</span> <span class="pre">-p</span> <span class="pre">’proc;</span> <span class="pre">opt;</span> <span class="pre">show’</span> <span class="pre">splice.v</span></code></span><a class="headerlink" href="#splice-dia" title="Permalink to this image">¶</a></p>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">splice_demo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="mh">1</span><span class="p">]};</span>
+
+<span class="k">output</span> <span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+<span class="k">assign</span> <span class="p">{</span><span class="n">y</span><span class="p">[</span><span class="mh">11</span><span class="o">:</span><span class="mh">4</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">2</span><span class="p">]}</span> <span class="o">=</span>
+                <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">-</span><span class="p">{</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">},</span> <span class="o">~</span><span class="p">{</span><span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">}};</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p><a href="#id20"><span class="problematic" id="id21">|Effects of ``splitnets`` command and of providing a cell library. (The
+circuit is a half-adder built from simple CMOS gates.)|</span></a> <a href="#id22"><span class="problematic" id="id23">|image3|</span></a></p>
+</div>
+<div class="section" id="break-out-boxes-for-signal-vectors">
+<h2>Break-out boxes for signal vectors<a class="headerlink" href="#break-out-boxes-for-signal-vectors" title="Permalink to this headline">¶</a></h2>
+<p>As has been indicated by the last example, Yosys is can manage signal
+vectors (aka. multi-bit wires or buses) as native objects. This provides
+great advantages when analyzing circuits that operate on wide integers.
+But it also introduces some additional complexity when the individual
+bits of of a signal vector are accessed. The example show in
+Fig. <a class="reference external" href="#splice_dia">4</a> and <a class="reference external" href="#splice_src">[splice_src]</a> demonstrates
+how such circuits are visualized by the <code class="docutils literal notranslate"><span class="pre">show</span></code> command.</p>
+<p>The key elements in understanding this circuit diagram are of course the
+boxes with round corners and rows labeled
+<code class="docutils literal notranslate"><span class="pre">&lt;MSB_LEFT&gt;:&lt;LSB_LEFT&gt;</span> <span class="pre">–</span> <span class="pre">&lt;MSB_RIGHT&gt;:&lt;LSB_RIGHT&gt;</span></code>. Each of this boxes
+has one signal per row on one side and a common signal for all rows on
+the other side. The <code class="docutils literal notranslate"><span class="pre">&lt;MSB&gt;:&lt;LSB&gt;</span></code> tuples specify which bits of the
+signals are broken out and connected. So the top row of the box
+connecting the signals <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">x</span></code> indicates that the bit 0 (i.e.
+the range 0:0) from signal <code class="docutils literal notranslate"><span class="pre">a</span></code> is connected to bit 1 (i.e. the range
+1:1) of signal <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p>Lines connecting such boxes together and lines connecting such boxes to
+cell ports have a slightly different look to emphasise that they are not
+actual signal wires but a necessity of the graphical representation.
+This distinction seems like a technicality, until one wants to debug a
+problem related to the way Yosys internally represents signal vectors,
+for example when writing custom Yosys commands.</p>
+</div>
+<div class="section" id="gate-level-netlists">
+<h2>Gate level netlists<a class="headerlink" href="#gate-level-netlists" title="Permalink to this headline">¶</a></h2>
+<p>Finally Fig. <a class="reference external" href="#splitnets_libfile">6</a> shows two common pitfalls when
+working with designs mapped to a cell library. The top figure has two
+problems: First Yosys did not have access to the cell library when this
+diagram was generated, resulting in all cell ports defaulting to being
+inputs. This is why all ports are drawn on the left side the cells are
+awkwardly arranged in a large column. Secondly the two-bit vector <code class="docutils literal notranslate"><span class="pre">y</span></code>
+requires breakout-boxes for its individual bits, resulting in an
+unnecessary complex diagram.</p>
+<p>For the 2nd diagram Yosys has been given a description of the cell
+library as Verilog file containing blackbox modules. There are two ways
+to load cell descriptions into Yosys: First the Verilog file for the
+cell library can be passed directly to the <code class="docutils literal notranslate"><span class="pre">show</span></code> command using the
+<code class="docutils literal notranslate"><span class="pre">-lib</span> <span class="pre">&lt;filename&gt;</span></code> option. Secondly it is possible to load cell
+libraries into the design with the <code class="docutils literal notranslate"><span class="pre">read_verilog</span> <span class="pre">-lib</span> <span class="pre">&lt;filename&gt;</span></code>
+command. The 2nd method has the great advantage that the library only
+needs to be loaded once and can then be used in all subsequent calls to
+the <code class="docutils literal notranslate"><span class="pre">show</span></code> command.</p>
+<p>In addition to that, the 2nd diagram was generated after
+<code class="docutils literal notranslate"><span class="pre">splitnet</span> <span class="pre">-ports</span></code> was run on the design. This command splits all
+signal vectors into individual signal bits, which is often desirable
+when looking at gate-level circuits. The <code class="docutils literal notranslate"><span class="pre">-ports</span></code> option is required
+to also split module ports. Per default the command only operates on
+interior signals.</p>
+</div>
+<div class="section" id="miscellaneous-notes">
+<h2>Miscellaneous notes<a class="headerlink" href="#miscellaneous-notes" title="Permalink to this headline">¶</a></h2>
+<p>Per default the <code class="docutils literal notranslate"><span class="pre">show</span></code> command outputs a temporary <code class="docutils literal notranslate"><span class="pre">dot</span></code> file and
+launches <code class="docutils literal notranslate"><span class="pre">xdot</span></code> to display it. The options <code class="docutils literal notranslate"><span class="pre">-format</span></code>, <code class="docutils literal notranslate"><span class="pre">-viewer</span></code>
+and <code class="docutils literal notranslate"><span class="pre">-prefix</span></code> can be used to change format, viewer and filename
+prefix. Note that the <code class="docutils literal notranslate"><span class="pre">pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">ps</span></code> format are the only formats
+that support plotting multiple modules in one run.</p>
+<p>In densely connected circuits it is sometimes hard to keep track of the
+individual signal wires. For this cases it can be useful to call
+<code class="docutils literal notranslate"><span class="pre">show</span></code> with the <code class="docutils literal notranslate"><span class="pre">-colors</span> <span class="pre">&lt;integer&gt;</span></code> argument, which randomly assigns
+colors to the nets. The integer (&gt; 0) is used as seed value for the
+random color assignments. Sometimes it is necessary it try some values
+to find an assignment of colors that looks good.</p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">show</span></code> prints a complete listing of all options
+supported by the <code class="docutils literal notranslate"><span class="pre">show</span></code> command.</p>
+</div>
+</div>
+<div class="section" id="navigating-the-design">
+<span id="navigate"></span><h1>Navigating the design<a class="headerlink" href="#navigating-the-design" title="Permalink to this headline">¶</a></h1>
+<p>Plotting circuit diagrams for entire modules in the design brings us
+only helps in simple cases. For complex modules the generated circuit
+diagrams are just stupidly big and are no help at all. In such cases one
+first has to select the relevant portions of the circuit.</p>
+<p>In addition to <em>what</em> to display one also needs to carefully decide
+<em>when</em> to display it, with respect to the synthesis flow. In general it
+is a good idea to troubleshoot a circuit in the earliest state in which
+a problem can be reproduced. So if, for example, the internal state
+before calling the <code class="docutils literal notranslate"><span class="pre">techmap</span></code> command already fails to verify, it is
+better to troubleshoot the coarse-grain version of the circuit before
+<code class="docutils literal notranslate"><span class="pre">techmap</span></code> than the gate-level circuit after <code class="docutils literal notranslate"><span class="pre">techmap</span></code>.</p>
+<p>Note: It is generally recommended to verify the internal state of a
+design by writing it to a Verilog file using <code class="docutils literal notranslate"><span class="pre">write_verilog</span> <span class="pre">-noexpr</span></code>
+and using the simulation models from <code class="docutils literal notranslate"><span class="pre">simlib.v</span></code> and <code class="docutils literal notranslate"><span class="pre">simcells.v</span></code>
+from the Yosys data directory (as printed by <code class="docutils literal notranslate"><span class="pre">yosys-config</span> <span class="pre">--datdir</span></code>).</p>
+<div class="section" id="interactive-navigation">
+<h2>Interactive Navigation<a class="headerlink" href="#interactive-navigation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>yosys&gt; ls
+
+1 modules:
+  example
+
+yosys&gt; cd example
+
+yosys [example]&gt; ls
+
+7 wires:
+  $0\y[1:0]
+  $add$example.v:5$2_Y
+  a
+  b
+  c
+  clk
+  y
+
+3 cells:
+  $add$example.v:5$2
+  $procdff$7
+  $procmux$5
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>attribute \src &quot;example.v:5&quot;
+cell $add $add$example.v:5$2
+  parameter \A_SIGNED 0
+  parameter \A_WIDTH 1
+  parameter \B_SIGNED 0
+  parameter \B_WIDTH 1
+  parameter \Y_WIDTH 2
+  connect \A \a
+  connect \B \b
+  connect \Y $add$example.v:5$2_Y
+end
+</pre></div>
+</div>
+<p>Once the right state within the synthesis flow for debugging the circuit
+has been identified, it is recommended to simply add the <code class="docutils literal notranslate"><span class="pre">shell</span></code>
+command to the matching place in the synthesis script. This command will
+stop the synthesis at the specified moment and go to shell mode, where
+the user can interactively enter commands.</p>
+<p>For most cases, the shell will start with the whole design selected
+(i.e. when the synthesis script does not already narrow the selection).
+The command <code class="docutils literal notranslate"><span class="pre">ls</span></code> can now be used to create a list of all modules. The
+command <code class="docutils literal notranslate"><span class="pre">cd</span></code> can be used to switch to one of the modules (type
+<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code> to switch back). Now the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command lists the objects
+within that module. Fig. <a class="reference external" href="#lscd">[lscd]</a> demonstrates this using the
+design from Fig. <a class="reference external" href="#example_src">[example_src]</a>.</p>
+<p>There is a thing to note in Fig. <a class="reference external" href="#lscd">[lscd]</a>: We can see that the
+cell names from Fig. <a class="reference external" href="#example_out">3</a> are just abbreviations of the
+actual cell names, namely the part after the last dollar-sign. Most
+auto-generated names (the ones starting with a dollar sign) are rather
+long and contains some additional information on the origin of the named
+object. But in most cases those names can simply be abbreviated using
+the last part.</p>
+<p>Usually all interactive work is done with one module selected using the
+<code class="docutils literal notranslate"><span class="pre">cd</span></code> command. But it is also possible to work from the design-context
+(<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code>). In this case all object names must be prefixed with
+<code class="docutils literal notranslate"><span class="pre">&lt;module_name&gt;/</span></code>. For example <code class="docutils literal notranslate"><span class="pre">a*/b*</span></code> would refer to all objects
+whose names start with <code class="docutils literal notranslate"><span class="pre">b</span></code> from all modules whose names start with
+<code class="docutils literal notranslate"><span class="pre">a</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dump</span></code> command can be used to print all information about an
+object. For example <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">$2</span></code> will print Fig. <a class="reference external" href="#dump2">[dump2]</a>.
+This can for example be useful to determine the names of nets connected
+to cells, as the net-names are usually suppressed in the circuit diagram
+if they are auto-generated.</p>
+<p>For the remainder of this document we will assume that the commands are
+run from module-context and not design-context.</p>
+</div>
+<div class="section" id="working-with-selections">
+<h2>Working with selections<a class="headerlink" href="#working-with-selections" title="Permalink to this headline">¶</a></h2>
+<p>When a module is selected using the <code class="docutils literal notranslate"><span class="pre">cd</span></code> command, all commands (with a
+few exceptions, such as the <code class="docutils literal notranslate"><span class="pre">read_</span></code> and <code class="docutils literal notranslate"><span class="pre">write_</span></code> commands) operate
+only on the selected module. This can also be useful for synthesis
+scripts where different synthesis strategies should be applied to
+different modules in the design.</p>
+<p>But for most interactive work we want to further narrow the set of
+selected objects. This can be done using the <code class="docutils literal notranslate"><span class="pre">select</span></code> command.</p>
+<p>For example, if the command <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">$2</span></code> is executed, a subsequent
+<code class="docutils literal notranslate"><span class="pre">show</span></code> command will yield the diagram shown in Fig. <a class="reference external" href="#seladd">7</a>.
+Note that the nets are now displayed in ellipses. This indicates that
+they are not selected, but only shown because the diagram contains a
+cell that is connected to the net. This of course makes no difference
+for the circuit that is shown, but it can be a useful information when
+manipulating selections.</p>
+<p>Objects can not only be selected by their name but also by other
+properties. For example <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">t:$add</span></code> will select all cells of type
+<code class="docutils literal notranslate"><span class="pre">$add</span></code>. In this case this is also yields the diagram shown in
+Fig. <a class="reference external" href="#seladd">7</a>.</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">foobaraddsub</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">ba</span><span class="p">,</span> <span class="n">bs</span><span class="p">);</span>
+  <span class="k">input</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">;</span>
+  <span class="k">output</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">fa</span><span class="p">,</span> <span class="n">fs</span><span class="p">,</span> <span class="n">ba</span><span class="p">,</span> <span class="n">bs</span><span class="p">;</span>
+  <span class="k">assign</span> <span class="n">fa</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">foo</span> <span class="o">*</span><span class="p">)</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">assign</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="p">(</span><span class="o">*</span> <span class="n">foo</span> <span class="o">*</span><span class="p">)</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">assign</span> <span class="n">ba</span> <span class="o">=</span> <span class="n">c</span> <span class="o">+</span> <span class="p">(</span><span class="o">*</span> <span class="n">bar</span> <span class="o">*</span><span class="p">)</span> <span class="n">d</span><span class="p">;</span>
+  <span class="k">assign</span> <span class="n">bs</span> <span class="o">=</span> <span class="n">c</span> <span class="o">-</span> <span class="p">(</span><span class="o">*</span> <span class="n">bar</span> <span class="o">*</span><span class="p">)</span> <span class="n">d</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">select</span></code> contains a complete syntax reference for
+matching different properties.</p>
+<p>Many commands can operate on explicit selections. For example the
+command <code class="docutils literal notranslate"><span class="pre">dump</span> <span class="pre">t:$add</span></code> will print information on all <code class="docutils literal notranslate"><span class="pre">$add</span></code> cells in
+the active module. Whenever a command has <code class="docutils literal notranslate"><span class="pre">[selection]</span></code> as last
+argument in its usage help, this means that it will use the engine
+behind the <code class="docutils literal notranslate"><span class="pre">select</span></code> command to evaluate additional arguments and use
+the resulting selection instead of the selection created by the last
+<code class="docutils literal notranslate"><span class="pre">select</span></code> command.</p>
+<p>Normally the <code class="docutils literal notranslate"><span class="pre">select</span></code> command overwrites a previous selection. The
+commands <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-add</span></code> and <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-del</span></code> can be used to add or
+remove objects from the current selection.</p>
+<p>The command <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-clear</span></code> can be used to reset the selection to the
+default, which is a complete selection of everything in the current
+module.</p>
+</div>
+<div class="section" id="operations-on-selections">
+<h2>Operations on selections<a class="headerlink" href="#operations-on-selections" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">sumprod</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">sum</span><span class="p">,</span> <span class="n">prod</span><span class="p">);</span>
+
+  <span class="k">input</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+  <span class="k">output</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">sum</span><span class="p">,</span> <span class="n">prod</span><span class="p">;</span>
+
+  <span class="p">{</span><span class="o">*</span> <span class="n">sumstuff</span> <span class="o">*</span><span class="p">}</span>
+  <span class="k">assign</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+  <span class="p">{</span><span class="o">*</span> <span class="o">*</span><span class="p">}</span>
+
+  <span class="k">assign</span> <span class="n">prod</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="sumprod-00">
+<img alt="Output of ``show a:sumstuff`` on Fig. `[sumprod] &lt;#sumprod&gt;`__" src="APPNOTE_011_Design_Investigation/sumprod_00.pdf" />
+<p class="caption"><span class="caption-text">Output of <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">a:sumstuff</span></code> on Fig. <a class="reference external" href="#sumprod">[sumprod]</a></span><a class="headerlink" href="#sumprod-00" title="Permalink to this image">¶</a></p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">select</span></code> command is actually much more powerful than it might seem
+on the first glimpse. When it is called with multiple arguments, each
+argument is evaluated and pushed separately on a stack. After all
+arguments have been processed it simply creates the union of all
+elements on the stack. So the following command will select all <code class="docutils literal notranslate"><span class="pre">$add</span></code>
+cells and all objects with the <code class="docutils literal notranslate"><span class="pre">foo</span></code> attribute set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>select t:$add a:foo
+</pre></div>
+</div>
+<p>(Try this with the design shown in
+Fig. <a class="reference external" href="#foobaraddsub">[foobaraddsub]</a>. Use the <code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-list</span></code>
+command to list the current selection.)</p>
+<p>In many cases simply adding more and more stuff to the selection is an
+ineffective way of selecting the interesting part of the design. Special
+arguments can be used to combine the elements on the stack. For example
+the <code class="docutils literal notranslate"><span class="pre">%i</span></code> arguments pops the last two elements from the stack,
+intersects them, and pushes the result back on the stack. So the
+following command will select all $add cells that have the <code class="docutils literal notranslate"><span class="pre">foo</span></code>
+attribute set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>select t:$add a:foo %i
+</pre></div>
+</div>
+<p>The listing in Fig. <a class="reference external" href="#sumprod">[sumprod]</a> uses the Yosys non-standard
+<code class="docutils literal notranslate"><span class="pre">{...</span> <span class="pre">*}</span></code> syntax to set the attribute <code class="docutils literal notranslate"><span class="pre">sumstuff</span></code> on all cells
+generated by the first assign statement. (This works on arbitrary large
+blocks of Verilog code an can be used to mark portions of code for
+analysis.)</p>
+<p>Selecting <code class="docutils literal notranslate"><span class="pre">a:sumstuff</span></code> in this module will yield the circuit diagram
+shown in Fig. <a class="reference external" href="#sumprod_00">8</a>. As only the cells themselves are
+selected, but not the temporary wire <code class="docutils literal notranslate"><span class="pre">$1_Y</span></code>, the two adders are shown
+as two disjunct parts. This can be very useful for global signals like
+clock and reset signals: just unselect them using a command such as
+<code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-del</span> <span class="pre">clk</span> <span class="pre">rst</span></code> and each cell using them will get its own net
+label.</p>
+<p>In this case however we would like to see the cells connected properly.
+This can be achieved using the <code class="docutils literal notranslate"><span class="pre">%x</span></code> action, that broadens the
+selection, i.e. for each selected wire it selects all cells connected to
+the wire and vice versa. So <code class="docutils literal notranslate"><span class="pre">show</span> <span class="pre">a:sumstuff</span> <span class="pre">%x</span></code> yields the diagram
+shown in Fig. <a class="reference external" href="#sumprod_01">9</a>.</p>
+</div>
+<div class="section" id="selecting-logic-cones">
+<h2>Selecting logic cones<a class="headerlink" href="#selecting-logic-cones" title="Permalink to this headline">¶</a></h2>
+<p>Fig. <a class="reference external" href="#sumprod_01">9</a> shows what is called the <em>input cone</em> of
+<code class="docutils literal notranslate"><span class="pre">sum</span></code>, i.e. all cells and signals that are used to generate the signal
+<code class="docutils literal notranslate"><span class="pre">sum</span></code>. The <code class="docutils literal notranslate"><span class="pre">%ci</span></code> action can be used to select the input cones of all
+object in the top selection in the stack maintained by the <code class="docutils literal notranslate"><span class="pre">select</span></code>
+command.</p>
+<p>As the <code class="docutils literal notranslate"><span class="pre">%x</span></code> action, this commands broadens the selection by one
+“step”. But this time the operation only works against the direction of
+data flow. That means, wires only select cells via output ports and
+cells only select wires via input ports.</p>
+<p>Fig. <a class="reference external" href="#select_prod">13</a> show the sequence of diagrams generated by
+the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">prod</span>
+<span class="n">show</span> <span class="n">prod</span> <span class="o">%</span><span class="n">ci</span>
+<span class="n">show</span> <span class="n">prod</span> <span class="o">%</span><span class="n">ci</span> <span class="o">%</span><span class="n">ci</span>
+<span class="n">show</span> <span class="n">prod</span> <span class="o">%</span><span class="n">ci</span> <span class="o">%</span><span class="n">ci</span> <span class="o">%</span><span class="n">ci</span>
+</pre></div>
+</div>
+<p>When selecting many levels of logic, repeating <code class="docutils literal notranslate"><span class="pre">%ci</span></code> over and over
+again can be a bit dull. So there is a shortcut for that: the number of
+iterations can be appended to the action. So for example the action
+<code class="docutils literal notranslate"><span class="pre">%ci3</span></code> is identical to performing the <code class="docutils literal notranslate"><span class="pre">%ci</span></code> action three times.</p>
+<p>The action <code class="docutils literal notranslate"><span class="pre">%ci*</span></code> performs the <code class="docutils literal notranslate"><span class="pre">%ci</span></code> action over and over again
+until it has no effect anymore.</p>
+<div class="line-block">
+<div class="line"><a href="#id24"><span class="problematic" id="id25">|Objects selected by ``select prod %ci...``|</span></a></div>
+<div class="line"><a href="#id26"><span class="problematic" id="id27">|image4|</span></a></div>
+<div class="line"><a href="#id28"><span class="problematic" id="id29">|image5|</span></a></div>
+<div class="line"><a href="#id30"><span class="problematic" id="id31">|image6|</span></a></div>
+</div>
+<p>In most cases there are certain cell types and/or ports that should not
+be considered for the <code class="docutils literal notranslate"><span class="pre">%ci</span></code> action, or we only want to follow certain
+cell types and/or ports. This can be achieved using additional patterns
+that can be appended to the <code class="docutils literal notranslate"><span class="pre">%ci</span></code> action.</p>
+<p>Lets consider the design from Fig. <a class="reference external" href="#memdemo_src">[memdemo_src]</a>. It
+serves no purpose other than being a non-trivial circuit for
+demonstrating some of the advanced Yosys features. We synthesize the
+circuit using <code class="docutils literal notranslate"><span class="pre">proc;</span> <span class="pre">opt;</span> <span class="pre">memory;</span> <span class="pre">opt</span></code> and change to the <code class="docutils literal notranslate"><span class="pre">memdemo</span></code>
+module with <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">memdemo</span></code>. If we type <code class="docutils literal notranslate"><span class="pre">show</span></code> now we see the diagram
+shown in Fig. <a class="reference external" href="#memdemo_00">[memdemo_00]</a>.</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">memdemo</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="n">clk</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">d</span><span class="p">;</span>
+<span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">;</span>
+
+<span class="k">integer</span> <span class="n">i</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">;</span>
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">mem</span> <span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">3</span><span class="p">];</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mh">4</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span>
+        <span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mem</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mh">1</span><span class="p">)</span> <span class="o">%</span> <span class="mh">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">mem</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mh">2</span><span class="p">)</span> <span class="o">%</span> <span class="mh">4</span><span class="p">];</span>
+    <span class="p">{</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s1</span> <span class="p">}</span> <span class="o">=</span> <span class="n">d</span> <span class="o">?</span> <span class="p">{</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="p">}</span> <span class="o">^</span> <span class="n">d</span> <span class="o">:</span> <span class="mh">4</span><span class="mb">&#39;b0</span><span class="p">;</span>
+    <span class="n">mem</span><span class="p">[</span><span class="n">s1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="p">;</span>
+    <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">mem</span><span class="p">[</span><span class="n">s2</span><span class="p">];</span>
+<span class="k">end</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="figure docutils container">
+<div class="line-block">
+<div class="line"><img alt="image" src="APPNOTE_011_Design_Investigation/memdemo_00.pdf" /></div>
+</div>
+</div>
+<p>But maybe we are only interested in the tree of multiplexers that select
+the output value. In order to get there, we would start by just showing
+the output signal and its immediate predecessors:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">y</span> <span class="o">%</span><span class="n">ci2</span>
+</pre></div>
+</div>
+<p>From this we would learn that <code class="docutils literal notranslate"><span class="pre">y</span></code> is driven by a <code class="docutils literal notranslate"><span class="pre">$dff</span> <span class="pre">cell</span></code>, that
+<code class="docutils literal notranslate"><span class="pre">y</span></code> is connected to the output port <code class="docutils literal notranslate"><span class="pre">Q</span></code>, that the <code class="docutils literal notranslate"><span class="pre">clk</span></code> signal
+goes into the <code class="docutils literal notranslate"><span class="pre">CLK</span></code> input port of the cell, and that the data comes
+from a auto-generated wire into the input <code class="docutils literal notranslate"><span class="pre">D</span></code> of the flip-flop cell.</p>
+<p>As we are not interested in the clock signal we add an additional
+pattern to the <code class="docutils literal notranslate"><span class="pre">%ci</span></code> action, that tells it to only follow ports <code class="docutils literal notranslate"><span class="pre">Q</span></code>
+and <code class="docutils literal notranslate"><span class="pre">D</span></code> of <code class="docutils literal notranslate"><span class="pre">$dff</span></code> cells:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>show y %ci2:+$dff[Q,D]
+</pre></div>
+</div>
+<p>To add a pattern we add a colon followed by the pattern to the <code class="docutils literal notranslate"><span class="pre">%ci</span></code>
+action. The pattern it self starts with <code class="docutils literal notranslate"><span class="pre">-</span></code> or <code class="docutils literal notranslate"><span class="pre">+</span></code>, indicating if it
+is an include or exclude pattern, followed by an optional comma
+separated list of cell types, followed by an optional comma separated
+list of port names in square brackets.</p>
+<p>Since we know that the only cell considered in this case is a <code class="docutils literal notranslate"><span class="pre">$dff</span></code>
+cell, we could as well only specify the port names:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">y</span> <span class="o">%</span><span class="n">ci2</span><span class="p">:</span><span class="o">+</span><span class="p">[</span><span class="n">Q</span><span class="p">,</span><span class="n">D</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Or we could decide to tell the <code class="docutils literal notranslate"><span class="pre">%ci</span></code> action to not follow the <code class="docutils literal notranslate"><span class="pre">CLK</span></code>
+input:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">y</span> <span class="o">%</span><span class="n">ci2</span><span class="p">:</span><span class="o">-</span><span class="p">[</span><span class="n">CLK</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><a href="#id32"><span class="problematic" id="id33">|Output of ``show y %ci2:+$dff[Q,D] %ci*:-$mux[S]:-$dff``|</span></a></div>
+</div>
+<p>Next we would investigate the next logic level by adding another
+<code class="docutils literal notranslate"><span class="pre">%ci2</span></code> to the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">show</span> <span class="n">y</span> <span class="o">%</span><span class="n">ci2</span><span class="p">:</span><span class="o">-</span><span class="p">[</span><span class="n">CLK</span><span class="p">]</span> <span class="o">%</span><span class="n">ci2</span>
+</pre></div>
+</div>
+<p>From this we would learn that the next cell is a <code class="docutils literal notranslate"><span class="pre">$mux</span></code> cell and we
+would add additional pattern to narrow the selection on the path we are
+interested. In the end we would end up with a command such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>show y %ci2:+$dff[Q,D] %ci*:-$mux[S]:-$dff
+</pre></div>
+</div>
+<p>in which the first <code class="docutils literal notranslate"><span class="pre">%ci</span></code> jumps over the initial d-type flip-flop and
+the 2nd action selects the entire input cone without going over
+multiplexer select inputs and flip-flop cells. The diagram produces by
+this command is shown in Fig. <a class="reference external" href="#memdemo_01">14</a>.</p>
+<p>Similar to <code class="docutils literal notranslate"><span class="pre">%ci</span></code> exists an action <code class="docutils literal notranslate"><span class="pre">%co</span></code> to select output cones that
+accepts the same syntax for pattern and repetition. The <code class="docutils literal notranslate"><span class="pre">%x</span></code> action
+mentioned previously also accepts this advanced syntax.</p>
+<p>This actions for traversing the circuit graph, combined with the actions
+for boolean operations such as intersection (<code class="docutils literal notranslate"><span class="pre">%i</span></code>) and difference
+(<code class="docutils literal notranslate"><span class="pre">%d</span></code>) are powerful tools for extracting the relevant portions of the
+circuit under investigation.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">select</span></code> for a complete list of actions available in
+selections.</p>
+</div>
+<div class="section" id="storing-and-recalling-selections">
+<h2>Storing and recalling selections<a class="headerlink" href="#storing-and-recalling-selections" title="Permalink to this headline">¶</a></h2>
+<p>The current selection can be stored in memory with the command
+<code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">-set</span> <span class="pre">&lt;name&gt;</span></code>. It can later be recalled using
+<code class="docutils literal notranslate"><span class="pre">select</span> <span class="pre">&#64;&lt;name&gt;</span></code>. In fact, the <code class="docutils literal notranslate"><span class="pre">&#64;&lt;name&gt;</span></code> expression pushes the
+stored selection on the stack maintained by the <code class="docutils literal notranslate"><span class="pre">select</span></code> command. So
+for example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">select</span> <span class="nd">@foo</span> <span class="nd">@bar</span> <span class="o">%</span><span class="n">i</span>
+</pre></div>
+</div>
+<p>will select the intersection between the stored selections <code class="docutils literal notranslate"><span class="pre">foo</span></code> and
+<code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
+<p>In larger investigation efforts it is highly recommended to maintain a
+script that sets up relevant selections, so they can easily be recalled,
+for example when Yosys needs to be re-run after a design or source code
+change.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">history</span></code> command can be used to list all recent interactive
+commands. This feature can be useful for creating such a script from the
+commands used in an interactive session.</p>
+</div>
+</div>
+<div class="section" id="advanced-investigation-techniques">
+<span id="poke"></span><h1>Advanced investigation techniques<a class="headerlink" href="#advanced-investigation-techniques" title="Permalink to this headline">¶</a></h1>
+<p>When working with very large modules, it is often not enough to just
+select the interesting part of the module. Instead it can be useful to
+extract the interesting part of the circuit into a separate module. This
+can for example be useful if one wants to run a series of synthesis
+commands on the critical part of the module and wants to carefully read
+all the debug output created by the commands in order to spot a problem.
+This kind of troubleshooting is much easier if the circuit under
+investigation is encapsulated in a separate module.</p>
+<p>Fig. <a class="reference external" href="#submod">18</a> shows how the <code class="docutils literal notranslate"><span class="pre">submod</span></code> command can be used to
+split the circuit from Fig. <a class="reference external" href="#memdemo_src">[memdemo_src]</a> and
+<a class="reference external" href="#memdemo_00">[memdemo_00]</a> into its components. The <code class="docutils literal notranslate"><span class="pre">-name</span></code> option
+is used to specify the name of the new module and also the name of the
+new cell in the current module.</p>
+<div class="line-block">
+<div class="line"><a href="#id34"><span class="problematic" id="id35">|The circuit from
+Fig. |\ `[memdemo_src] &lt;#memdemo_src&gt;`__\ |and|</span></a><a class="reference external" href="#memdemo_00">[memdemo_00]</a><a href="#id36"><span class="problematic" id="id37">|broken
+up using ``submod``|</span></a></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">memdemo</span></code></p>
+<p>1em</p>
+<div class="line-block">
+<div class="line"><a href="#id38"><span class="problematic" id="id39">|image7|</span></a><a class="reference external" href="#memdemo_src">[memdemo_src]</a><a href="#id40"><span class="problematic" id="id41">|image8|</span></a><a class="reference external" href="#memdemo_00">[memdemo_00]</a><a href="#id42"><span class="problematic" id="id43">|image9|</span></a></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">scramble</span></code></p>
+<p>1em</p>
+<div class="line-block">
+<div class="line"><a href="#id44"><span class="problematic" id="id45">|image10|</span></a><a class="reference external" href="#memdemo_src">[memdemo_src]</a><a href="#id46"><span class="problematic" id="id47">|image11|</span></a><a class="reference external" href="#memdemo_00">[memdemo_00]</a><a href="#id48"><span class="problematic" id="id49">|image12|</span></a></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">outstage</span></code></p>
+<p>1em</p>
+<div class="line-block">
+<div class="line"><a href="#id50"><span class="problematic" id="id51">|image13|</span></a><a class="reference external" href="#memdemo_src">[memdemo_src]</a><a href="#id52"><span class="problematic" id="id53">|image14|</span></a><a class="reference external" href="#memdemo_00">[memdemo_00]</a><a href="#id54"><span class="problematic" id="id55">|image15|</span></a></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">selstage</span></code></p>
+<p>1em</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>select -set outstage y %ci2:+$dff[Q,D] %ci*:-$mux[S]:-$dff
+select -set selstage y %ci2:+$dff[Q,D] %ci*:-$dff @outstage %d
+select -set scramble mem* %ci2 %ci*:-$dff mem* %d @selstage %d
+submod -name scramble @scramble
+submod -name outstage @outstage
+submod -name selstage @selstage
+</pre></div>
+</div>
+<div class="section" id="evaluation-of-combinatorial-circuits">
+<h2>Evaluation of combinatorial circuits<a class="headerlink" href="#evaluation-of-combinatorial-circuits" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">eval</span></code> command can be used to evaluate combinatorial circuits. For
+example (see Fig. <a class="reference external" href="#submod">18</a> for the circuit diagram of
+<code class="docutils literal notranslate"><span class="pre">selstage</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yosys</span> <span class="p">[</span><span class="n">selstage</span><span class="p">]</span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="o">-</span><span class="nb">set</span> <span class="n">s2</span><span class="p">,</span><span class="n">s1</span> <span class="mi">4</span><span class="s1">&#39;b1001 -set d 4&#39;</span><span class="n">hc</span> <span class="o">-</span><span class="n">show</span> <span class="n">n2</span> <span class="o">-</span><span class="n">show</span> <span class="n">n1</span>
+
+<span class="mf">9.</span> <span class="n">Executing</span> <span class="n">EVAL</span> <span class="k">pass</span> <span class="p">(</span><span class="n">evaluate</span> <span class="n">the</span> <span class="n">circuit</span> <span class="n">given</span> <span class="n">an</span> <span class="nb">input</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Full</span> <span class="n">command</span> <span class="n">line</span><span class="p">:</span> <span class="nb">eval</span> <span class="o">-</span><span class="nb">set</span> <span class="n">s2</span><span class="p">,</span><span class="n">s1</span> <span class="mi">4</span><span class="s1">&#39;b1001 -set d 4&#39;</span><span class="n">hc</span> <span class="o">-</span><span class="n">show</span> <span class="n">n2</span> <span class="o">-</span><span class="n">show</span> <span class="n">n1</span>
+<span class="n">Eval</span> <span class="n">result</span><span class="p">:</span> \<span class="n">n2</span> <span class="o">=</span> <span class="mi">2</span><span class="s1">&#39;10.</span>
+<span class="n">Eval</span> <span class="n">result</span><span class="p">:</span> \<span class="n">n1</span> <span class="o">=</span> <span class="mi">2</span><span class="s1">&#39;10.</span>
+</pre></div>
+</div>
+<p>So the <code class="docutils literal notranslate"><span class="pre">-set</span></code> option is used to set input values and the <code class="docutils literal notranslate"><span class="pre">-show</span></code>
+option is used to specify the nets to evaluate. If no <code class="docutils literal notranslate"><span class="pre">-show</span></code> option
+is specified, all selected output ports are used per default.</p>
+<p>If a necessary input value is not given, an error is produced. The
+option <code class="docutils literal notranslate"><span class="pre">-set-undef</span></code> can be used to instead set all unspecified input
+nets to undef (<code class="docutils literal notranslate"><span class="pre">x</span></code>).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-table</span></code> option can be used to create a truth table. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yosys</span> <span class="p">[</span><span class="n">selstage</span><span class="p">]</span><span class="o">&gt;</span> <span class="nb">eval</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">undef</span> <span class="o">-</span><span class="nb">set</span> <span class="n">d</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="mi">0</span> <span class="o">-</span><span class="n">table</span> <span class="n">s1</span><span class="p">,</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="mf">10.</span> <span class="n">Executing</span> <span class="n">EVAL</span> <span class="k">pass</span> <span class="p">(</span><span class="n">evaluate</span> <span class="n">the</span> <span class="n">circuit</span> <span class="n">given</span> <span class="n">an</span> <span class="nb">input</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Full</span> <span class="n">command</span> <span class="n">line</span><span class="p">:</span> <span class="nb">eval</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">undef</span> <span class="o">-</span><span class="nb">set</span> <span class="n">d</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="mi">0</span> <span class="o">-</span><span class="n">table</span> <span class="n">s1</span><span class="p">,</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+  \<span class="n">s1</span> \<span class="n">d</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">|</span>  \<span class="n">n1</span>  \<span class="n">n2</span>
+ <span class="o">----</span> <span class="o">------</span> <span class="o">|</span> <span class="o">----</span> <span class="o">----</span>
+ <span class="mi">2</span><span class="s1">&#39;00    1&#39;</span><span class="mi">0</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;00 2&#39;</span><span class="mi">00</span>
+ <span class="mi">2</span><span class="s1">&#39;00    1&#39;</span><span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;xx 2&#39;</span><span class="mi">00</span>
+ <span class="mi">2</span><span class="s1">&#39;01    1&#39;</span><span class="mi">0</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;00 2&#39;</span><span class="mi">00</span>
+ <span class="mi">2</span><span class="s1">&#39;01    1&#39;</span><span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;xx 2&#39;</span><span class="mi">01</span>
+ <span class="mi">2</span><span class="s1">&#39;10    1&#39;</span><span class="mi">0</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;00 2&#39;</span><span class="mi">00</span>
+ <span class="mi">2</span><span class="s1">&#39;10    1&#39;</span><span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;xx 2&#39;</span><span class="mi">10</span>
+ <span class="mi">2</span><span class="s1">&#39;11    1&#39;</span><span class="mi">0</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;00 2&#39;</span><span class="mi">00</span>
+ <span class="mi">2</span><span class="s1">&#39;11    1&#39;</span><span class="mi">1</span> <span class="o">|</span> <span class="mi">2</span><span class="s1">&#39;xx 2&#39;</span><span class="mi">11</span>
+
+<span class="n">Assumed</span> <span class="n">undef</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="n">value</span> <span class="k">for</span> <span class="n">the</span> <span class="n">following</span> <span class="n">signals</span><span class="p">:</span> \<span class="n">s2</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">eval</span></code> command (as well as the <code class="docutils literal notranslate"><span class="pre">sat</span></code> command discussed
+in the next sections) does only operate on flattened modules. It can not
+analyze signals that are passed through design hierarchy levels. So the
+<code class="docutils literal notranslate"><span class="pre">flatten</span></code> command must be used on modules that instantiate other
+modules before this commands can be applied.</p>
+</div>
+<div class="section" id="solving-combinatorial-sat-problems">
+<h2>Solving combinatorial SAT problems<a class="headerlink" href="#solving-combinatorial-sat-problems" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">primetest</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">ok</span><span class="p">);</span>
+<span class="k">input</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">output</span> <span class="n">ok</span> <span class="o">=</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="o">||</span> <span class="n">a</span> <span class="o">==</span> <span class="mh">1</span> <span class="o">||</span> <span class="n">b</span> <span class="o">==</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="figure docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>yosys [primetest]&gt; sat -prove ok 1 -set p 31
+
+8. Executing SAT pass (solving SAT problems in the circuit).
+Full command line: sat -prove ok 1 -set p 31
+
+Setting up SAT problem:
+Import set-constraint: \p = 16&#39;0000000000011111
+Final constraint equation: \p = 16&#39;0000000000011111
+Imported 6 cells to SAT database.
+Import proof-constraint: \ok = 1&#39;1
+Final proof equation: \ok = 1&#39;1
+
+Solving problem with 2790 variables and 8241 clauses..
+SAT proof finished - model found: FAIL!
+
+   ______                   ___       ___       _ _            _ _
+  (_____ \                 / __)     / __)     (_) |          | | |
+   _____) )___ ___   ___ _| |__    _| |__ _____ _| | _____  __| | |
+  |  ____/ ___) _ \ / _ (_   __)  (_   __|____ | | || ___ |/ _  |_|
+  | |   | |  | |_| | |_| || |       | |  / ___ | | || ____( (_| |_
+  |_|   |_|   \___/ \___/ |_|       |_|  \_____|_|\_)_____)\____|_|
+
+
+  Signal Name                 Dec        Hex                   Bin
+  -------------------- ---------- ---------- ---------------------
+  \a                        15029       3ab5      0011101010110101
+  \b                         4099       1003      0001000000000011
+  \ok                           0          0                     0
+  \p                           31         1f      0000000000011111
+
+yosys [primetest]&gt; sat -prove ok 1 -set p 31 -set a[15:8],b[15:8] 0
+
+9. Executing SAT pass (solving SAT problems in the circuit).
+Full command line: sat -prove ok 1 -set p 31 -set a[15:8],b[15:8] 0
+
+Setting up SAT problem:
+Import set-constraint: \p = 16&#39;0000000000011111
+Import set-constraint: { \a [15:8] \b [15:8] } = 16&#39;0000000000000000
+Final constraint equation: { \a [15:8] \b [15:8] \p } = { 16&#39;0000000000000000 16&#39;0000000000011111 }
+Imported 6 cells to SAT database.
+Import proof-constraint: \ok = 1&#39;1
+Final proof equation: \ok = 1&#39;1
+
+Solving problem with 2790 variables and 8257 clauses..
+SAT proof finished - no model found: SUCCESS!
+
+                  /$$$$$$      /$$$$$$$$     /$$$$$$$
+                 /$$__  $$    | $$_____/    | $$__  $$
+                | $$  \ $$    | $$          | $$  \ $$
+                | $$  | $$    | $$$$$       | $$  | $$
+                | $$  | $$    | $$__/       | $$  | $$
+                | $$/$$ $$    | $$          | $$  | $$
+                |  $$$$$$/ /$$| $$$$$$$$ /$$| $$$$$$$//$$
+                 \____ $$$|__/|________/|__/|_______/|__/
+                       \__/
+</pre></div>
+</div>
+</div>
+<p>Often the opposite of the <code class="docutils literal notranslate"><span class="pre">eval</span></code> command is needed, i.e. the circuits
+output is given and we want to find the matching input signals. For
+small circuits with only a few input bits this can be accomplished by
+trying all possible input combinations, as it is done by the
+<code class="docutils literal notranslate"><span class="pre">eval</span> <span class="pre">-table</span></code> command. For larger circuits however, Yosys provides the
+<code class="docutils literal notranslate"><span class="pre">sat</span></code> command that uses a SAT  solver
+ to solve this kind of problems.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sat</span></code> command works very similar to the <code class="docutils literal notranslate"><span class="pre">eval</span></code> command. The main
+difference is that it is now also possible to set output values and find
+the corresponding input values. For Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yosys</span> <span class="p">[</span><span class="n">selstage</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">sat</span> <span class="o">-</span><span class="n">show</span> <span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">d</span> <span class="o">-</span><span class="nb">set</span> <span class="n">s1</span> <span class="n">s2</span> <span class="o">-</span><span class="nb">set</span> <span class="n">n2</span><span class="p">,</span><span class="n">n1</span> <span class="mi">4</span><span class="s1">&#39;b1001</span>
+
+<span class="mf">11.</span> <span class="n">Executing</span> <span class="n">SAT</span> <span class="k">pass</span> <span class="p">(</span><span class="n">solving</span> <span class="n">SAT</span> <span class="n">problems</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">circuit</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Full</span> <span class="n">command</span> <span class="n">line</span><span class="p">:</span> <span class="n">sat</span> <span class="o">-</span><span class="n">show</span> <span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">d</span> <span class="o">-</span><span class="nb">set</span> <span class="n">s1</span> <span class="n">s2</span> <span class="o">-</span><span class="nb">set</span> <span class="n">n2</span><span class="p">,</span><span class="n">n1</span> <span class="mi">4</span><span class="s1">&#39;b1001</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">SAT</span> <span class="n">problem</span><span class="p">:</span>
+<span class="n">Import</span> <span class="nb">set</span><span class="o">-</span><span class="n">constraint</span><span class="p">:</span> \<span class="n">s1</span> <span class="o">=</span> \<span class="n">s2</span>
+<span class="n">Import</span> <span class="nb">set</span><span class="o">-</span><span class="n">constraint</span><span class="p">:</span> <span class="p">{</span> \<span class="n">n2</span> \<span class="n">n1</span> <span class="p">}</span> <span class="o">=</span> <span class="mi">4</span><span class="s1">&#39;1001</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> <span class="p">{</span> \<span class="n">n2</span> \<span class="n">n1</span> \<span class="n">s1</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">4</span><span class="s1">&#39;1001 \s2 }</span>
+<span class="n">Imported</span> <span class="mi">3</span> <span class="n">cells</span> <span class="n">to</span> <span class="n">SAT</span> <span class="n">database</span><span class="o">.</span>
+<span class="n">Import</span> <span class="n">show</span> <span class="n">expression</span><span class="p">:</span> <span class="p">{</span> \<span class="n">s1</span> \<span class="n">s2</span> \<span class="n">d</span> <span class="p">}</span>
+
+<span class="n">Solving</span> <span class="n">problem</span> <span class="k">with</span> <span class="mi">81</span> <span class="n">variables</span> <span class="ow">and</span> <span class="mi">207</span> <span class="n">clauses</span><span class="o">..</span>
+<span class="n">SAT</span> <span class="n">solving</span> <span class="n">finished</span> <span class="o">-</span> <span class="n">model</span> <span class="n">found</span><span class="p">:</span>
+
+  <span class="n">Signal</span> <span class="n">Name</span>                 <span class="n">Dec</span>        <span class="n">Hex</span>             <span class="n">Bin</span>
+  <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+  \<span class="n">d</span>                            <span class="mi">9</span>          <span class="mi">9</span>            <span class="mi">1001</span>
+  \<span class="n">s1</span>                           <span class="mi">0</span>          <span class="mi">0</span>              <span class="mi">00</span>
+  \<span class="n">s2</span>                           <span class="mi">0</span>          <span class="mi">0</span>              <span class="mi">00</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">sat</span></code> command supports signal names in both arguments to
+the <code class="docutils literal notranslate"><span class="pre">-set</span></code> option. In the above example we used <code class="docutils literal notranslate"><span class="pre">-set</span> <span class="pre">s1</span> <span class="pre">s2</span></code> to
+constraint <code class="docutils literal notranslate"><span class="pre">s1</span></code> and <code class="docutils literal notranslate"><span class="pre">s2</span></code> to be equal. When more complex constraints
+are needed, a wrapper circuit must be constructed that checks the
+constraints and signals if the constraint was met using an extra output
+port, which then can be forced to a value using the <code class="docutils literal notranslate"><span class="pre">-set</span></code> option.
+(Such a circuit that contains the circuit under test plus additional
+constraint checking circuitry is called a <em>miter</em> circuit.)</p>
+<p>Fig. <a class="reference external" href="#primetest">[primetest]</a> shows a miter circuit that is supposed
+to be used as a prime number test. If <code class="docutils literal notranslate"><span class="pre">ok</span></code> is 1 for all input values
+<code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> for a given <code class="docutils literal notranslate"><span class="pre">p</span></code>, then <code class="docutils literal notranslate"><span class="pre">p</span></code> is prime, or at least that
+is the idea.</p>
+<p>The Yosys shell session shown in Fig. <a class="reference external" href="#primesat">[primesat]</a>
+demonstrates that SAT solvers can even find the unexpected solutions to
+a problem: Using integer overflow there actually is a way of
+“factorizing” 31. The clean solution would of course be to perform the
+test in 32 bits, for example by replacing <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">!=</span> <span class="pre">a*b</span></code> in the miter with
+<code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">!=</span> <span class="pre">{16’d0,a}b</span></code>, or by using a temporary variable for the 32 bit
+product <code class="docutils literal notranslate"><span class="pre">a*b</span></code>. But as 31 fits well into 8 bits (and as the purpose of
+this document is to show off Yosys features) we can also simply force
+the upper 8 bits of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> to zero for the <code class="docutils literal notranslate"><span class="pre">sat</span></code> call, as is
+done in the second command in Fig. <a class="reference external" href="#primesat">[primesat]</a> (line 31).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-prove</span></code> option used in this example works similar to <code class="docutils literal notranslate"><span class="pre">-set</span></code>,
+but tries to find a case in which the two arguments are not equal. If
+such a case is not found, the property is proven to hold for all inputs
+that satisfy the other constraints.</p>
+<p>It might be worth noting, that SAT solvers are not particularly
+efficient at factorizing large numbers. But if a small factorization
+problem occurs as part of a larger circuit problem, the Yosys SAT solver
+is perfectly capable of solving it.</p>
+</div>
+<div class="section" id="solving-sequential-sat-problems">
+<h2>Solving sequential SAT problems<a class="headerlink" href="#solving-sequential-sat-problems" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yosys</span> <span class="p">[</span><span class="n">memdemo</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">sat</span> <span class="o">-</span><span class="n">seq</span> <span class="mi">6</span> <span class="o">-</span><span class="n">show</span> <span class="n">y</span> <span class="o">-</span><span class="n">show</span> <span class="n">d</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">init</span><span class="o">-</span><span class="n">undef</span> \
+    <span class="o">-</span><span class="n">max_undef</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">4</span> <span class="n">y</span> <span class="mi">1</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">5</span> <span class="n">y</span> <span class="mi">2</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">6</span> <span class="n">y</span> <span class="mi">3</span>
+
+<span class="mf">6.</span> <span class="n">Executing</span> <span class="n">SAT</span> <span class="k">pass</span> <span class="p">(</span><span class="n">solving</span> <span class="n">SAT</span> <span class="n">problems</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">circuit</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Full</span> <span class="n">command</span> <span class="n">line</span><span class="p">:</span> <span class="n">sat</span> <span class="o">-</span><span class="n">seq</span> <span class="mi">6</span> <span class="o">-</span><span class="n">show</span> <span class="n">y</span> <span class="o">-</span><span class="n">show</span> <span class="n">d</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">init</span><span class="o">-</span><span class="n">undef</span>
+    <span class="o">-</span><span class="n">max_undef</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">4</span> <span class="n">y</span> <span class="mi">1</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">5</span> <span class="n">y</span> <span class="mi">2</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">6</span> <span class="n">y</span> <span class="mi">3</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">time</span> <span class="n">step</span> <span class="mi">1</span><span class="p">:</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> <span class="p">{</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
+<span class="n">Imported</span> <span class="mi">29</span> <span class="n">cells</span> <span class="n">to</span> <span class="n">SAT</span> <span class="n">database</span><span class="o">.</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">time</span> <span class="n">step</span> <span class="mi">2</span><span class="p">:</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> <span class="p">{</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
+<span class="n">Imported</span> <span class="mi">29</span> <span class="n">cells</span> <span class="n">to</span> <span class="n">SAT</span> <span class="n">database</span><span class="o">.</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">time</span> <span class="n">step</span> <span class="mi">3</span><span class="p">:</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> <span class="p">{</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
+<span class="n">Imported</span> <span class="mi">29</span> <span class="n">cells</span> <span class="n">to</span> <span class="n">SAT</span> <span class="n">database</span><span class="o">.</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">time</span> <span class="n">step</span> <span class="mi">4</span><span class="p">:</span>
+<span class="n">Import</span> <span class="nb">set</span><span class="o">-</span><span class="n">constraint</span> <span class="k">for</span> <span class="n">timestep</span><span class="p">:</span> \<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="s1">&#39;0001</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> \<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="s1">&#39;0001</span>
+<span class="n">Imported</span> <span class="mi">29</span> <span class="n">cells</span> <span class="n">to</span> <span class="n">SAT</span> <span class="n">database</span><span class="o">.</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">time</span> <span class="n">step</span> <span class="mi">5</span><span class="p">:</span>
+<span class="n">Import</span> <span class="nb">set</span><span class="o">-</span><span class="n">constraint</span> <span class="k">for</span> <span class="n">timestep</span><span class="p">:</span> \<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="s1">&#39;0010</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> \<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="s1">&#39;0010</span>
+<span class="n">Imported</span> <span class="mi">29</span> <span class="n">cells</span> <span class="n">to</span> <span class="n">SAT</span> <span class="n">database</span><span class="o">.</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">time</span> <span class="n">step</span> <span class="mi">6</span><span class="p">:</span>
+<span class="n">Import</span> <span class="nb">set</span><span class="o">-</span><span class="n">constraint</span> <span class="k">for</span> <span class="n">timestep</span><span class="p">:</span> \<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="s1">&#39;0011</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> \<span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="s1">&#39;0011</span>
+<span class="n">Imported</span> <span class="mi">29</span> <span class="n">cells</span> <span class="n">to</span> <span class="n">SAT</span> <span class="n">database</span><span class="o">.</span>
+
+<span class="n">Setting</span> <span class="n">up</span> <span class="n">initial</span> <span class="n">state</span><span class="p">:</span>
+<span class="n">Final</span> <span class="n">constraint</span> <span class="n">equation</span><span class="p">:</span> <span class="p">{</span> \<span class="n">y</span> \<span class="n">s2</span> \<span class="n">s1</span> \<span class="n">mem</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> \<span class="n">mem</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> \<span class="n">mem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            \<span class="n">mem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}</span> <span class="o">=</span> <span class="mi">24</span><span class="s1">&#39;xxxxxxxxxxxxxxxxxxxxxxxx</span>
+
+<span class="n">Import</span> <span class="n">show</span> <span class="n">expression</span><span class="p">:</span> \<span class="n">y</span>
+<span class="n">Import</span> <span class="n">show</span> <span class="n">expression</span><span class="p">:</span> \<span class="n">d</span>
+
+<span class="n">Solving</span> <span class="n">problem</span> <span class="k">with</span> <span class="mi">10322</span> <span class="n">variables</span> <span class="ow">and</span> <span class="mi">27881</span> <span class="n">clauses</span><span class="o">..</span>
+<span class="n">SAT</span> <span class="n">model</span> <span class="n">found</span><span class="o">.</span> <span class="n">maximizing</span> <span class="n">number</span> <span class="n">of</span> <span class="n">undefs</span><span class="o">.</span>
+<span class="n">SAT</span> <span class="n">solving</span> <span class="n">finished</span> <span class="o">-</span> <span class="n">model</span> <span class="n">found</span><span class="p">:</span>
+
+  <span class="n">Time</span> <span class="n">Signal</span> <span class="n">Name</span>                 <span class="n">Dec</span>        <span class="n">Hex</span>             <span class="n">Bin</span>
+  <span class="o">----</span> <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+  <span class="n">init</span> \<span class="n">mem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                      <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+  <span class="n">init</span> \<span class="n">mem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                      <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+  <span class="n">init</span> \<span class="n">mem</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>                      <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+  <span class="n">init</span> \<span class="n">mem</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>                      <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+  <span class="n">init</span> \<span class="n">s1</span>                          <span class="o">--</span>         <span class="o">--</span>              <span class="n">xx</span>
+  <span class="n">init</span> \<span class="n">s2</span>                          <span class="o">--</span>         <span class="o">--</span>              <span class="n">xx</span>
+  <span class="n">init</span> \<span class="n">y</span>                           <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+  <span class="o">----</span> <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+     <span class="mi">1</span> \<span class="n">d</span>                            <span class="mi">0</span>          <span class="mi">0</span>            <span class="mi">0000</span>
+     <span class="mi">1</span> \<span class="n">y</span>                           <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+  <span class="o">----</span> <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+     <span class="mi">2</span> \<span class="n">d</span>                            <span class="mi">1</span>          <span class="mi">1</span>            <span class="mi">0001</span>
+     <span class="mi">2</span> \<span class="n">y</span>                           <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+  <span class="o">----</span> <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+     <span class="mi">3</span> \<span class="n">d</span>                            <span class="mi">2</span>          <span class="mi">2</span>            <span class="mi">0010</span>
+     <span class="mi">3</span> \<span class="n">y</span>                            <span class="mi">0</span>          <span class="mi">0</span>            <span class="mi">0000</span>
+  <span class="o">----</span> <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+     <span class="mi">4</span> \<span class="n">d</span>                            <span class="mi">3</span>          <span class="mi">3</span>            <span class="mi">0011</span>
+     <span class="mi">4</span> \<span class="n">y</span>                            <span class="mi">1</span>          <span class="mi">1</span>            <span class="mi">0001</span>
+  <span class="o">----</span> <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+     <span class="mi">5</span> \<span class="n">d</span>                           <span class="o">--</span>         <span class="o">--</span>            <span class="mi">001</span><span class="n">x</span>
+     <span class="mi">5</span> \<span class="n">y</span>                            <span class="mi">2</span>          <span class="mi">2</span>            <span class="mi">0010</span>
+  <span class="o">----</span> <span class="o">--------------------</span> <span class="o">----------</span> <span class="o">----------</span> <span class="o">---------------</span>
+     <span class="mi">6</span> \<span class="n">d</span>                           <span class="o">--</span>         <span class="o">--</span>            <span class="n">xxxx</span>
+     <span class="mi">6</span> \<span class="n">y</span>                            <span class="mi">3</span>          <span class="mi">3</span>            <span class="mi">0011</span>
+</pre></div>
+</div>
+<p>The SAT solver functionality in Yosys can not only be used to solve
+combinatorial problems, but can also solve sequential problems. Let’s
+consider the entire <code class="docutils literal notranslate"><span class="pre">memdemo</span></code> module from
+Fig. <a class="reference external" href="#memdemo_src">[memdemo_src]</a> and suppose we want to know which
+sequence of input values for <code class="docutils literal notranslate"><span class="pre">d</span></code> will cause the output <code class="docutils literal notranslate"><span class="pre">y</span></code> to
+produce the sequence 1, 2, 3 from any initial state.
+Fig. <a class="reference external" href="#memdemo_sat">[memdemo_sat]</a> show the solution to this
+question, as produced by the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sat</span> <span class="o">-</span><span class="n">seq</span> <span class="mi">6</span> <span class="o">-</span><span class="n">show</span> <span class="n">y</span> <span class="o">-</span><span class="n">show</span> <span class="n">d</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">init</span><span class="o">-</span><span class="n">undef</span> \
+  <span class="o">-</span><span class="n">max_undef</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">4</span> <span class="n">y</span> <span class="mi">1</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">5</span> <span class="n">y</span> <span class="mi">2</span> <span class="o">-</span><span class="nb">set</span><span class="o">-</span><span class="n">at</span> <span class="mi">6</span> <span class="n">y</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">-seq</span> <span class="pre">6</span></code> option instructs the <code class="docutils literal notranslate"><span class="pre">sat</span></code> command to solve a
+sequential problem in 6 time steps. (Experiments with lower number of
+steps have show that at least 3 cycles are necessary to bring the
+circuit in a state from which the sequence 1, 2, 3 can be produced.)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-set-init-undef</span></code> option tells the <code class="docutils literal notranslate"><span class="pre">sat</span></code> command to initialize
+all registers to the undef (<code class="docutils literal notranslate"><span class="pre">x</span></code>) state. The way the <code class="docutils literal notranslate"><span class="pre">x</span></code> state is
+treated in Verilog will ensure that the solution will work for any
+initial state.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-max_undef</span></code> option instructs the <code class="docutils literal notranslate"><span class="pre">sat</span></code> command to find a
+solution with a maximum number of undefs. This way we can see clearly
+which inputs bits are relevant to the solution.</p>
+<p>Finally the three <code class="docutils literal notranslate"><span class="pre">-set-at</span></code> options add constraints for the <code class="docutils literal notranslate"><span class="pre">y</span></code>
+signal to play the 1, 2, 3 sequence, starting with time step 4.</p>
+<p>It is not surprising that the solution sets <code class="docutils literal notranslate"><span class="pre">d</span> <span class="pre">=</span> <span class="pre">0</span></code> in the first step,
+as this is the only way of setting the <code class="docutils literal notranslate"><span class="pre">s1</span></code> and <code class="docutils literal notranslate"><span class="pre">s2</span></code> registers to a
+known value. The input values for the other steps are a bit harder to
+work out manually, but the SAT solver finds the correct solution in an
+instant.</p>
+<p>There is much more to write about the <code class="docutils literal notranslate"><span class="pre">sat</span></code> command. For example,
+there is a set of options that can be used to performs sequential proofs
+using temporal induction . The command
+<code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">sat</span></code> can be used to print a list of all options with short
+descriptions of their functions.</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h1>
+<p>Yosys provides a wide range of functions to analyze and investigate
+designs. For many cases it is sufficient to simply display circuit
+diagrams, maybe use some additional commands to narrow the scope of the
+circuit diagrams to the interesting parts of the circuit. But some cases
+require more than that. For this applications Yosys provides commands
+that can be used to further inspect the behavior of the circuit, either
+by evaluating which output values are generated from certain input
+values (<code class="docutils literal notranslate"><span class="pre">eval</span></code>) or by evaluation which input values and initial
+conditions can result in a certain behavior at the outputs (<code class="docutils literal notranslate"><span class="pre">sat</span></code>).
+The SAT command can even be used to prove (or disprove) theorems
+regarding the circuit, in more advanced cases with the additional help
+of a miter circuit.</p>
+<p>This features can be powerful tools for the circuit designer using Yosys
+as a utility for building circuits and the software developer using
+Yosys as a framework for new algorithms alike.</p>
+<div class="thebibliography docutils container">
+<p>9</p>
+<p>Clifford Wolf. The Yosys Open SYnthesis Suite.
+<a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></p>
+<p>Graphviz - Graph Visualization Software. <a class="reference external" href="http://www.graphviz.org/">http://www.graphviz.org/</a></p>
+<p>xdot.py - an interactive viewer for graphs written in Graphviz’s dot
+language. <a class="reference external" href="https://github.com/jrfonseca/xdot.py">https://github.com/jrfonseca/xdot.py</a></p>
+<p><em>Circuit satisfiability problem</em> on Wikipedia
+<a class="reference external" href="http://en.wikipedia.org/wiki/Circuit_satisfiability">http://en.wikipedia.org/wiki/Circuit_satisfiability</a></p>
+<p>MiniSat: a minimalistic open-source SAT solver. <a class="reference external" href="http://minisat.se/">http://minisat.se/</a></p>
+<p>Niklas Een and Niklas Sörensson (2003). Temporal Induction by
+Incremental SAT Solving.
+<a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.8161">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.4.8161</a></p>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Installation and Prerequisites</a></li>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#introduction-to-the-show-command">Introduction to the <code class="docutils literal notranslate"><span class="pre">show</span></code> command</a><ul>
+<li><a class="reference internal" href="#a-simple-circuit">A simple circuit</a></li>
+<li><a class="reference internal" href="#break-out-boxes-for-signal-vectors">Break-out boxes for signal vectors</a></li>
+<li><a class="reference internal" href="#gate-level-netlists">Gate level netlists</a></li>
+<li><a class="reference internal" href="#miscellaneous-notes">Miscellaneous notes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#navigating-the-design">Navigating the design</a><ul>
+<li><a class="reference internal" href="#interactive-navigation">Interactive Navigation</a></li>
+<li><a class="reference internal" href="#working-with-selections">Working with selections</a></li>
+<li><a class="reference internal" href="#operations-on-selections">Operations on selections</a></li>
+<li><a class="reference internal" href="#selecting-logic-cones">Selecting logic cones</a></li>
+<li><a class="reference internal" href="#storing-and-recalling-selections">Storing and recalling selections</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advanced-investigation-techniques">Advanced investigation techniques</a><ul>
+<li><a class="reference internal" href="#evaluation-of-combinatorial-circuits">Evaluation of combinatorial circuits</a></li>
+<li><a class="reference internal" href="#solving-combinatorial-sat-problems">Solving combinatorial SAT problems</a></li>
+<li><a class="reference internal" href="#solving-sequential-sat-problems">Solving sequential SAT problems</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

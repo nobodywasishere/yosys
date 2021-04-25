@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Yosys by example – Beyond Synthesis &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Yosys by example – Beyond Synthesis</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/PRESENTATION_ExOth.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="yosys-by-example-beyond-synthesis">
+<h1>Yosys by example – Beyond Synthesis<a class="headerlink" href="#yosys-by-example-beyond-synthesis" title="Permalink to this headline">¶</a></h1>
+<div class="frame docutils container">
+<p>Overview This section contains 2 subsections:</p>
+<ul class="simple">
+<li><p>Interactive Design Investigation</p></li>
+<li><p>Symbolic Model Checking</p></li>
+</ul>
+</div>
+<div class="section" id="interactive-design-investigation">
+<h2>Interactive Design Investigation<a class="headerlink" href="#interactive-design-investigation" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Yosys can also be used to investigate designs (or netlists created
+from other tools).</p>
+<ul class="simple">
+<li><p>The selection mechanism (see slides “Using Selections”),
+especially patterns such as <code class="docutils literal notranslate"><span class="pre">%ci</span></code> and <code class="docutils literal notranslate"><span class="pre">%co</span></code>, can be used to
+figure out how parts of the design are connected.</p></li>
+<li><p>Commands such as <code class="docutils literal notranslate"><span class="pre">submod</span></code>, <code class="docutils literal notranslate"><span class="pre">expose</span></code>, <code class="docutils literal notranslate"><span class="pre">splice</span></code>, …can be used
+to transform the design into an equivalent design that is easier
+to analyse.</p></li>
+<li><p>Commands such as <code class="docutils literal notranslate"><span class="pre">eval</span></code> and <code class="docutils literal notranslate"><span class="pre">sat</span></code> can be used to investigate
+the behavior of the circuit.</p></li>
+</ul>
+</div>
+<div class="frame docutils container">
+<p>Example: Reorganizing a module</p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">scrambler</span><span class="p">(</span>
+        <span class="k">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">rst</span><span class="p">,</span> <span class="n">in_bit</span><span class="p">,</span>
+        <span class="k">output</span> <span class="kt">reg</span> <span class="n">out_bit</span>
+<span class="p">);</span>
+    <span class="kt">reg</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">xs</span><span class="p">;</span>
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+           <span class="n">xs</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">^</span> <span class="p">(</span><span class="n">xs</span> <span class="o">&lt;&lt;</span> <span class="mh">13</span><span class="p">);</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">^</span> <span class="p">(</span><span class="n">xs</span> <span class="o">&gt;&gt;</span> <span class="mh">17</span><span class="p">);</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">^</span> <span class="p">(</span><span class="n">xs</span> <span class="o">&lt;&lt;</span> <span class="mh">5</span><span class="p">);</span>
+        <span class="n">out_bit</span> <span class="o">&lt;=</span> <span class="n">in_bit</span> <span class="o">^</span> <span class="n">xs</span><span class="p">[</span><span class="mh">0</span><span class="p">];</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog scrambler.v
+
+hierarchy; proc;;
+
+cd scrambler
+submod -name xorshift32 \
+           xs %c %ci %D %c %ci:+[D] %D \
+           %ci*:-$dff xs %co %ci %d
+</pre></div>
+</div>
+</div>
+<a class="reference internal image-reference" href="PRESENTATION_ExOth/scrambler_p01.pdf"><img alt="image" src="PRESENTATION_ExOth/scrambler_p01.pdf" style="width: 11cm;" /></a>
+<a class="reference internal image-reference" href="PRESENTATION_ExOth/scrambler_p02.pdf"><img alt="image" src="PRESENTATION_ExOth/scrambler_p02.pdf" style="width: 11cm;" /></a>
+</div>
+<div class="frame docutils container">
+<p>Example: Analysis of circuit behavior</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>&gt; read_verilog scrambler.v
+&gt; hierarchy; proc;; cd scrambler
+&gt; submod -name xorshift32 xs %c %ci %D %c %ci:+[D] %D %ci*:-$dff xs %co %ci %d
+
+&gt; cd xorshift32
+&gt; rename n2 in
+&gt; rename n1 out
+
+&gt; eval -set in 1 -show out
+Eval result: \out = 270369.
+
+&gt; eval -set in 270369 -show out
+Eval result: \out = 67634689.
+
+&gt; sat -set out 632435482
+Signal Name                 Dec        Hex                                   Bin
+<span class="gd">-------------------- ---------- ---------- -------------------------------------</span>
+\in                   745495504   2c6f5bd0      00101100011011110101101111010000
+\out                  632435482   25b2331a      00100101101100100011001100011010
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="symbolic-model-checking">
+<h2>Symbolic Model Checking<a class="headerlink" href="#symbolic-model-checking" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Symbolic Model Checking (SMC) is used to formally prove that a
+circuit has (or has not) a given property.</p>
+<p>One application is Formal Equivalence Checking: Proving that two
+circuits are identical. For example this is a very useful feature
+when debugging custom passes in Yosys.</p>
+<p>Other applications include checking if a module conforms to interface
+standards.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sat</span></code> command in Yosys can be used to perform Symbolic Model
+Checking.</p>
+</div>
+<div class="frame docutils container">
+<p>Example: Formal Equivalence Checking (1/2) Remember the following
+example? 1em</p>
+<p>to 0cm</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">\$add</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+<span class="k">generate</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">A_WIDTH</span> <span class="o">==</span> <span class="mh">32</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">B_WIDTH</span> <span class="o">==</span> <span class="mh">32</span><span class="p">))</span>
+    <span class="k">begin</span>
+      <span class="kt">wire</span> <span class="p">[</span><span class="mh">16</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">S1</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">];</span>
+      <span class="kt">wire</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">S2</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">16</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">16</span><span class="p">]</span> <span class="o">+</span> <span class="n">S1</span><span class="p">[</span><span class="mh">16</span><span class="p">];</span>
+      <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="p">{</span><span class="n">S2</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span> <span class="n">S1</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]};</span>
+    <span class="k">end</span>
+  <span class="k">else</span>
+    <span class="kt">wire</span> <span class="n">_TECHMAP_FAIL_</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">endgenerate</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p>to 0cm</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span>
+            <span class="k">output</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">);</span>
+<span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog techmap_01.v
+hierarchy -check -top test
+techmap -map techmap_01_map.v;;
+</pre></div>
+</div>
+<p>Lets see if it is correct..</p>
+</div>
+<div class="frame docutils container">
+<p>Example: Formal Equivalence Checking (2/2)</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span># read test design
+read_verilog techmap_01.v
+hierarchy -top test
+
+# create two version of the design: test_orig and test_mapped
+copy test test_orig
+rename test test_mapped
+
+# apply the techmap only to test_mapped
+techmap -map techmap_01_map.v test_mapped
+
+# create a miter circuit to test equivalence
+miter -equiv -make_assert -make_outputs test_orig test_mapped miter
+flatten miter
+
+# run equivalence check
+sat -verify -prove-asserts -show-inputs -show-outputs miter
+</pre></div>
+</div>
+<p>…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Solving problem with 945 variables and 2505 clauses..
+SAT proof finished - no model found: SUCCESS!
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>Example: Symbolic Model Checking (1/2) The following AXI4 Stream
+Master has a bug. But the bug is not exposed if the slave keeps
+<code class="docutils literal notranslate"><span class="pre">tready</span></code> asserted all the time. (Something a test bench might do.)</p>
+<p>Symbolic Model Checking can be used to expose the bug and find a
+sequence of values for <code class="docutils literal notranslate"><span class="pre">tready</span></code> that yield the incorrect behavior.</p>
+<p>-1em</p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">axis_master</span><span class="p">(</span><span class="n">aclk</span><span class="p">,</span> <span class="n">aresetn</span><span class="p">,</span> <span class="n">tvalid</span><span class="p">,</span> <span class="n">tready</span><span class="p">,</span> <span class="n">tdata</span><span class="p">);</span>
+    <span class="k">input</span> <span class="n">aclk</span><span class="p">,</span> <span class="n">aresetn</span><span class="p">,</span> <span class="n">tready</span><span class="p">;</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="n">tvalid</span><span class="p">;</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tdata</span><span class="p">;</span>
+
+    <span class="kt">reg</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">state</span><span class="p">;</span>
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">aclk</span><span class="p">)</span> <span class="k">begin</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">aresetn</span><span class="p">)</span> <span class="k">begin</span>
+           <span class="n">state</span> <span class="o">&lt;=</span> <span class="mh">314159265</span><span class="p">;</span>
+           <span class="n">tvalid</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+           <span class="n">tdata</span> <span class="o">&lt;=</span> <span class="p">&#39;</span><span class="n">bx</span><span class="p">;</span>
+       <span class="k">end</span> <span class="k">else</span> <span class="k">begin</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">tvalid</span> <span class="o">&amp;&amp;</span> <span class="n">tready</span><span class="p">)</span>
+               <span class="n">tvalid</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+           <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">tvalid</span> <span class="o">||</span> <span class="o">!</span><span class="n">tready</span><span class="p">)</span> <span class="k">begin</span>
+           <span class="c1">//             ^- should not be inverted!</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">^</span> <span class="n">state</span> <span class="o">&lt;&lt;</span> <span class="mh">13</span><span class="p">;</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">^</span> <span class="n">state</span> <span class="o">&gt;&gt;</span> <span class="mh">7</span><span class="p">;</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">state</span> <span class="o">^</span> <span class="n">state</span> <span class="o">&lt;&lt;</span> <span class="mh">17</span><span class="p">;</span>
+               <span class="k">if</span> <span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mh">9</span><span class="o">:</span><span class="mh">8</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0</span><span class="p">)</span> <span class="k">begin</span>
+                   <span class="n">tvalid</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+                   <span class="n">tdata</span> <span class="o">&lt;=</span> <span class="n">state</span><span class="p">;</span>
+               <span class="k">end</span>
+           <span class="k">end</span>
+       <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">axis_test</span><span class="p">(</span><span class="n">aclk</span><span class="p">,</span> <span class="n">tready</span><span class="p">);</span>
+    <span class="k">input</span> <span class="n">aclk</span><span class="p">,</span> <span class="n">tready</span><span class="p">;</span>
+    <span class="kt">wire</span> <span class="n">aresetn</span><span class="p">,</span> <span class="n">tvalid</span><span class="p">;</span>
+    <span class="kt">wire</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">tdata</span><span class="p">;</span>
+
+    <span class="k">integer</span> <span class="n">counter</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="kt">reg</span> <span class="n">aresetn</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+
+    <span class="n">axis_master</span> <span class="n">uut</span> <span class="p">(</span><span class="n">aclk</span><span class="p">,</span> <span class="n">aresetn</span><span class="p">,</span> <span class="n">tvalid</span><span class="p">,</span> <span class="n">tready</span><span class="p">,</span> <span class="n">tdata</span><span class="p">);</span>
+
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">aclk</span><span class="p">)</span> <span class="k">begin</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">aresetn</span> <span class="o">&amp;&amp;</span> <span class="n">tready</span> <span class="o">&amp;&amp;</span> <span class="n">tvalid</span><span class="p">)</span> <span class="k">begin</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">0</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span>  <span class="mh">19</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">1</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span>  <span class="mh">99</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">2</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span>   <span class="mh">1</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">3</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span> <span class="mh">244</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">4</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span> <span class="mh">133</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">5</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span> <span class="mh">209</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">6</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span> <span class="mh">241</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">7</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span> <span class="mh">137</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">8</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span> <span class="mh">176</span><span class="p">);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mh">9</span><span class="p">)</span> <span class="n">assert</span><span class="p">(</span><span class="n">tdata</span> <span class="o">==</span>   <span class="mh">6</span><span class="p">);</span>
+           <span class="n">counter</span> <span class="o">&lt;=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+       <span class="k">end</span>
+       <span class="n">aresetn</span> <span class="o">&lt;=</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>Example: Symbolic Model Checking (2/2)</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog -sv axis_master.v axis_test.v
+hierarchy -top axis_test
+
+proc; flatten;;
+sat -seq 50 -prove-asserts
+</pre></div>
+</div>
+<p>…with unmodified <code class="docutils literal notranslate"><span class="pre">axis_master.v</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Solving problem with 159344 variables and 442126 clauses..
+SAT proof finished - model found: FAIL!
+</pre></div>
+</div>
+<p>…with fixed <code class="docutils literal notranslate"><span class="pre">axis_master.v</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Solving problem with 159144 variables and 441626 clauses..
+SAT proof finished - no model found: SUCCESS!
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Yosys provides useful features beyond synthesis.</p></li>
+<li><p>The commands <code class="docutils literal notranslate"><span class="pre">sat</span></code> and <code class="docutils literal notranslate"><span class="pre">eval</span></code> can be used to analyse the
+behavior of a circuit.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">sat</span></code> command can also be used for symbolic model checking.</p></li>
+<li><p>This can be useful for debugging and testing designs and Yosys
+extensions alike.</p></li>
+</ul>
+<div class="center docutils container">
+<p>Questions?</p>
+</div>
+<div class="center docutils container">
+<p><a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Yosys by example – Beyond Synthesis</a><ul>
+<li><a class="reference internal" href="#interactive-design-investigation">Interactive Design Investigation</a></li>
+<li><a class="reference internal" href="#symbolic-model-checking">Symbolic Model Checking</a></li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

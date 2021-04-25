@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Yosys by example – Synthesis &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Yosys by example – Synthesis</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/PRESENTATION_ExSyn.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="yosys-by-example-synthesis">
+<h1>Yosys by example – Synthesis<a class="headerlink" href="#yosys-by-example-synthesis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="typical-phases-of-a-synthesis-flow">
+<h2>Typical Phases of a Synthesis Flow<a class="headerlink" href="#typical-phases-of-a-synthesis-flow" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Reading and elaborating the design</p></li>
+<li><p>Higher-level synthesis and optimization</p>
+<ul>
+<li><p>Converting <code class="docutils literal notranslate"><span class="pre">always</span></code>-blocks to logic and registers</p></li>
+<li><p>Perform coarse-grain optimizations (resource sharing, const
+folding, …)</p></li>
+<li><p>Handling of memories and other coarse-grain blocks</p></li>
+<li><p>Extracting and optimizing finite state machines</p></li>
+</ul>
+</li>
+<li><p>Convert remaining logic to bit-level logic functions</p></li>
+<li><p>Perform optimizations on bit-level logic functions</p></li>
+<li><p>Map bit-level logic gates and registers to cell library</p></li>
+<li><p>Write results to output file</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="reading-the-design">
+<h2>Reading the design<a class="headerlink" href="#reading-the-design" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog file1.v
+read_verilog -I include_dir -D enable_foo -D WIDTH=12 file2.v
+read_verilog -lib cell_library.v
+
+verilog_defaults -add -I include_dir
+read_verilog file3.v
+read_verilog file4.v
+verilog_defaults -clear
+
+verilog_defaults -push
+verilog_defaults -add -I include_dir
+read_verilog file5.v
+read_verilog file6.v
+verilog_defaults -pop
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="design-elaboration">
+<h2>Design elaboration<a class="headerlink" href="#design-elaboration" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>During design elaboration Yosys figures out how the modules are
+hierarchically connected. It also re-runs the AST parts of the
+Verilog frontend to create all needed variations of parametric
+modules.</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span># simplest form. at least this version should be used after reading all input files
+#
+hierarchy
+
+# recommended form. fails if parts of the design hierarchy are missing, removes
+# everything that is unreachable from the top module, and marks the top module.
+#
+hierarchy -check -top top_module
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-proc-command">
+<h2>The <code class="docutils literal notranslate"><span class="pre">proc</span></code> command<a class="headerlink" href="#the-proc-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>The Verilog frontend converts <code class="docutils literal notranslate"><span class="pre">always</span></code>-blocks to RTL netlists for
+the expressions and “processes” for the control- and memory elements.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">proc</span></code> command transforms this “processes” to netlists of RTL
+multiplexer and register cells.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">proc</span></code> command is actually a macro-command that calls the
+following other commands:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>proc_clean      # remove empty branches and processes
+proc_rmdead     # remove unreachable branches
+proc_init       # special handling of &quot;initial&quot; blocks
+proc_arst       # identify modeling of async resets
+proc_mux        # convert decision trees to multiplexer networks
+proc_dff        # extract registers from processes
+proc_clean      # if all went fine, this should remove all the processes
+</pre></div>
+</div>
+<p>Many commands can not operate on modules with “processes” in them.
+Usually a call to <code class="docutils literal notranslate"><span class="pre">proc</span></code> is the first command in the actual
+synthesis procedure after design elaboration.</p>
+</div>
+<div class="frame docutils container">
+<p>– Example 1/3</p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">D</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="k">output</span> <span class="kt">reg</span> <span class="n">Q</span><span class="p">);</span>
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">C</span><span class="p">,</span> <span class="k">posedge</span> <span class="n">R</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">R</span><span class="p">)</span>
+           <span class="n">Q</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+       <span class="k">else</span>
+           <span class="n">Q</span> <span class="o">&lt;=</span> <span class="n">D</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog proc_01.v
+hierarchy -check -top test
+proc;;
+</pre></div>
+</div>
+</div>
+<a class="reference internal image-reference" href="PRESENTATION_ExSyn/proc_01.pdf"><img alt="image" src="PRESENTATION_ExSyn/proc_01.pdf" style="width: 8cm;" /></a>
+</div>
+<div class="frame docutils container">
+<p>– Example 2/3 to 0cm<img alt="image" src="PRESENTATION_ExSyn/proc_02.pdf" /></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">D</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">RV</span><span class="p">,</span>
+            <span class="k">output</span> <span class="kt">reg</span> <span class="n">Q</span><span class="p">);</span>
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">C</span><span class="p">,</span> <span class="k">posedge</span> <span class="n">R</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">R</span><span class="p">)</span>
+           <span class="n">Q</span> <span class="o">&lt;=</span> <span class="n">RV</span><span class="p">;</span>
+       <span class="k">else</span>
+           <span class="n">Q</span> <span class="o">&lt;=</span> <span class="n">D</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog proc_02.v
+hierarchy -check -top test
+proc;;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 3/3 to 0cm<img alt="image1" src="PRESENTATION_ExSyn/proc_03.pdf" /></p>
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog proc_03.v
+hierarchy -check -top test
+proc;;
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span>
+            <span class="k">output</span> <span class="kt">reg</span> <span class="n">Y</span><span class="p">);</span>
+    <span class="k">always</span> <span class="p">@</span><span class="o">*</span> <span class="k">begin</span>
+       <span class="n">Y</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span>
+           <span class="n">Y</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">D</span><span class="p">)</span>
+           <span class="n">Y</span> <span class="o">&lt;=</span> <span class="n">E</span><span class="p">;</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-opt-command">
+<h2>The <code class="docutils literal notranslate"><span class="pre">opt</span></code> command<a class="headerlink" href="#the-opt-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>The <code class="docutils literal notranslate"><span class="pre">opt</span></code> command implements a series of simple optimizations. It
+also is a macro command that calls other commands:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>opt_expr                # const folding and simple expression rewriting
+opt_merge -nomux        # merging identical cells
+
+do
+    opt_muxtree         # remove never-active branches from multiplexer tree
+    opt_reduce          # consolidate trees of boolean ops to reduce functions
+    opt_merge           # merging identical cells
+    opt_rmdff           # remove/simplify registers with constant inputs
+    opt_clean           # remove unused objects (cells, wires) from design
+    opt_expr            # const folding and simple expression rewriting
+while [changed design]
+</pre></div>
+</div>
+<p>The command <code class="docutils literal notranslate"><span class="pre">clean</span></code> can be used as alias for <code class="docutils literal notranslate"><span class="pre">opt_clean</span></code>. And
+<code class="docutils literal notranslate"><span class="pre">;;</span></code> can be used as shortcut for <code class="docutils literal notranslate"><span class="pre">clean</span></code>. For example:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>proc; opt; memory; opt_expr;; fsm;;
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 1/4 to 0cm<img alt="image2" src="PRESENTATION_ExSyn/opt_01.pdf" /></p>
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog opt_01.v
+hierarchy -check -top test
+opt
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="k">output</span> <span class="n">Y</span><span class="p">);</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">?</span> <span class="n">A</span> <span class="o">?</span> <span class="n">B</span> <span class="o">:</span> <span class="mh">1</span><span class="mb">&#39;b1</span> <span class="o">:</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 2/4 to 0cm<img alt="image3" src="PRESENTATION_ExSyn/opt_02.pdf" /></p>
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog opt_02.v
+hierarchy -check -top test
+opt
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">A</span><span class="p">,</span> <span class="k">output</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">);</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">==</span> <span class="n">A</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">A</span> <span class="o">!=</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 3/4 to 0cm<img alt="image4" src="PRESENTATION_ExSyn/opt_03.pdf" /></p>
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog opt_03.v
+hierarchy -check -top test
+opt
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span>  <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span>
+            <span class="k">output</span> <span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">);</span>
+<span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">B</span> <span class="o">+</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 4/4 to 0cm<a class="reference internal" href="PRESENTATION_ExSyn/opt_04.pdf"><img alt="image5" src="PRESENTATION_ExSyn/opt_04.pdf" style="width: 6cm;" /></a></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">CLK</span><span class="p">,</span> <span class="n">ARST</span><span class="p">,</span>
+            <span class="k">output</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Q1</span><span class="p">,</span> <span class="n">Q2</span><span class="p">,</span> <span class="n">Q3</span><span class="p">);</span>
+
+<span class="kt">wire</span> <span class="n">NO_CLK</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">CLK</span><span class="p">,</span> <span class="k">posedge</span> <span class="n">ARST</span><span class="p">)</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">ARST</span><span class="p">)</span>
+               <span class="n">Q1</span> <span class="o">&lt;=</span> <span class="mh">42</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">NO_CLK</span><span class="p">,</span> <span class="k">posedge</span> <span class="n">ARST</span><span class="p">)</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">ARST</span><span class="p">)</span>
+               <span class="n">Q2</span> <span class="o">&lt;=</span> <span class="mh">42</span><span class="p">;</span>
+       <span class="k">else</span>
+               <span class="n">Q2</span> <span class="o">&lt;=</span> <span class="mh">23</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">CLK</span><span class="p">)</span>
+       <span class="n">Q3</span> <span class="o">&lt;=</span> <span class="mh">42</span><span class="p">;</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog opt_04.v
+hierarchy -check -top test
+proc; opt
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="when-to-use-opt-or-clean">
+<h2>When to use <code class="docutils literal notranslate"><span class="pre">opt</span></code> or <code class="docutils literal notranslate"><span class="pre">clean</span></code><a class="headerlink" href="#when-to-use-opt-or-clean" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>Usually it does not hurt to call <code class="docutils literal notranslate"><span class="pre">opt</span></code> after each regular command
+in the synthesis script. But it increases the synthesis time, so it
+is favourable to only call <code class="docutils literal notranslate"><span class="pre">opt</span></code> when an improvement can be
+achieved.</p>
+<p>The designs in <code class="docutils literal notranslate"><span class="pre">yosys-bigsim</span></code> are a good playground for
+experimenting with the effects of calling <code class="docutils literal notranslate"><span class="pre">opt</span></code> in various places
+of the flow.</p>
+<p>It generally is a good idea to call <code class="docutils literal notranslate"><span class="pre">opt</span></code> before inherently
+expensive commands such as <code class="docutils literal notranslate"><span class="pre">sat</span></code> or <code class="docutils literal notranslate"><span class="pre">freduce</span></code>, as the possible
+gain is much higher in this cases as the possible loss.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">clean</span></code> command on the other hand is very fast and many
+commands leave a mess (dangling signal wires, etc). For example, most
+commands do not remove any wires or cells. They just change the
+connections and depend on a later call to clean to get rid of the now
+unused objects. So the occasional <code class="docutils literal notranslate"><span class="pre">;;</span></code> is a good idea in every
+synthesis script.</p>
+</div>
+</div>
+<div class="section" id="the-memory-command">
+<h2>The <code class="docutils literal notranslate"><span class="pre">memory</span></code> command<a class="headerlink" href="#the-memory-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>In the RTL netlist, memory reads and writes are individual cells.
+This makes consolidating the number of ports for a memory easier. The
+<code class="docutils literal notranslate"><span class="pre">memory</span></code> transforms memories to an implementation. Per default that
+is logic for address decoders and registers. It also is a macro
+command that calls other commands:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span># this merges registers into the memory read- and write cells.
+memory_dff
+
+# this collects all read and write cells for a memory and transforms them
+# into one multi-port memory cell.
+memory_collect
+
+# this takes the multi-port memory cell and transforms it to address decoder
+# logic and registers. This step is skipped if &quot;memory&quot; is called with -nomap.
+memory_map
+</pre></div>
+</div>
+<p>Usually it is preferred to use architecture-specific RAM resources
+for memory. For example:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>memory -nomap; techmap -map my_memory_map.v; memory_map
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 1/2 to 0cm<img alt="image6" src="PRESENTATION_ExSyn/memory_01.pdf" /></p>
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog memory_01.v
+hierarchy -check -top test
+proc;; memory; opt
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span>      <span class="n">CLK</span><span class="p">,</span> <span class="n">ADDR</span><span class="p">,</span>
+            <span class="k">input</span>      <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">DIN</span><span class="p">,</span>
+           <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">DOUT</span><span class="p">);</span>
+    <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">mem</span> <span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">1</span><span class="p">];</span>
+    <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">CLK</span><span class="p">)</span> <span class="k">begin</span>
+        <span class="n">mem</span><span class="p">[</span><span class="n">ADDR</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">DIN</span><span class="p">;</span>
+       <span class="n">DOUT</span> <span class="o">&lt;=</span> <span class="n">mem</span><span class="p">[</span><span class="n">ADDR</span><span class="p">];</span>
+    <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– Example 2/2 to 0cm<a class="reference internal" href="PRESENTATION_ExSyn/memory_02.pdf"><img alt="image7" src="PRESENTATION_ExSyn/memory_02.pdf" style="width: 7.5cm;" /></a></p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span>
+    <span class="k">input</span>             <span class="n">WR1_CLK</span><span class="p">,</span>  <span class="n">WR2_CLK</span><span class="p">,</span>
+    <span class="k">input</span>             <span class="n">WR1_WEN</span><span class="p">,</span>  <span class="n">WR2_WEN</span><span class="p">,</span>
+    <span class="k">input</span>      <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">WR1_ADDR</span><span class="p">,</span> <span class="n">WR2_ADDR</span><span class="p">,</span>
+    <span class="k">input</span>      <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">WR1_DATA</span><span class="p">,</span> <span class="n">WR2_DATA</span><span class="p">,</span>
+    <span class="k">input</span>             <span class="n">RD1_CLK</span><span class="p">,</span>  <span class="n">RD2_CLK</span><span class="p">,</span>
+    <span class="k">input</span>      <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">RD1_ADDR</span><span class="p">,</span> <span class="n">RD2_ADDR</span><span class="p">,</span>
+    <span class="k">output</span> <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">RD1_DATA</span><span class="p">,</span> <span class="n">RD2_DATA</span>
+<span class="p">);</span>
+
+<span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">memory</span> <span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">255</span><span class="p">];</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">WR1_CLK</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">WR1_WEN</span><span class="p">)</span>
+        <span class="n">memory</span><span class="p">[</span><span class="n">WR1_ADDR</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">WR1_DATA</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">WR2_CLK</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">WR2_WEN</span><span class="p">)</span>
+        <span class="n">memory</span><span class="p">[</span><span class="n">WR2_ADDR</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">WR2_DATA</span><span class="p">;</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">RD1_CLK</span><span class="p">)</span>
+    <span class="n">RD1_DATA</span> <span class="o">&lt;=</span> <span class="n">memory</span><span class="p">[</span><span class="n">RD1_ADDR</span><span class="p">];</span>
+
+<span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">RD2_CLK</span><span class="p">)</span>
+    <span class="n">RD2_DATA</span> <span class="o">&lt;=</span> <span class="n">memory</span><span class="p">[</span><span class="n">RD2_ADDR</span><span class="p">];</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog memory_02.v
+hierarchy -check -top test
+proc;; memory -nomap
+opt -mux_undef -mux_bool
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-fsm-command">
+<h2>The <code class="docutils literal notranslate"><span class="pre">fsm</span></code> command<a class="headerlink" href="#the-fsm-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>The <code class="docutils literal notranslate"><span class="pre">fsm</span></code> command identifies, extracts, optimizes (re-encodes), and
+re-synthesizes finite state machines. It again is a macro that calls
+a series of other commands:</p>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>fsm_detect          # unless got option -nodetect
+fsm_extract
+
+fsm_opt
+clean
+fsm_opt
+
+fsm_expand          # if got option -expand
+clean               # if got option -expand
+fsm_opt             # if got option -expand
+
+fsm_recode          # unless got option -norecode
+
+fsm_info
+
+fsm_export          # if got option -export
+fsm_map             # unless got option -nomap
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– details Some details on the most important commands from the
+<code class="docutils literal notranslate"><span class="pre">fsm_</span></code> group:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">fsm_detect</span></code> command identifies FSM state registers and marks
+them with the <code class="docutils literal notranslate"><span class="pre">(*</span> <span class="pre">fsm_encoding</span> <span class="pre">=</span> <span class="pre">&quot;auto&quot;</span> <span class="pre">*)</span></code> attribute, if they do
+not have the <code class="docutils literal notranslate"><span class="pre">fsm_encoding</span></code> set already. Mark registers with
+<code class="docutils literal notranslate"><span class="pre">(*</span> <span class="pre">fsm_encoding</span> <span class="pre">=</span> <span class="pre">&quot;none&quot;</span> <span class="pre">*)</span></code> to disable FSM optimization for a
+register.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">fsm_extract</span></code> command replaces the entire FSM (logic and state
+registers) with a <code class="docutils literal notranslate"><span class="pre">$fsm</span></code> cell.</p>
+<p>The commands <code class="docutils literal notranslate"><span class="pre">fsm_opt</span></code> and <code class="docutils literal notranslate"><span class="pre">fsm_recode</span></code> can be used to optimize
+the FSM.</p>
+<p>Finally the <code class="docutils literal notranslate"><span class="pre">fsm_map</span></code> command can be used to convert the
+(optimized) <code class="docutils literal notranslate"><span class="pre">$fsm</span></code> cell back to logic and registers.</p>
+</div>
+</div>
+<div class="section" id="the-techmap-command">
+<h2>The <code class="docutils literal notranslate"><span class="pre">techmap</span></code> command<a class="headerlink" href="#the-techmap-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>to 0cm<a class="reference internal" href="PRESENTATION_ExSyn/techmap_01.pdf"><img alt="image8" src="PRESENTATION_ExSyn/techmap_01.pdf" style="width: 12cm;" /></a> The <code class="docutils literal notranslate"><span class="pre">techmap</span></code> command replaces cells with
+implementations given as verilog source. For example implementing a
+32 bit adder using 16 bit adders:</p>
+<p>to 0cm</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">\$add</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">Y</span><span class="p">);</span>
+
+<span class="k">parameter</span> <span class="n">A_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_SIGNED</span> <span class="o">=</span> <span class="mh">0</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">A_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">B_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">parameter</span> <span class="n">Y_WIDTH</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="n">A_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">A</span><span class="p">;</span>
+<span class="k">input</span> <span class="p">[</span><span class="n">B_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">B</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="n">Y_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">Y</span><span class="p">;</span>
+
+<span class="k">generate</span>
+  <span class="k">if</span> <span class="p">((</span><span class="n">A_WIDTH</span> <span class="o">==</span> <span class="mh">32</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">B_WIDTH</span> <span class="o">==</span> <span class="mh">32</span><span class="p">))</span>
+    <span class="k">begin</span>
+      <span class="kt">wire</span> <span class="p">[</span><span class="mh">16</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">S1</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">];</span>
+      <span class="kt">wire</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">S2</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">16</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">16</span><span class="p">]</span> <span class="o">+</span> <span class="n">S1</span><span class="p">[</span><span class="mh">16</span><span class="p">];</span>
+      <span class="k">assign</span> <span class="n">Y</span> <span class="o">=</span> <span class="p">{</span><span class="n">S2</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span> <span class="n">S1</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]};</span>
+    <span class="k">end</span>
+  <span class="k">else</span>
+    <span class="kt">wire</span> <span class="n">_TECHMAP_FAIL_</span> <span class="o">=</span> <span class="mh">1</span><span class="p">;</span>
+<span class="k">endgenerate</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p>to 0cm</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>  <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span>
+            <span class="k">output</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span><span class="p">);</span>
+<span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog techmap_01.v
+hierarchy -check -top test
+techmap -map techmap_01_map.v;;
+</pre></div>
+</div>
+</div>
+<div class="frame docutils container">
+<p>– stdcell mapping When <code class="docutils literal notranslate"><span class="pre">techmap</span></code> is used without a map file, it
+uses a built-in map file to map all RTL cell types to a generic
+library of built-in logic gates and registers.</p>
+<div class="block docutils container">
+<p>The built-in logic gate types are:
+<code class="docutils literal notranslate"><span class="pre">$_NOT_</span> <span class="pre">$_AND_</span> <span class="pre">$_OR_</span> <span class="pre">$_XOR_</span> <span class="pre">$_MUX_</span></code></p>
+</div>
+<div class="block docutils container">
+<p>The register types are:
+<code class="docutils literal notranslate"><span class="pre">$_SR_NN_</span> <span class="pre">$_SR_NP_</span> <span class="pre">$_SR_PN_</span> <span class="pre">$_SR_PP_</span> <span class="pre">$_DFF_N_</span> <span class="pre">$_DFF_P_</span> <span class="pre">$_DFF_NN0_</span> <span class="pre">$_DFF_NN1_</span> <span class="pre">$_DFF_NP0_</span> <span class="pre">$_DFF_NP1_</span> <span class="pre">$_DFF_PN0_</span> <span class="pre">$_DFF_PN1_</span> <span class="pre">$_DFF_PP0_</span> <span class="pre">$_DFF_PP1_</span> <span class="pre">$_DFFSR_NNN_</span> <span class="pre">$_DFFSR_NNP_</span> <span class="pre">$_DFFSR_NPN_</span> <span class="pre">$_DFFSR_NPP_</span> <span class="pre">$_DFFSR_PNN_</span> <span class="pre">$_DFFSR_PNP_</span> <span class="pre">$_DFFSR_PPN_</span> <span class="pre">$_DFFSR_PPP_</span> <span class="pre">$_DLATCH_N_</span> <span class="pre">$_DLATCH_P_</span></code></p>
+</div>
+</div>
+</div>
+<div class="section" id="the-abc-command">
+<h2>The <code class="docutils literal notranslate"><span class="pre">abc</span></code> command<a class="headerlink" href="#the-abc-command" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<p>The <code class="docutils literal notranslate"><span class="pre">abc</span></code> command provides an interface to ABC <a class="footnote-reference brackets" href="#id2" id="id1">1</a>, an open source
+tool for low-level logic synthesis.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">abc</span></code> command processes a netlist of internal gate types and
+can perform:</p>
+<ul class="simple">
+<li><p>logic minimization (optimization)</p></li>
+<li><p>mapping of logic to standard cell library (liberty format)</p></li>
+<li><p>mapping of logic to k-LUTs (for FPGA synthesis)</p></li>
+</ul>
+<p>Optionally <code class="docutils literal notranslate"><span class="pre">abc</span></code> can process registers from one clock domain and
+perform sequential optimization (such as register balancing).</p>
+<p>ABC is also controlled using scripts. An ABC script can be specified
+to use more advanced ABC features. It is also possible to write the
+design with <code class="docutils literal notranslate"><span class="pre">write_blif</span></code> and load the output file into ABC outside
+of Yosys.</p>
+</div>
+<div class="frame docutils container">
+<p>– Example</p>
+<div class="columns docutils container">
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">clk</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span>
+            <span class="k">output</span> <span class="kt">reg</span> <span class="n">y</span><span class="p">);</span>
+
+       <span class="kt">reg</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">;</span>
+       <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+               <span class="n">q1</span> <span class="o">&lt;=</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">};</span>
+               <span class="n">q2</span> <span class="o">&lt;=</span> <span class="n">q1</span><span class="p">;</span>
+               <span class="n">y</span> <span class="o">&lt;=</span> <span class="o">^</span><span class="n">q2</span><span class="p">;</span>
+       <span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span>read_verilog abc_01.v
+read_verilog -lib abc_01_cells.v
+hierarchy -check -top test
+proc; opt; techmap
+abc -dff -liberty abc_01_cells.lib;;
+</pre></div>
+</div>
+</div>
+<img alt="image" src="PRESENTATION_ExSyn/abc_01.pdf" />
+</div>
+</div>
+<div class="section" id="other-special-purpose-mapping-commands">
+<h2>Other special-purpose mapping commands<a class="headerlink" href="#other-special-purpose-mapping-commands" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<div class="block docutils container">
+<p><code class="docutils literal notranslate"><span class="pre">dfflibmap</span></code> This command maps the internal register cell types
+to the register types described in a liberty file.</p>
+</div>
+<div class="block docutils container">
+<p><code class="docutils literal notranslate"><span class="pre">hilomap</span></code> Some architectures require special driver cells for
+driving a constant hi or lo value. This command replaces simple
+constants with instances of such driver cells.</p>
+</div>
+<div class="block docutils container">
+<p><code class="docutils literal notranslate"><span class="pre">iopadmap</span></code> Top-level input/outputs must usually be implemented
+using special I/O-pad cells. This command inserts this cells to
+the design.</p>
+</div>
+</div>
+</div>
+<div class="section" id="example-synthesis-script">
+<h2>Example Synthesis Script<a class="headerlink" href="#example-synthesis-script" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<div class="columns docutils container">
+<div class="highlight-ys notranslate"><div class="highlight"><pre><span></span># read and elaborate design
+read_verilog cpu_top.v cpu_ctrl.v cpu_regs.v
+read_verilog -D WITH_MULT cpu_alu.v
+hierarchy -check -top cpu_top
+
+# high-level synthesis
+proc; opt; fsm;; memory -nomap; opt
+
+# substitute block rams
+techmap -map map_rams.v
+
+# map remaining memories
+memory_map
+
+# low-level synthesis
+techmap; opt; flatten;; abc -lut6
+techmap -map map_xl_cells.v
+
+# add clock buffers
+select -set xl_clocks t:FDRE %x:+FDRE[C] t:FDRE %d
+iopadmap -inpad BUFGP O:I @xl_clocks
+
+# add io buffers
+select -set xl_nonclocks w:* t:BUFGP %x:+BUFGP[I] %d
+iopadmap -outpad OBUF I:O -inpad IBUF O:I @xl_nonclocks
+
+# write synthesis results
+write_edif synth.edif
+</pre></div>
+</div>
+<div class="block docutils container">
+<p>Teaser / Outlook</p>
+<p>The weird <code class="docutils literal notranslate"><span class="pre">select</span></code> expressions at the end of this script are
+discussed in the next part (Section 3, “Advanced Synthesis”) of
+this presentation.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<div class="frame docutils container">
+<ul class="simple">
+<li><p>Yosys provides commands for each phase of the synthesis.</p></li>
+<li><p>Each command solves a (more or less) simple problem.</p></li>
+<li><p>Complex commands are often only front-ends to simple commands.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">proc;</span> <span class="pre">opt;</span> <span class="pre">fsm;</span> <span class="pre">opt;</span> <span class="pre">memory;</span> <span class="pre">opt;</span> <span class="pre">techmap;</span> <span class="pre">opt;</span> <span class="pre">abc;;</span></code></p></li>
+</ul>
+<div class="center docutils container">
+<p>Questions?</p>
+</div>
+<div class="center docutils container">
+<p><a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></p>
+</div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="http://www.eecs.berkeley.edu/~alanmi/abc/">http://www.eecs.berkeley.edu/~alanmi/abc/</a></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Yosys by example – Synthesis</a><ul>
+<li><a class="reference internal" href="#typical-phases-of-a-synthesis-flow">Typical Phases of a Synthesis Flow</a></li>
+<li><a class="reference internal" href="#reading-the-design">Reading the design</a></li>
+<li><a class="reference internal" href="#design-elaboration">Design elaboration</a></li>
+<li><a class="reference internal" href="#the-proc-command">The <code class="docutils literal notranslate"><span class="pre">proc</span></code> command</a></li>
+<li><a class="reference internal" href="#the-opt-command">The <code class="docutils literal notranslate"><span class="pre">opt</span></code> command</a></li>
+<li><a class="reference internal" href="#when-to-use-opt-or-clean">When to use <code class="docutils literal notranslate"><span class="pre">opt</span></code> or <code class="docutils literal notranslate"><span class="pre">clean</span></code></a></li>
+<li><a class="reference internal" href="#the-memory-command">The <code class="docutils literal notranslate"><span class="pre">memory</span></code> command</a></li>
+<li><a class="reference internal" href="#the-fsm-command">The <code class="docutils literal notranslate"><span class="pre">fsm</span></code> command</a></li>
+<li><a class="reference internal" href="#the-techmap-command">The <code class="docutils literal notranslate"><span class="pre">techmap</span></code> command</a></li>
+<li><a class="reference internal" href="#the-abc-command">The <code class="docutils literal notranslate"><span class="pre">abc</span></code> command</a></li>
+<li><a class="reference internal" href="#other-special-purpose-mapping-commands">Other special-purpose mapping commands</a></li>
+<li><a class="reference internal" href="#example-synthesis-script">Example Synthesis Script</a></li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

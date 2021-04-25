@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Approach &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Implementation Overview" href="CHAPTER_Overview.html" />
+    <link rel="prev" title="Basic Principles" href="CHAPTER_Basics.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Approach</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_Approach.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="approach">
+<span id="chapter-approach"></span><h1>Approach<a class="headerlink" href="#approach" title="Permalink to this headline">¶</a></h1>
+<p>Yosys is a tool for synthesising (behavioural) Verilog HDL code to
+target architecture netlists. Yosys aims at a wide range of application
+domains and thus must be flexible and easy to adapt to new tasks. This
+chapter covers the general approach followed in the effort to implement
+this tool.</p>
+<div class="section" id="data-and-control-flow">
+<h2>Data- and Control-Flow<a class="headerlink" href="#data-and-control-flow" title="Permalink to this headline">¶</a></h2>
+<p>The data- and control-flow of a typical synthesis tool is very similar
+to the data- and control-flow of a typical compiler: different
+subsystems are called in a predetermined order, each consuming the data
+generated by the last subsystem and generating the data for the next
+subsystem (see Fig. <a class="reference external" href="#fig:approach_flow">[fig:approach_flow]</a>).</p>
+<p>The first subsystem to be called is usually called a <em>frontend</em>. It does
+not process the data generated by another subsystem but instead reads
+the user input—in the case of a HDL synthesis tool, the behavioural HDL
+code.</p>
+<p>The subsystems that consume data from previous subsystems and produce
+data for the next subsystems (usually in the same or a similar format)
+are called <em>passes</em>.</p>
+<p>The last subsystem that is executed transforms the data generated by the
+last pass into a suitable output format and writes it to a disk file.
+This subsystem is usually called the <em>backend</em>.</p>
+<p>In Yosys all frontends, passes and backends are directly available as
+commands in the synthesis script. Thus the user can easily create a
+custom synthesis flow just by calling passes in the right order in a
+synthesis script.</p>
+</div>
+<div class="section" id="internal-formats-in-yosys">
+<h2>Internal Formats in Yosys<a class="headerlink" href="#internal-formats-in-yosys" title="Permalink to this headline">¶</a></h2>
+<p>Yosys uses two different internal formats. The first is used to store an
+abstract syntax tree (AST) of a Verilog input file. This format is
+simply called <em>AST</em> and is generated by the Verilog Frontend. This data
+structure is consumed by a subsystem called <em>AST Frontend</em> <a class="footnote-reference brackets" href="#id2" id="id1">1</a>. This
+AST Frontend then generates a design in Yosys’ main internal format, the
+Register-Transfer-Level-Intermediate-Language (RTLIL) representation. It
+does that by first performing a number of simplifications within the AST
+representation and then generating RTLIL from the simplified AST data
+structure.</p>
+<p>The RTLIL representation is used by all passes as input and outputs.
+This has the following advantages over using different representational
+formats between different passes:</p>
+<ul class="simple">
+<li><p>The passes can be rearranged in a different order and passes can be
+removed or inserted.</p></li>
+<li><p>Passes can simply pass-thru the parts of the design they don’t change
+without the need to convert between formats. In fact Yosys passes
+output the same data structure they received as input and performs
+all changes in place.</p></li>
+<li><p>All passes use the same interface, thus reducing the effort required
+to understand a pass when reading the Yosys source code, e.g. when
+adding additional features.</p></li>
+</ul>
+<p>The RTLIL representation is basically a netlist representation with the
+following additional features:</p>
+<ul class="simple">
+<li><p>An internal cell library with fixed-function cells to represent RTL
+datapath and register cells as well as logical gate-level cells
+(single-bit gates and registers).</p></li>
+<li><p>Support for multi-bit values that can use individual bits from wires
+as well as constant bits to represent coarse-grain netlists.</p></li>
+<li><p>Support for basic behavioural constructs (if-then-else structures and
+multi-case switches with a sensitivity list for updating the
+outputs).</p></li>
+<li><p>Support for multi-port memories.</p></li>
+</ul>
+<p>The use of RTLIL also has the disadvantage of having a very powerful
+format between all passes, even when doing gate-level synthesis where
+the more advanced features are not needed. In order to reduce complexity
+for passes that operate on a low-level representation, these passes
+check the features used in the input RTLIL and fail to run when
+unsupported high-level constructs are used. In such cases a pass that
+transforms the higher-level constructs to lower-level constructs must be
+called from the synthesis script first.</p>
+</div>
+<div class="section" id="typical-use-case">
+<span id="sec-typusecase"></span><h2>Typical Use Case<a class="headerlink" href="#typical-use-case" title="Permalink to this headline">¶</a></h2>
+<p>The following example script may be used in a synthesis flow to convert
+the behavioural Verilog code from the input file <code class="docutils literal notranslate"><span class="pre">design.v</span></code> to a
+gate-level netlist <code class="docutils literal notranslate"><span class="pre">synth.v</span></code> using the cell library described by the
+Liberty file <code class="docutils literal notranslate"><span class="pre">cells.lib</span></code>:</p>
+<div class="highlight-sh notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># read input file to internal representation</span>
+read_verilog design.v
+
+<span class="c1"># convert high-level behavioral parts (&quot;processes&quot;) to d-type flip-flops and muxes</span>
+proc
+
+<span class="c1"># perform some simple optimizations</span>
+opt
+
+<span class="c1"># convert high-level memory constructs to d-type flip-flops and multiplexers</span>
+memory
+
+<span class="c1"># perform some simple optimizations</span>
+opt
+
+<span class="c1"># convert design to (logical) gate-level netlists</span>
+techmap
+
+<span class="c1"># perform some simple optimizations</span>
+opt
+
+<span class="c1"># map internal register types to the ones from the cell library</span>
+dfflibmap -liberty cells.lib
+
+<span class="c1"># use ABC to map remaining logic to cells from the cell library</span>
+abc -liberty cells.lib
+
+<span class="c1"># cleanup</span>
+opt
+
+<span class="c1"># write results to output file</span>
+write_verilog synth.v
+</pre></div>
+</td></tr></table></div>
+<p>A detailed description of the commands available in Yosys can be found
+in App. <a class="reference external" href="#commandref">[commandref]</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>In Yosys the term <em>pass</em> is only used to refer to commands that
+operate on the RTLIL data structure.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Approach</a><ul>
+<li><a class="reference internal" href="#data-and-control-flow">Data- and Control-Flow</a></li>
+<li><a class="reference internal" href="#internal-formats-in-yosys">Internal Formats in Yosys</a></li>
+<li><a class="reference internal" href="#typical-use-case">Typical Use Case</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Basics.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Basic Principles</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_Overview.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>Implementation Overview</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

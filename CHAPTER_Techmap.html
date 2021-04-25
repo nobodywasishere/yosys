@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Technology Mapping &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Evaluation, Conclusion, Future Work" href="CHAPTER_Eval.html" />
+    <link rel="prev" title="Optimizations" href="CHAPTER_Optimize.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Technology Mapping</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_Techmap.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="technology-mapping">
+<span id="chapter-techmap"></span><h1>Technology Mapping<a class="headerlink" href="#technology-mapping" title="Permalink to this headline">¶</a></h1>
+<p>Previous chapters outlined how HDL code is transformed into an RTL
+netlist. The RTL netlist is still based on abstract coarse-grain cell
+types like arbitrary width adders and even multipliers. This chapter
+covers how an RTL netlist is transformed into a functionally equivalent
+netlist utilizing the cell types available in the target architecture.</p>
+<p>Technology mapping is often performed in two phases. In the first phase
+RTL cells are mapped to an internal library of single-bit cells (see
+Sec. <a class="reference external" href="#sec:celllib_gates">[sec:celllib_gates]</a>). In the second phase
+this netlist of internal gate types is transformed to a netlist of gates
+from the target technology library.</p>
+<p>When the target architecture provides coarse-grain cells (such as block
+ram or ALUs), these must be mapped to directly form the RTL netlist, as
+information on the coarse-grain structure of the design is lost when it
+is mapped to bit-width gate types.</p>
+<div class="section" id="cell-substitution">
+<h2>Cell Substitution<a class="headerlink" href="#cell-substitution" title="Permalink to this headline">¶</a></h2>
+<p>The simplest form of technology mapping is cell substitution, as
+performed by the <code class="docutils literal notranslate"><span class="pre">techmap</span></code> pass. This pass, when provided with a
+Verilog file that implements the RTL cell types using simpler cells,
+simply replaces the RTL cells with the provided implementation.</p>
+<p>When no map file is provided, <code class="docutils literal notranslate"><span class="pre">techmap</span></code> uses a built-in map file that
+maps the Yosys RTL cell types to the internal gate library used by
+Yosys. The curious reader may find this map file as
+<code class="docutils literal notranslate"><span class="pre">techlibs/common/techmap.v</span></code> in the Yosys source tree.</p>
+<p>Additional features have been added to <code class="docutils literal notranslate"><span class="pre">techmap</span></code> to allow for
+conditional mapping of cells (see <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">techmap</span></code> or
+Sec. <a class="reference external" href="#cmd:techmap">[cmd:techmap]</a>). This can for example be useful
+if the target architecture supports hardware multipliers for certain
+bit-widths but not for others.</p>
+<p>A usual synthesis flow would first use the <code class="docutils literal notranslate"><span class="pre">techmap</span></code> pass to directly
+map some RTL cells to coarse-grain cells provided by the target
+architecture (if any) and then use techmap with the built-in default
+file to map the remaining RTL cells to gate logic.</p>
+</div>
+<div class="section" id="subcircuit-substitution">
+<h2>Subcircuit Substitution<a class="headerlink" href="#subcircuit-substitution" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes the target architecture provides cells that are more powerful
+than the RTL cells used by Yosys. For example a cell in the target
+architecture that can calculate the absolute-difference of two numbers
+does not match any single RTL cell type but only combinations of cells.</p>
+<p>For these cases Yosys provides the <code class="docutils literal notranslate"><span class="pre">extract</span></code> pass that can match a
+given set of modules against a design and identify the portions of the
+design that are identical (i.e. isomorphic subcircuits) to any of the
+given modules. These matched subcircuits are then replaced by instances
+of the given modules.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">extract</span></code> pass also finds basic variations of the given modules,
+such as swapped inputs on commutative cell types.</p>
+<p>In addition to this the <code class="docutils literal notranslate"><span class="pre">extract</span></code> pass also has limited support for
+frequent subcircuit mining, i.e. the process of finding recurring
+subcircuits in the design. This has a few applications, including the
+design of new coarse-grain architectures
+.</p>
+<p>The hard algorithmic work done by the <code class="docutils literal notranslate"><span class="pre">extract</span></code> pass (solving the
+isomorphic subcircuit problem and frequent subcircuit mining) is
+performed using the SubCircuit library that can also be used stand-alone
+without Yosys (see Sec. <a class="reference external" href="#sec:SubCircuit">[sec:SubCircuit]</a>).</p>
+</div>
+<div class="section" id="gate-level-technology-mapping">
+<span id="sec-techmap-extern"></span><h2>Gate-Level Technology Mapping<a class="headerlink" href="#gate-level-technology-mapping" title="Permalink to this headline">¶</a></h2>
+<p>On the gate-level the target architecture is usually described by a
+“Liberty file”. The Liberty file format is an industry standard format
+that can be used to describe the behaviour and other properties of
+standard library cells .</p>
+<p>Mapping a design utilizing the Yosys internal gate library (e.g. as a
+result of mapping it to this representation using the <code class="docutils literal notranslate"><span class="pre">techmap</span></code> pass)
+is performed in two phases.</p>
+<p>First the register cells must be mapped to the registers that are
+available on the target architectures. The target architecture might not
+provide all variations of d-type flip-flops with positive and negative
+clock edge, high-active and low-active asynchronous set and/or reset,
+etc. Therefore the process of mapping the registers might add additional
+inverters to the design and thus it is important to map the register
+cells first.</p>
+<p>Mapping of the register cells may be performed by using the
+<code class="docutils literal notranslate"><span class="pre">dfflibmap</span></code> pass. This pass expects a Liberty file as argument (using
+the <code class="docutils literal notranslate"><span class="pre">-liberty</span></code> option) and only uses the register cells from the
+Liberty file.</p>
+<p>Secondly the combinational logic must be mapped to the target
+architecture. This is done using the external program ABC via the
+<code class="docutils literal notranslate"><span class="pre">abc</span></code> pass by using the <code class="docutils literal notranslate"><span class="pre">-liberty</span></code> option to the pass. Note that in
+this case only the combinatorial cells are used from the cell library.</p>
+<p>Occasionally Liberty files contain trade secrets (such as sensitive
+timing information) that cannot be shared freely. This complicates
+processes such as reporting bugs in the tools involved. When the
+information in the Liberty file used by Yosys and ABC are not part of
+the sensitive information, the additional tool <code class="docutils literal notranslate"><span class="pre">yosys-filterlib</span></code> (see
+Sec. <a class="reference external" href="#sec:filterlib">[sec:filterlib]</a>) can be used to strip the
+sensitive information from the Liberty file.</p>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Technology Mapping</a><ul>
+<li><a class="reference internal" href="#cell-substitution">Cell Substitution</a></li>
+<li><a class="reference internal" href="#subcircuit-substitution">Subcircuit Substitution</a></li>
+<li><a class="reference internal" href="#gate-level-technology-mapping">Gate-Level Technology Mapping</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Optimize.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Optimizations</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_Eval.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>Evaluation, Conclusion, Future Work</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Python Methods &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Python Methods</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="../../search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="../../_sources/_theme/docs/pymethod.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="../../index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="../../index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="python-methods">
+<h1><a class="toc-backref" href="#id1">Python Methods</a><a class="headerlink" href="#python-methods" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#python-methods" id="id1">Python Methods</a></p>
+<ul>
+<li><p><a class="reference internal" href="#client" id="id2">Client</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<dl class="py function">
+<dt id="send_message">
+<code class="sig-name descname">send_message</code><span class="sig-paren">(</span><em class="sig-param">sender</em>, <em class="sig-param">recipient</em>, <em class="sig-param">message_body</em><span class="optional">[</span>, <em class="sig-param">priority=1</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message to a recipient</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<em>str</em>) – The person sending the message</p></li>
+<li><p><strong>recipient</strong> (<em>str</em>) – The recipient of the message</p></li>
+<li><p><strong>message_body</strong> (<em>str</em>) – The body of the message</p></li>
+<li><p><strong>priority</strong> (<em>integer</em><em> or </em><em>None</em>) – The priority of the message, can be a number 1-5</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the message id</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if the message_body exceeds 160 characters</p></li>
+<li><p><strong>TypeError</strong> – if the message_body is not a basestring</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="client">
+<h2><a class="toc-backref" href="#id2">Client</a><a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="Foo.Client">
+<em class="property">class </em><code class="sig-prename descclassname">Foo.</code><code class="sig-name descname">Client</code><a class="headerlink" href="#Foo.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lorem ipsum dolor. Lorem ipsum dolor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">foo</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span><span class="s1">&#39;baz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Available methods:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#bar" title="bar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bar()</span></code></a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bar">
+<code class="sig-name descname">bar</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lorem ipsum dolor. Lorem ipsum dolor.</p>
+<p><strong>Request Syntax</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">accept_vpc_peering_connection</span><span class="p">(</span>
+    <span class="n">DryRun</span><span class="o">=</span><span class="kc">True</span><span class="o">|</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">VpcPeeringConnectionId</span><span class="o">=</span><span class="s1">&#39;string&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>DryRun</strong> (<em>boolean</em>) – Checks whether you have the required permissions for the action, without
+actually making the request, and provides an error response. If you have
+the required permissions, the error response is <code class="docutils literal notranslate"><span class="pre">DryRunOperation</span></code>.
+Otherwise, it is <code class="docutils literal notranslate"><span class="pre">UnauthorizedOperation</span></code>.</p></li>
+<li><p><strong>VpcPeeringConnectionId</strong> (<em>string</em>) – The ID of the VPC peering connection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p><strong>Response Syntax</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;VpcPeeringConnection&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;AccepterVpcInfo&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;CidrBlock&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OwnerId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;VpcId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;ExpirationTime&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;RequesterVpcInfo&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;CidrBlock&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;OwnerId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;VpcId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;Status&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;Code&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Message&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;Tags&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s1">&#39;Key&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Value&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+            <span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s1">&#39;VpcPeeringConnectionId&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Response Structure</strong></p>
+<ul>
+<li><p><em>(dict) –</em></p>
+<ul>
+<li><p><strong>VpcPeeringConnection</strong> <em>(dict) –</em> Information about the VPC peering connection.</p>
+<ul>
+<li><p><strong>AccepterVpcInfo</strong> <em>(dict) –</em> The information of the peer VPC.</p>
+<ul>
+<li><p><strong>CidrBlock</strong> <em>(string) –</em> The CIDR block for the VPC.</p>
+<ul>
+<li><p><strong>OwnerId</strong> <em>(string) –</em> The AWS account ID of the VPC owner.</p></li>
+<li><p><strong>VpcId</strong> <em>(string) –</em> The ID of the VPC.</p></li>
+<li><p><strong>ExpirationTime</strong> <em>(datetime) –</em> The time that an unaccepted VPC peering connection will expire.</p></li>
+<li><p><strong>RequesterVpcInfo</strong> <em>(dict) –</em> The information of the requester VPC.</p>
+<ul>
+<li><p><strong>CidrBlock</strong> <em>(string) –</em> The CIDR block for the VPC.</p></li>
+<li><p><strong>OwnerId</strong> <em>(string) –</em> The AWS account ID of the VPC owner.</p></li>
+<li><p><strong>VpcId</strong> <em>(string) –</em> The ID of the VPC.</p></li>
+<li><p><strong>Status</strong> <em>(dict) –</em> The status of the VPC peering connection.</p></li>
+<li><p><strong>Code</strong> <em>(string) –</em> The status of the VPC peering connection.</p></li>
+<li><p><strong>Message</strong> <em>(string) –</em> A message that provides more information about the status, if applicable.</p></li>
+<li><p><strong>Tags</strong> <em>(list) –</em> Any tags assigned to the resource.</p>
+<ul>
+<li><p><em>(dict) –</em> Describes a tag.</p>
+<ul>
+<li><p><strong>Key</strong> <em>(string) –</em> The key of the tag.</p>
+<blockquote>
+<div><p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <code class="docutils literal notranslate"><span class="pre">aws:</span></code></p>
+</div></blockquote>
+</li>
+<li><p><strong>Value</strong> <em>(string) –</em> The value of the tag.</p>
+<blockquote>
+<div><p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div></blockquote>
+</li>
+<li><p><strong>VpcPeeringConnectionId</strong> <em>(string) –</em> The ID of the VPC peering connection.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Python Methods</a><ul>
+<li><a class="reference internal" href="#client">Client</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

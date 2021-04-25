@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>The Verilog and AST Frontends &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Optimizations" href="CHAPTER_Optimize.html" />
+    <link rel="prev" title="Programming Yosys Extensions" href="CHAPTER_Prog.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">The Verilog and AST Frontends</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_Verilog.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="the-verilog-and-ast-frontends">
+<span id="chapter-verilog"></span><h1>The Verilog and AST Frontends<a class="headerlink" href="#the-verilog-and-ast-frontends" title="Permalink to this headline">¶</a></h1>
+<p>This chapter provides an overview of the implementation of the Yosys
+Verilog and AST frontends. The Verilog frontend reads Verilog-2005 code
+and creates an abstract syntax tree (AST) representation of the input.
+This AST representation is then passed to the AST frontend that converts
+it to RTLIL data, as illustrated in
+Fig. <a class="reference external" href="#fig:Verilog_flow">[fig:Verilog_flow]</a>.</p>
+<div class="section" id="transforming-verilog-to-ast">
+<h2>Transforming Verilog to AST<a class="headerlink" href="#transforming-verilog-to-ast" title="Permalink to this headline">¶</a></h2>
+<p>The <em>Verilog frontend</em> converts the Verilog sources to an internal AST
+representation that closely resembles the structure of the original
+Verilog code. The Verilog frontend consists of three components, the
+<em>Preprocessor</em>, the <em>Lexer</em> and the <em>Parser</em>.</p>
+<p>The source code to the Verilog frontend can be found in
+<code class="docutils literal notranslate"><span class="pre">frontends/verilog/</span></code> in the Yosys source tree.</p>
+<div class="section" id="the-verilog-preprocessor">
+<h3>The Verilog Preprocessor<a class="headerlink" href="#the-verilog-preprocessor" title="Permalink to this headline">¶</a></h3>
+<p>The Verilog preprocessor scans over the Verilog source code and
+interprets some of the Verilog compiler directives such as
+<code class="docutils literal notranslate"><span class="pre">`include</span></code>, <code class="docutils literal notranslate"><span class="pre">`define</span></code> and <code class="docutils literal notranslate"><span class="pre">`ifdef</span></code>.</p>
+<p>It is implemented as a C++ function that is passed a file descriptor as
+input and returns the pre-processed Verilog code as a <code class="docutils literal notranslate"><span class="pre">std::string</span></code>.</p>
+<p>The source code to the Verilog Preprocessor can be found in
+<code class="docutils literal notranslate"><span class="pre">frontends/verilog/preproc.cc</span></code> in the Yosys source tree.</p>
+</div>
+<div class="section" id="the-verilog-lexer">
+<h3>The Verilog Lexer<a class="headerlink" href="#the-verilog-lexer" title="Permalink to this headline">¶</a></h3>
+<p>The Verilog Lexer is written using the lexer generator <em>flex</em> . Its
+source code can be found in <code class="docutils literal notranslate"><span class="pre">frontends/verilog/verilog_lexer.l</span></code> in the
+Yosys source tree. The lexer does little more than identifying all
+keywords and literals recognised by the Yosys Verilog frontend.</p>
+<p>The lexer keeps track of the current location in the Verilog source code
+using some global variables. These variables are used by the constructor
+of AST nodes to annotate each node with the source code location it
+originated from.</p>
+<p>Finally the lexer identifies and handles special comments such as
+“<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">synopsys</span> <span class="pre">translate_off</span></code>” and “<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">synopsys</span> <span class="pre">full_case</span></code>”. (It is
+recommended to use <code class="docutils literal notranslate"><span class="pre">`ifdef</span></code> constructs instead of the
+Synsopsys translate_on/off comments and attributes such as
+<code class="docutils literal notranslate"><span class="pre">(*</span> <span class="pre">full_case</span> <span class="pre">*)</span></code> over “<code class="docutils literal notranslate"><span class="pre">//</span> <span class="pre">synopsys</span> <span class="pre">full_case</span></code>” whenever possible.)</p>
+</div>
+<div class="section" id="the-verilog-parser">
+<h3>The Verilog Parser<a class="headerlink" href="#the-verilog-parser" title="Permalink to this headline">¶</a></h3>
+<p>The Verilog Parser is written using the parser generator <em>bison</em> . Its
+source code can be found in <code class="docutils literal notranslate"><span class="pre">frontends/verilog/verilog_parser.y</span></code> in
+the Yosys source tree.</p>
+<p>It generates an AST using the <code class="docutils literal notranslate"><span class="pre">AST::AstNode</span></code> data structure defined in
+<code class="docutils literal notranslate"><span class="pre">frontends/ast/ast.h</span></code>. An <code class="docutils literal notranslate"><span class="pre">AST::AstNode</span></code> object has the following
+properties:</p>
+<div class="docutils container" id="tab-verilog-astnodetype">
+<p>constructs.
+(continued on next page)</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>AST Node Type</p></th>
+<th class="head"><p>Corresponding Verilog Construct</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AST_NONE</span></code></p></td>
+<td><p>This Node type should never be
+used.</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>This node type is used for the
+top node of the AST tree. It has
+no corresponding Verilog
+construct.</p></td>
+</tr>
+<tr class="row-even"><td><p>, <code class="docutils literal notranslate"><span class="pre">AST_TASK</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_FUNCTION</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">module</span></code>, <code class="docutils literal notranslate"><span class="pre">task</span></code> and
+<code class="docutils literal notranslate"><span class="pre">function</span></code></p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">input</span></code>, <code class="docutils literal notranslate"><span class="pre">output</span></code>, <code class="docutils literal notranslate"><span class="pre">wire</span></code>,
+<code class="docutils literal notranslate"><span class="pre">reg</span></code> and <code class="docutils literal notranslate"><span class="pre">integer</span></code></p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>Verilog Arrays</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Created by the simplifier when
+an undeclared signal name is
+used.</p></td>
+</tr>
+<tr class="row-even"><td><p>, <code class="docutils literal notranslate"><span class="pre">AST_LOCALPARAM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">parameter</span></code> and <code class="docutils literal notranslate"><span class="pre">localparam</span></code></p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Parameter set in cell
+instantiation</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>Port connection in cell
+instantiation</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Bit-Index in a signal or element
+index in array</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>A literal value</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>The type of cell in cell
+instantiation</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td><p>An Identifier (signal name in
+expression or cell/task/etc.
+name in other contexts)</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>Construct an identifier in the
+form
+<code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;[&lt;index&gt;].&lt;suffix&gt;</span></code>
+(used only in advanced generate
+constructs)</p></td>
+</tr>
+<tr class="row-even"><td><p>, <code class="docutils literal notranslate"><span class="pre">AST_TCALL</span></code></p></td>
+<td><p>Call to function or task</p></td>
+</tr>
+<tr class="row-odd"><td><p>, <code class="docutils literal notranslate"><span class="pre">AST_TO_UNSIGNED</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">$signed()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">$unsigned()</span></code> functions</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="tabular docutils container">
+<div class="line-block">
+<div class="line">&gt;p7cm&gt;p8cm AST Node Type &amp; Corresponding Verilog Construct</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_CONCAT</span></code> <code class="docutils literal notranslate"><span class="pre">AST_REPLICATE</span></code> &amp; The <code class="docutils literal notranslate"><span class="pre">{...}</span></code> and <code class="docutils literal notranslate"><span class="pre">{...{...}}</span></code>
+operators</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_BIT_NOT</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_BIT_AND</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_BIT_OR</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_BIT_XOR</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AST_BIT_XNOR</span></code> &amp; The bitwise operators <code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>, <code class="docutils literal notranslate"><span class="pre">^</span></code>
+and <code class="docutils literal notranslate"><span class="pre">~^</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_REDUCE_AND</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_REDUCE_OR</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_REDUCE_XOR</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AST_REDUCE_XNOR</span></code> &amp; The unary reduction operators <code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">|</span></code>, <code class="docutils literal notranslate"><span class="pre">^</span></code> and <code class="docutils literal notranslate"><span class="pre">~^</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_REDUCE_BOOL</span></code> &amp; Conversion from multi-bit value to boolean
+value (equivalent to <code class="docutils literal notranslate"><span class="pre">AST_REDUCE_OR</span></code>)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_SHIFT_LEFT</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_SHIFT_RIGHT</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_SHIFT_SLEFT</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AST_SHIFT_SRIGHT</span></code> &amp; The shift operators <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;</span></code>
+and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_LT</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_LE</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_EQ</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_NE</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_GE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AST_GT</span></code> &amp; The relational operators <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code>,
+<code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_ADD</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_SUB</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_MUL</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_DIV</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_MOD</span></code>,
+<code class="docutils literal notranslate"><span class="pre">AST_POW</span></code> &amp; The binary operators <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>,
+<code class="docutils literal notranslate"><span class="pre">%</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_POS</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_NEG</span></code> &amp; The prefix operators <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_LOGIC_AND</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_LOGIC_OR</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_LOGIC_NOT</span></code> &amp; The logic
+operators <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code> and <code class="docutils literal notranslate"><span class="pre">!</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_TERNARY</span></code> &amp; The ternary <code class="docutils literal notranslate"><span class="pre">?:</span></code>-operator</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_MEMRD</span></code> <code class="docutils literal notranslate"><span class="pre">AST_MEMWR</span></code> &amp; Read and write memories. These nodes
+are generated by the AST simplifier for writes/reads to/from
+Verilog arrays.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_ASSIGN</span></code> &amp; An <code class="docutils literal notranslate"><span class="pre">assign</span></code> statement</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_CELL</span></code> &amp; A cell instantiation</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_PRIMITIVE</span></code> &amp; A primitive cell (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">nand</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>,
+etc.)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_ALWAYS</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_INITIAL</span></code> &amp; Verilog <code class="docutils literal notranslate"><span class="pre">always</span></code>- and
+<code class="docutils literal notranslate"><span class="pre">initial</span></code>-blocks</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_BLOCK</span></code> &amp; A <code class="docutils literal notranslate"><span class="pre">begin</span></code>-<code class="docutils literal notranslate"><span class="pre">end</span></code>-block</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_ASSIGN_EQ</span></code>. <code class="docutils literal notranslate"><span class="pre">AST_ASSIGN_LE</span></code> &amp; Blocking (<code class="docutils literal notranslate"><span class="pre">=</span></code>) and
+nonblocking (<code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>) assignments within an <code class="docutils literal notranslate"><span class="pre">always</span></code>- or
+<code class="docutils literal notranslate"><span class="pre">initial</span></code>-block</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_CASE</span></code>. <code class="docutils literal notranslate"><span class="pre">AST_COND</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_DEFAULT</span></code> &amp; The <code class="docutils literal notranslate"><span class="pre">case</span></code> (<code class="docutils literal notranslate"><span class="pre">if</span></code>)
+statements, conditions within a case and the default case
+respectively</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_FOR</span></code> &amp; A <code class="docutils literal notranslate"><span class="pre">for</span></code>-loop with an <code class="docutils literal notranslate"><span class="pre">always</span></code>- or
+<code class="docutils literal notranslate"><span class="pre">initial</span></code>-block</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_GENVAR</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_GENBLOCK</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_GENFOR</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_GENIF</span></code> &amp;
+The <code class="docutils literal notranslate"><span class="pre">genvar</span></code> and <code class="docutils literal notranslate"><span class="pre">generate</span></code> keywords and <code class="docutils literal notranslate"><span class="pre">for</span></code> and <code class="docutils literal notranslate"><span class="pre">if</span></code>
+within a generate block.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">AST_POSEDGE</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_NEGEDGE</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_EDGE</span></code> &amp; Event conditions
+for <code class="docutils literal notranslate"><span class="pre">always</span></code> blocks.</div>
+</div>
+</div>
+<ul>
+<li><div class="line-block">
+<div class="line"><strong>The node type</strong></div>
+<div class="line">This enum (<code class="docutils literal notranslate"><span class="pre">AST::AstNodeType</span></code>) specifies the role of the node.
+Table <a class="reference external" href="#tab:Verilog_AstNodeType">1.1</a> contains a list of all
+node types.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>The child nodes</strong></div>
+<div class="line">This is a list of pointers to all children in the abstract syntax
+tree.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>Attributes</strong></div>
+<div class="line">As almost every AST node might have Verilog attributes assigned to
+it, the <code class="docutils literal notranslate"><span class="pre">AST::AstNode</span></code> has direct support for attributes. Note
+that the attribute values are again AST nodes.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>Node content</strong></div>
+<div class="line">Each node might have additional content data. A series of member
+variables exist to hold such data. For example the member
+<code class="docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">str</span></code> can hold a string value and is used e.g. in the
+<code class="docutils literal notranslate"><span class="pre">AST_IDENTIFIER</span></code> node type to store the identifier name.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><strong>Source code location</strong></div>
+<div class="line">Each <code class="docutils literal notranslate"><span class="pre">AST::AstNode</span></code> is automatically annotated with the current
+source code location by the <code class="docutils literal notranslate"><span class="pre">AST::AstNode</span></code> constructor. It is
+stored in the <code class="docutils literal notranslate"><span class="pre">std::string</span> <span class="pre">filename</span></code> and <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">linenum</span></code> member
+variables.</div>
+</div>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">AST::AstNode</span></code> constructor can be called with up to two child
+nodes that are automatically added to the list of child nodes for the
+new object. This simplifies the creation of AST nodes for simple
+expressions a bit. For example the bison code for parsing
+multiplications:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>basic_expr &#39;*&#39; attr basic_expr {
+                $$ = new AstNode(AST_MUL, $1, $4);
+                append_attr($$, $3);
+        } |
+</pre></div>
+</div>
+<p>The generated AST data structure is then passed directly to the AST
+frontend that performs the actual conversion to RTLIL.</p>
+<p>Note that the Yosys command <code class="docutils literal notranslate"><span class="pre">read_verilog</span></code> provides the options
+<code class="docutils literal notranslate"><span class="pre">-yydebug</span></code> and <code class="docutils literal notranslate"><span class="pre">-dump_ast</span></code> that can be used to print the parse tree
+or abstract syntax tree respectively.</p>
+</div>
+</div>
+<div class="section" id="transforming-ast-to-rtlil">
+<h2>Transforming AST to RTLIL<a class="headerlink" href="#transforming-ast-to-rtlil" title="Permalink to this headline">¶</a></h2>
+<p>The <em>AST Frontend</em> converts a set of modules in AST representation to
+modules in RTLIL representation and adds them to the current design.
+This is done in two steps: <em>simplification</em> and <em>RTLIL generation</em>.</p>
+<p>The source code to the AST frontend can be found in <code class="docutils literal notranslate"><span class="pre">frontends/ast/</span></code>
+in the Yosys source tree.</p>
+<div class="section" id="ast-simplification">
+<h3>AST Simplification<a class="headerlink" href="#ast-simplification" title="Permalink to this headline">¶</a></h3>
+<p>A full-featured AST is too complex to be transformed into RTLIL
+directly. Therefore it must first be brought into a simpler form. This
+is done by calling the <code class="docutils literal notranslate"><span class="pre">AST::AstNode::simplify()</span></code> method of all
+<code class="docutils literal notranslate"><span class="pre">AST_MODULE</span></code> nodes in the AST. This initiates a recursive process that
+performs the following transformations on the AST data structure:</p>
+<ul class="simple">
+<li><p>Inline all task and function calls.</p></li>
+<li><p>Evaluate all <code class="docutils literal notranslate"><span class="pre">generate</span></code>-statements and unroll all <code class="docutils literal notranslate"><span class="pre">for</span></code>-loops.</p></li>
+<li><p>Perform const folding where it is necessary (e.g. in the value part
+of <code class="docutils literal notranslate"><span class="pre">AST_PARAMETER</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_LOCALPARAM</span></code>, <code class="docutils literal notranslate"><span class="pre">AST_PARASET</span></code> and
+<code class="docutils literal notranslate"><span class="pre">AST_RANGE</span></code> nodes).</p></li>
+<li><p>Replace <code class="docutils literal notranslate"><span class="pre">AST_PRIMITIVE</span></code> nodes with appropriate <code class="docutils literal notranslate"><span class="pre">AST_ASSIGN</span></code>
+nodes.</p></li>
+<li><p>Replace dynamic bit ranges in the left-hand-side of assignments with
+<code class="docutils literal notranslate"><span class="pre">AST_CASE</span></code> nodes with <code class="docutils literal notranslate"><span class="pre">AST_COND</span></code> children for each possible case.</p></li>
+<li><p>Detect array access patterns that are too complicated for the
+<code class="docutils literal notranslate"><span class="pre">RTLIL::Memory</span></code> abstraction and replace them with a set of signals
+and cases for all reads and/or writes.</p></li>
+<li><p>Otherwise replace array accesses with <code class="docutils literal notranslate"><span class="pre">AST_MEMRD</span></code> and <code class="docutils literal notranslate"><span class="pre">AST_MEMWR</span></code>
+nodes.</p></li>
+</ul>
+<p>In addition to these transformations, the simplifier also annotates the
+AST with additional information that is needed for the RTLIL generator,
+namely:</p>
+<ul class="simple">
+<li><p>All ranges (width of signals and bit selections) are not only const
+folded but (when a constant value is found) are also written to
+member variables in the <code class="docutils literal notranslate"><span class="pre">AST_RANGE</span></code> node.</p></li>
+<li><p>All identifiers are resolved and all <code class="docutils literal notranslate"><span class="pre">AST_IDENTIFIER</span></code> nodes are
+annotated with a pointer to the AST node that contains the
+declaration of the identifier. If no declaration has been found, an
+<code class="docutils literal notranslate"><span class="pre">AST_AUTOWIRE</span></code> node is created and used for the annotation.</p></li>
+</ul>
+<p>This produces an AST that is fairly easy to convert to the RTLIL format.</p>
+</div>
+<div class="section" id="generating-rtlil">
+<h3>Generating RTLIL<a class="headerlink" href="#generating-rtlil" title="Permalink to this headline">¶</a></h3>
+<p>After AST simplification, the <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> method of
+each <code class="docutils literal notranslate"><span class="pre">AST_MODULE</span></code> node in the AST is called. This initiates a
+recursive process that generates equivalent RTLIL data for the AST data.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> method returns an <code class="docutils literal notranslate"><span class="pre">RTLIL::SigSpec</span></code>
+structure. For nodes that represent expressions (operators, constants,
+signals, etc.), the cells needed to implement the calculation described
+by the expression are created and the resulting signal is returned. That
+way it is easy to generate the circuits for large expressions using
+depth-first recursion. For nodes that do not represent an expression
+(such as <code class="docutils literal notranslate"><span class="pre">AST_CELL</span></code>), the corresponding circuit is generated and an
+empty <code class="docutils literal notranslate"><span class="pre">RTLIL::SigSpec</span></code> is returned.</p>
+</div>
+</div>
+<div class="section" id="synthesizing-verilog-always-blocks">
+<h2>Synthesizing Verilog always Blocks<a class="headerlink" href="#synthesizing-verilog-always-blocks" title="Permalink to this headline">¶</a></h2>
+<p>For behavioural Verilog code (code utilizing <code class="docutils literal notranslate"><span class="pre">always</span></code>- and
+<code class="docutils literal notranslate"><span class="pre">initial</span></code>-blocks) it is necessary to also generate <code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code>
+objects. This is done in the following way:</p>
+<div class="itemize docutils container">
+<p>Whenever <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> encounters an <code class="docutils literal notranslate"><span class="pre">always</span></code>- or
+<code class="docutils literal notranslate"><span class="pre">initial</span></code>-block, it creates an instance of
+<code class="docutils literal notranslate"><span class="pre">AST_INTERNAL::ProcessGenerator</span></code>. This object then generates the
+<code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code> object for the block. It also calls
+<code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> for all right-hand-side expressions
+contained within the block.</p>
+<p>First the <code class="docutils literal notranslate"><span class="pre">AST_INTERNAL::ProcessGenerator</span></code> creates a list of all
+signals assigned within the block. It then creates a set of temporary
+signals using the naming scheme <code class="docutils literal notranslate"><span class="pre">$&lt;number&gt;</span> <span class="pre">\&lt;original_name&gt;</span></code> for
+each of the assigned signals.</p>
+<p>Then an <code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code> is created that assigns all intermediate
+values for each left-hand-side signal to the temporary signal in its
+<code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code>/<code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> tree.</p>
+<p>Finally a <code class="docutils literal notranslate"><span class="pre">RTLIL::SyncRule</span></code> is created for the <code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code>
+that assigns the temporary signals for the final values to the actual
+signals.</p>
+<p>A process may also contain memory writes. A <code class="docutils literal notranslate"><span class="pre">RTLIL::MemWriteAction</span></code>
+is created for each of them.</p>
+<p>Calls to <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> are generated for right hand
+sides as needed. When blocking assignments are used,
+<code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> is configured using global variables to
+use the temporary signals that hold the correct intermediate values
+whenever one of the previously assigned signals is used in an
+expression.</p>
+</div>
+<p>Unfortunately the generation of a correct
+<code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code>/<code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> tree for behavioural code is a
+non-trivial task. The AST frontend solves the problem using the approach
+described on the following pages. The following example illustrates what
+the algorithm is supposed to do. Consider the following Verilog code:</p>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clock</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="n">out1</span> <span class="o">=</span> <span class="n">in1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">in2</span><span class="p">)</span>
+        <span class="n">out1</span> <span class="o">=</span> <span class="o">!</span><span class="n">out1</span><span class="p">;</span>
+    <span class="n">out2</span> <span class="o">&lt;=</span> <span class="n">out1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">in3</span><span class="p">)</span>
+        <span class="n">out2</span> <span class="o">&lt;=</span> <span class="n">out2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">in4</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">in5</span><span class="p">)</span>
+            <span class="n">out3</span> <span class="o">&lt;=</span> <span class="n">in6</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="n">out3</span> <span class="o">&lt;=</span> <span class="n">in7</span><span class="p">;</span>
+    <span class="n">out1</span> <span class="o">=</span> <span class="n">out1</span> <span class="o">^</span> <span class="n">out2</span><span class="p">;</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+<p>This is translated by the Verilog and AST frontends into the following
+RTLIL code (attributes, cell parameters and wire declarations not
+included):</p>
+<div class="highlight-rtlil notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>cell $logic_not $logic_not$&lt;input&gt;:4$2
+  connect \A \in1
+  connect \Y $logic_not$&lt;input&gt;:4$2_Y
+end
+cell $xor $xor$&lt;input&gt;:13$3
+  connect \A $1\out1[0:0]
+  connect \B \out2
+  connect \Y $xor$&lt;input&gt;:13$3_Y
+end
+process $proc$&lt;input&gt;:1$1
+  assign $0\out3[0:0] \out3
+  assign $0\out2[0:0] $1\out1[0:0]
+  assign $0\out1[0:0] $xor$&lt;input&gt;:13$3_Y
+  switch \in2
+    case 1&#39;1
+      assign $1\out1[0:0] $logic_not$&lt;input&gt;:4$2_Y
+    case
+      assign $1\out1[0:0] \in1
+  end
+  switch \in3
+    case 1&#39;1
+      assign $0\out2[0:0] \out2
+    case
+  end
+  switch \in4
+    case 1&#39;1
+      switch \in5
+        case 1&#39;1
+          assign $0\out3[0:0] \in6
+        case
+          assign $0\out3[0:0] \in7
+      end
+    case
+  end
+  sync posedge \clock
+    update \out1 $0\out1[0:0]
+    update \out2 $0\out2[0:0]
+    update \out3 $0\out3[0:0]
+end
+</pre></div>
+</td></tr></table></div>
+<p>Note that the two operators are translated into separate cells outside
+the generated process. The signal <code class="docutils literal notranslate"><span class="pre">out1</span></code> is assigned using blocking
+assignments and therefore <code class="docutils literal notranslate"><span class="pre">out1</span></code> has been replaced with a different
+signal in all expressions after the initial assignment. The signal
+<code class="docutils literal notranslate"><span class="pre">out2</span></code> is assigned using nonblocking assignments and therefore is not
+substituted on the right-hand-side expressions.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code>/<code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> tree must be interpreted
+the following way:</p>
+<ul>
+<li><p>On each case level (the body of the process is the <em>root case</em>),
+first the actions on this level are evaluated and then the switches
+within the case are evaluated. (Note that the last assignment on line
+13 of the Verilog code has been moved to the beginning of the RTLIL
+process to line 13 of the RTLIL listing.)</p>
+<p>I.e. the special cases deeper in the switch hierarchy override the
+defaults on the upper levels. The assignments in lines 12 and 22 of
+the RTLIL code serve as an example for this.</p>
+<p>Note that in contrast to this, the order within the
+<code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> objects within a <code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code> is
+preserved with respect to the original AST and Verilog code.</p>
+</li>
+<li><p>The whole <code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code>/<code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> tree describes an
+asynchronous circuit. I.e. the decision tree formed by the switches
+can be seen independently for each assigned signal. Whenever one
+assigned signal changes, all signals that depend on the changed
+signals are to be updated. For example the assignments in lines 16
+and 18 in the RTLIL code in fact influence the assignment in line 12,
+even though they are in the “wrong order”.</p></li>
+</ul>
+<p>The only synchronous part of the process is in the <code class="docutils literal notranslate"><span class="pre">RTLIL::SyncRule</span></code>
+object generated at line 35 in the RTLIL code. The sync rule is the only
+part of the process where the original signals are assigned. The
+synchronization event from the original Verilog code has been translated
+into the synchronization type (<code class="docutils literal notranslate"><span class="pre">posedge</span></code>) and signal (<code class="docutils literal notranslate"><span class="pre">\clock</span></code>) for
+the <code class="docutils literal notranslate"><span class="pre">RTLIL::SyncRule</span></code> object. In the case of this simple example the
+<code class="docutils literal notranslate"><span class="pre">RTLIL::SyncRule</span></code> object is later simply transformed into a set of
+d-type flip-flops and the <code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code>/<code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> tree
+to a decision tree using multiplexers.</p>
+<p>In more complex examples (e.g. asynchronous resets) the part of the
+<code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code>/<code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> tree that describes the
+asynchronous reset must first be transformed to the correct
+<code class="docutils literal notranslate"><span class="pre">RTLIL::SyncRule</span></code> objects. This is done by the <code class="docutils literal notranslate"><span class="pre">proc_adff</span></code> pass.</p>
+<div class="section" id="the-processgenerator-algorithm">
+<h3>The ProcessGenerator Algorithm<a class="headerlink" href="#the-processgenerator-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">AST_INTERNAL::ProcessGenerator</span></code> uses the following internal state
+variables:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code> and <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code></div>
+<div class="line">These two variables hold the replacement pattern that should be
+used by <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> for signals with blocking
+assignments. After initialization of
+<code class="docutils literal notranslate"><span class="pre">AST_INTERNAL::ProcessGenerator</span></code> these two variables are empty.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code> and <code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code></div>
+<div class="line">These two variables contain the mapping from left-hand-side signals
+(<code class="docutils literal notranslate"><span class="pre">\&lt;name&gt;</span></code>) to the current temporary signal for the same thing
+(initially <code class="docutils literal notranslate"><span class="pre">$0\&lt;name&gt;</span></code>).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">current_case</span></code></div>
+<div class="line">A pointer to a <code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code> object. Initially this is the
+root case of the generated <code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code>.</div>
+</div>
+</li>
+</ul>
+<p>As the algorithm runs these variables are continuously modified as well
+as pushed to the stack and later restored to their earlier values by
+popping from the stack.</p>
+<p>On startup the ProcessGenerator generates a new <code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code>
+object with an empty root case and initializes its state variables as
+described above. Then the <code class="docutils literal notranslate"><span class="pre">RTLIL::SyncRule</span></code> objects are created using
+the synchronization events from the <code class="docutils literal notranslate"><span class="pre">AST_ALWAYS</span></code> node and the initial
+values of <code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code> and <code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code>. Then the AST
+for this process is evaluated recursively.</p>
+<p>During this recursive evaluation, three different relevant types of AST
+nodes can be discovered: <code class="docutils literal notranslate"><span class="pre">AST_ASSIGN_LE</span></code> (nonblocking assignments),
+<code class="docutils literal notranslate"><span class="pre">AST_ASSIGN_EQ</span></code> (blocking assignments) and <code class="docutils literal notranslate"><span class="pre">AST_CASE</span></code> (<code class="docutils literal notranslate"><span class="pre">if</span></code> or
+<code class="docutils literal notranslate"><span class="pre">case</span></code> statement).</p>
+<div class="section" id="handling-of-nonblocking-assignments">
+<h4>Handling of Nonblocking Assignments<a class="headerlink" href="#handling-of-nonblocking-assignments" title="Permalink to this headline">¶</a></h4>
+<p>When an <code class="docutils literal notranslate"><span class="pre">AST_ASSIGN_LE</span></code> node is discovered, the following actions are
+performed by the ProcessGenerator:</p>
+<ul class="simple">
+<li><p>The left-hand-side is evaluated using <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code>
+and mapped to a temporary signal name using <code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code> and
+<code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code>.</p></li>
+<li><p>The right-hand-side is evaluated using <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code>.
+For this call, the values of <code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code> and
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code> are used to map blocking-assigned signals
+correctly.</p></li>
+<li><p>Remove all assignments to the same left-hand-side as this assignment
+from the <code class="docutils literal notranslate"><span class="pre">current_case</span></code> and all cases within it.</p></li>
+<li><p>Add the new assignment to the <code class="docutils literal notranslate"><span class="pre">current_case</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="handling-of-blocking-assignments">
+<h4>Handling of Blocking Assignments<a class="headerlink" href="#handling-of-blocking-assignments" title="Permalink to this headline">¶</a></h4>
+<p>When an <code class="docutils literal notranslate"><span class="pre">AST_ASSIGN_EQ</span></code> node is discovered, the following actions are
+performed by the ProcessGenerator:</p>
+<ul class="simple">
+<li><p>Perform all the steps that would be performed for a nonblocking
+assignment (see above).</p></li>
+<li><p>Remove the found left-hand-side (before lvalue mapping) from
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code> and also remove the respective bits from
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>.</p></li>
+<li><p>Append the found left-hand-side (before lvalue mapping) to
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code> and append the found right-hand-side to
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="handling-of-cases-and-if-statements">
+<h4>Handling of Cases and if-Statements<a class="headerlink" href="#handling-of-cases-and-if-statements" title="Permalink to this headline">¶</a></h4>
+<p>When an <code class="docutils literal notranslate"><span class="pre">AST_CASE</span></code> node is discovered, the following actions are
+performed by the ProcessGenerator:</p>
+<ul class="simple">
+<li><p>The values of <code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code>, <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>,
+<code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code> and <code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code> are pushed to the
+stack.</p></li>
+<li><p>A new <code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> object is generated, the selection
+expression is evaluated using <code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> (with the
+use of <code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code> and <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>) and added to
+the <code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> object and the object is added to the
+<code class="docutils literal notranslate"><span class="pre">current_case</span></code>.</p></li>
+<li><p>All lvalues assigned to within the <code class="docutils literal notranslate"><span class="pre">AST_CASE</span></code> node using blocking
+assignments are collected and saved in the local variable
+<code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code>.</p></li>
+<li><p>New temporary signals are generated for all signals in
+<code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> and stored in <code class="docutils literal notranslate"><span class="pre">this_case_eq_ltemp</span></code>.</p></li>
+<li><p>The signals in <code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> are mapped using
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code> and <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code> and the resulting set
+of signals is stored in <code class="docutils literal notranslate"><span class="pre">this_case_eq_rvalue</span></code>.</p></li>
+</ul>
+<p>Then the following steps are performed for each <code class="docutils literal notranslate"><span class="pre">AST_COND</span></code> node within
+the <code class="docutils literal notranslate"><span class="pre">AST_CASE</span></code> node:</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code>, <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>, <code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code>
+and <code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code> to the values that have been pushed to the
+stack.</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> from
+<code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code>/<code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code>.</p></li>
+<li><p>Append <code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> to <code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code> and append
+<code class="docutils literal notranslate"><span class="pre">this_case_eq_ltemp</span></code> to <code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code>.</p></li>
+<li><p>Push the value of <code class="docutils literal notranslate"><span class="pre">current_case</span></code>.</p></li>
+<li><p>Create a new <code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code>. Set <code class="docutils literal notranslate"><span class="pre">current_case</span></code> to the new
+object and add the new object to the <code class="docutils literal notranslate"><span class="pre">RTLIL::SwitchRule</span></code> created
+above.</p></li>
+<li><p>Add an assignment from <code class="docutils literal notranslate"><span class="pre">this_case_eq_rvalue</span></code> to
+<code class="docutils literal notranslate"><span class="pre">this_case_eq_ltemp</span></code> to the new <code class="docutils literal notranslate"><span class="pre">current_case</span></code>.</p></li>
+<li><p>Evaluate the compare value for this case using
+<code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> (with the use of <code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code>
+and <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>) modify the new <code class="docutils literal notranslate"><span class="pre">current_case</span></code> accordingly.</p></li>
+<li><p>Recursion into the children of the <code class="docutils literal notranslate"><span class="pre">AST_COND</span></code> node.</p></li>
+<li><p>Restore <code class="docutils literal notranslate"><span class="pre">current_case</span></code> by popping the old value from the stack.</p></li>
+</ul>
+<p>Finally the following steps are performed:</p>
+<ul class="simple">
+<li><p>The values of <code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code>, <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>,
+<code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code> and <code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code> are popped from the
+stack.</p></li>
+<li><p>The signals from <code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> are removed from the
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code>/<code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>-pair.</p></li>
+<li><p>The value of <code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> is appended to
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code> and the value of <code class="docutils literal notranslate"><span class="pre">this_case_eq_ltemp</span></code> is
+appended to <code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>.</p></li>
+<li><p>Map the signals in <code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> using
+<code class="docutils literal notranslate"><span class="pre">subst_lvalue_from</span></code>/<code class="docutils literal notranslate"><span class="pre">subst_lvalue_to</span></code>.</p></li>
+<li><p>Remove all assignments to signals in <code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> in
+<code class="docutils literal notranslate"><span class="pre">current_case</span></code> and all cases within it.</p></li>
+<li><p>Add an assignment from <code class="docutils literal notranslate"><span class="pre">this_case_eq_ltemp</span></code> to
+<code class="docutils literal notranslate"><span class="pre">this_case_eq_lvalue</span></code> to <code class="docutils literal notranslate"><span class="pre">current_case</span></code>.</p></li>
+</ul>
+</div>
+<div class="section" id="further-analysis-of-the-algorithm-for-cases-and-if-statements">
+<h4>Further Analysis of the Algorithm for Cases and if-Statements<a class="headerlink" href="#further-analysis-of-the-algorithm-for-cases-and-if-statements" title="Permalink to this headline">¶</a></h4>
+<p>With respect to nonblocking assignments the algorithm is easy: later
+assignments invalidate earlier assignments. For each signal assigned
+using nonblocking assignments exactly one temporary variable is
+generated (with the <code class="docutils literal notranslate"><span class="pre">$0</span></code>-prefix) and this variable is used for all
+assignments of the variable.</p>
+<p>Note how all the <code class="docutils literal notranslate"><span class="pre">_eq_</span></code>-variables become empty when no blocking
+assignments are used and many of the steps in the algorithm can then be
+ignored as a result of this.</p>
+<p>For a variable with blocking assignments the algorithm shows the
+following behaviour: First a new temporary variable is created. This new
+temporary variable is then registered as the assignment target for all
+assignments for this variable within the cases for this <code class="docutils literal notranslate"><span class="pre">AST_CASE</span></code>
+node. Then for each case the new temporary variable is first assigned
+the old temporary variable. This assignment is overwritten if the
+variable is actually assigned in this case and is kept as a default
+value otherwise.</p>
+<p>This yields an <code class="docutils literal notranslate"><span class="pre">RTLIL::CaseRule</span></code> that assigns the new temporary
+variable in all branches. So when all cases have been processed a final
+assignment is added to the containing block that assigns the new
+temporary variable to the old one. Note how this step always overrides a
+previous assignment to the old temporary variable. Other than
+nonblocking assignments, the old assignment could still have an effect
+somewhere in the design, as there have been calls to
+<code class="docutils literal notranslate"><span class="pre">AST::AstNode::genRTLIL()</span></code> with a
+<code class="docutils literal notranslate"><span class="pre">subst_rvalue_from</span></code>/<code class="docutils literal notranslate"><span class="pre">subst_rvalue_to</span></code>-tuple that contained the
+right-hand-side of the old assignment.</p>
+</div>
+</div>
+<div class="section" id="the-proc-pass">
+<h3>The proc pass<a class="headerlink" href="#the-proc-pass" title="Permalink to this headline">¶</a></h3>
+<p>The ProcessGenerator converts a behavioural model in AST representation
+to a behavioural model in <code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code> representation. The actual
+conversion from a behavioural model to an RTL representation is
+performed by the <code class="docutils literal notranslate"><span class="pre">proc</span></code> pass and the passes it launches:</p>
+<ul>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">proc_clean</span></code> and <code class="docutils literal notranslate"><span class="pre">proc_rmdead</span></code></div>
+<div class="line">These two passes just clean up the <code class="docutils literal notranslate"><span class="pre">RTLIL::Process</span></code> structure.
+The <code class="docutils literal notranslate"><span class="pre">proc_clean</span></code> pass removes empty parts (eg. empty assignments)
+from the process and <code class="docutils literal notranslate"><span class="pre">proc_rmdead</span></code> detects and removes
+unreachable branches from the process’s decision trees.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">proc_arst</span></code></div>
+<div class="line">This pass detects processes that describe d-type flip-flops with
+asynchronous resets and rewrites the process to better reflect what
+they are modelling: Before this pass, an asynchronous reset has two
+edge-sensitive sync rules and one top-level for the reset path.
+After this pass the sync rule for the reset is level-sensitive and
+the top-level has been removed.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">proc_mux</span></code></div>
+<div class="line">This pass converts the /-tree to a tree of multiplexers per written
+signal. After this, the structure only contains the s that describe
+the output registers.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">proc_dff</span></code></div>
+<div class="line">This pass replaces the s to d-type flip-flops (with asynchronous
+resets if necessary).</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">proc_dff</span></code></div>
+<div class="line">This pass replaces the s with <code class="docutils literal notranslate"><span class="pre">$memwr</span></code> cells.</div>
+</div>
+</li>
+<li><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">proc_clean</span></code></div>
+<div class="line">A final call to <code class="docutils literal notranslate"><span class="pre">proc_clean</span></code> removes the now empty objects.</div>
+</div>
+</li>
+</ul>
+<p>Performing these last processing steps in passes instead of in the
+Verilog frontend has two important benefits:</p>
+<p>First it improves the transparency of the process. Everything that
+happens in a separate pass is easier to debug, as the RTLIL data
+structures can be easily investigated before and after each of the
+steps.</p>
+<p>Second it improves flexibility. This scheme can easily be extended to
+support other types of storage-elements, such as sr-latches or
+d-latches, without having to extend the actual Verilog frontend.</p>
+</div>
+</div>
+<div class="section" id="synthesizing-verilog-arrays">
+<h2>Synthesizing Verilog Arrays<a class="headerlink" href="#synthesizing-verilog-arrays" title="Permalink to this headline">¶</a></h2>
+<div class="fixme docutils container">
+<p>Add some information on the generation of <code class="docutils literal notranslate"><span class="pre">$memrd</span></code> and <code class="docutils literal notranslate"><span class="pre">$memwr</span></code>
+cells and how they are processed in the <code class="docutils literal notranslate"><span class="pre">memory</span></code> pass.</p>
+</div>
+</div>
+<div class="section" id="synthesizing-parametric-designs">
+<h2>Synthesizing Parametric Designs<a class="headerlink" href="#synthesizing-parametric-designs" title="Permalink to this headline">¶</a></h2>
+<div class="fixme docutils container">
+<p>Add some information on the <code class="docutils literal notranslate"><span class="pre">RTLIL::Module::derive()</span></code> method and
+how it is used to synthesize parametric modules via the <code class="docutils literal notranslate"><span class="pre">hierarchy</span></code>
+pass.</p>
+</div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">The Verilog and AST Frontends</a><ul>
+<li><a class="reference internal" href="#transforming-verilog-to-ast">Transforming Verilog to AST</a><ul>
+<li><a class="reference internal" href="#the-verilog-preprocessor">The Verilog Preprocessor</a></li>
+<li><a class="reference internal" href="#the-verilog-lexer">The Verilog Lexer</a></li>
+<li><a class="reference internal" href="#the-verilog-parser">The Verilog Parser</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#transforming-ast-to-rtlil">Transforming AST to RTLIL</a><ul>
+<li><a class="reference internal" href="#ast-simplification">AST Simplification</a></li>
+<li><a class="reference internal" href="#generating-rtlil">Generating RTLIL</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthesizing-verilog-always-blocks">Synthesizing Verilog always Blocks</a><ul>
+<li><a class="reference internal" href="#the-processgenerator-algorithm">The ProcessGenerator Algorithm</a><ul>
+<li><a class="reference internal" href="#handling-of-nonblocking-assignments">Handling of Nonblocking Assignments</a></li>
+<li><a class="reference internal" href="#handling-of-blocking-assignments">Handling of Blocking Assignments</a></li>
+<li><a class="reference internal" href="#handling-of-cases-and-if-statements">Handling of Cases and if-Statements</a></li>
+<li><a class="reference internal" href="#further-analysis-of-the-algorithm-for-cases-and-if-statements">Further Analysis of the Algorithm for Cases and if-Statements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-proc-pass">The proc pass</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#synthesizing-verilog-arrays">Synthesizing Verilog Arrays</a></li>
+<li><a class="reference internal" href="#synthesizing-parametric-designs">Synthesizing Parametric Designs</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_Prog.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Programming Yosys Extensions</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_Optimize.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>Optimizations</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

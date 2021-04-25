@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Programming Yosys Extensions &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Verilog and AST Frontends" href="CHAPTER_Verilog.html" />
+    <link rel="prev" title="Internal Cell Library" href="CHAPTER_CellLib.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Programming Yosys Extensions</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/CHAPTER_Prog.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <div class="section" id="programming-yosys-extensions">
+<span id="chapter-prog"></span><h1>Programming Yosys Extensions<a class="headerlink" href="#programming-yosys-extensions" title="Permalink to this headline">¶</a></h1>
+<p>This chapter contains some bits and pieces of information about
+programming yosys extensions. Also consult the section on programming in
+the “Yosys Presentation” (can be downloaded from the Yosys website as
+PDF) and don’t be afraid to ask questions on the YosysHQ Slack.</p>
+<div class="section" id="guidelines">
+<h2>Guidelines<a class="headerlink" href="#guidelines" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">guidelines</span></code> directory contains notes on various aspects of Yosys
+development. The files <code class="docutils literal notranslate"><span class="pre">GettingStarted</span></code> and <code class="docutils literal notranslate"><span class="pre">CodingStyle</span></code> may be of
+particular interest, and are reproduced here.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Getting Started
+===============
+
+
+Outline of a Yosys command
+--------------------------
+
+Here is a the C++ code for a &quot;hello_world&quot; Yosys command (hello.cc):
+
+     #include &quot;kernel/yosys.h&quot;
+
+     USING_YOSYS_NAMESPACE
+     PRIVATE_NAMESPACE_BEGIN
+
+     struct HelloWorldPass : public Pass {
+             HelloWorldPass() : Pass(&quot;hello_world&quot;) { }
+             void execute(vector&lt;string&gt;, Design*) override {
+                     log(&quot;Hello World!\n&quot;);
+             }
+     } HelloWorldPass;
+
+     PRIVATE_NAMESPACE_END
+
+This can be built into a Yosys module using the following command:
+
+     yosys-config --exec --cxx --cxxflags --ldflags -o hello.so -shared hello.cc --ldlibs
+
+Or short:
+
+     yosys-config --build hello.so hello.cc
+
+And then executed using the following command:
+
+     yosys -m hello.so -p hello_world
+
+
+Yosys Data Structures
+---------------------
+
+Here is a short list of data structures that you should make yourself familiar
+with before you write C++ code for Yosys. The following data structures are all
+defined when &quot;kernel/yosys.h&quot; is included and USING_YOSYS_NAMESPACE is used.
+
+  1. Yosys Container Classes
+
+Yosys uses dict&lt;K, T&gt; and pool&lt;T&gt; as main container classes. dict&lt;K, T&gt; is
+essentially a replacement for std::unordered_map&lt;K, T&gt; and pool&lt;T&gt; is a
+replacement for std::unordered_set&lt;T&gt;. The main characteristics are:
+
+     - dict&lt;K, T&gt; and pool&lt;T&gt; are about 2x faster than the std containers
+
+     - references to elements in a dict&lt;K, T&gt; or pool&lt;T&gt; are invalidated by
+       insert and remove operations (similar to std::vector&lt;T&gt; on push_back()).
+
+     - some iterators are invalidated by erase(). specifically, iterators
+       that have not passed the erased element yet are invalidated. (erase()
+       itself returns valid iterator to the next element.)
+
+     - no iterators are invalidated by insert(). elements are inserted at
+       begin(). i.e. only a new iterator that starts at begin() will see the
+       inserted elements.
+
+     - the method .count(key, iterator) is like .count(key) but only
+       considers elements that can be reached via the iterator.
+
+     - iterators can be compared. it1 &lt; it2 means that the position of t2
+       can be reached via t1 but not vice versa.
+
+     - the method .sort() can be used to sort the elements in the container
+       the container stays sorted until elements are added or removed.
+
+     - dict&lt;K, T&gt; and pool&lt;T&gt; will have the same order of iteration across
+       all compilers, standard libraries and architectures.
+
+In addition to dict&lt;K, T&gt; and pool&lt;T&gt; there is also an idict&lt;K&gt; that
+creates a bijective map from K to the integers. For example:
+
+     idict&lt;string, 42&gt; si;
+     log(&quot;%d\n&quot;, si(&quot;hello&quot;));      // will print 42
+     log(&quot;%d\n&quot;, si(&quot;world&quot;));      // will print 43
+     log(&quot;%d\n&quot;, si.at(&quot;world&quot;));   // will print 43
+     log(&quot;%d\n&quot;, si.at(&quot;dummy&quot;));   // will throw exception
+     log(&quot;%s\n&quot;, si[42].c_str()));  // will print hello
+     log(&quot;%s\n&quot;, si[43].c_str()));  // will print world
+     log(&quot;%s\n&quot;, si[44].c_str()));  // will throw exception
+
+It is not possible to remove elements from an idict.
+
+Finally mfp&lt;K&gt; implements a merge-find set data structure (aka. disjoint-set or
+union-find) over the type K (&quot;mfp&quot; = merge-find-promote).
+
+  2. Standard STL data types
+
+In Yosys we use std::vector&lt;T&gt; and std::string whenever applicable. When
+dict&lt;K, T&gt; and pool&lt;T&gt; are not suitable then std::map&lt;K, T&gt; and std::set&lt;T&gt;
+are used instead.
+
+The types std::vector&lt;T&gt; and std::string are also available as vector&lt;T&gt;
+and string in the Yosys namespace.
+
+  3. RTLIL objects
+
+The current design (essentially a collection of modules, each defined by a
+netlist) is stored in memory using RTLIL object (declared in kernel/rtlil.h,
+automatically included by kernel/yosys.h). You should glance over at least
+the declarations for the following types in kernel/rtlil.h:
+
+     RTLIL::IdString
+             This is a handle for an identifier (e.g. cell or wire name).
+             It feels a lot like a std::string, but is only a single int
+             in size. (The actual string is stored in a global lookup
+             table.)
+
+     RTLIL::SigBit
+             A single signal bit. I.e. either a constant state (0, 1,
+             x, z) or a single bit from a wire.
+
+     RTLIL::SigSpec
+             Essentially a vector of SigBits.
+
+     RTLIL::Wire
+     RTLIL::Cell
+             The building blocks of the netlist in a module.
+
+     RTLIL::Module
+     RTLIL::Design
+             The module is a container with connected cells and wires
+             in it. The design is a container with modules in it.
+
+All this types are also available without the RTLIL:: prefix in the Yosys
+namespace.
+
+  4. SigMap and other Helper Classes
+
+There are a couple of additional helper classes that are in wide use
+in Yosys. Most importantly there is SigMap (declared in kernel/sigtools.h).
+
+When a design has many wires in it that are connected to each other, then a
+single signal bit can have multiple valid names. The SigMap object can be used
+to map SigSpecs or SigBits to unique SigSpecs and SigBits that consistently
+only use one wire from such a group of connected wires. For example:
+
+     SigBit a = module-&gt;addWire(NEW_ID);
+     SigBit b = module-&gt;addWire(NEW_ID);
+     module-&gt;connect(a, b);
+
+     log(&quot;%d\n&quot;, a == b); // will print 0
+
+     SigMap sigmap(module);
+     log(&quot;%d\n&quot;, sigmap(a) == sigmap(b)); // will print 1
+
+
+Using the RTLIL Netlist Format
+------------------------------
+
+In the RTLIL netlist format the cell ports contain SigSpecs that point to the
+Wires. There are no references in the other direction. This has two direct
+consequences:
+
+(1) It is very easy to go from cells to wires but hard to go in the other way.
+
+(2) There is no danger in removing cells from the netlists, but removing wires
+can break the netlist format when there are still references to the wire
+somewhere in the netlist.
+
+The solution to (1) is easy: Create custom indexes that allow you to make fast
+lookups for the wire-to-cell direction. You can either use existing generic
+index structures to do that (such as the ModIndex class) or write your own
+index. For many application it is simplest to construct a custom index. For
+example:
+
+     SigMap sigmap(module);
+     dict&lt;SigBit, Cell*&gt; sigbit_to_driver_index;
+
+     for (auto cell : module-&gt;cells())
+             for (auto &amp;conn : cell-&gt;connections())
+                     if (cell-&gt;output(conn.first))
+                             for (auto bit : sigmap(conn.second))
+                                     sigbit_to_driver_index[bit] = cell;
+
+Regarding (2): There is a general theme in Yosys that you don&#39;t remove wires
+from the design. You can rename them, unconnect them, but you do not actually remove
+the Wire object from the module. Instead you let the &quot;clean&quot; command take care
+of the dangling wires. On the other hand it is safe to remove cells (as long as
+you make sure this does not invalidate a custom index you are using in your code).
+
+
+Example Code
+------------
+
+The following yosys commands are a good starting point if you are looking for examples
+of how to use the Yosys API:
+
+     manual/CHAPTER_Prog/stubnets.cc
+     manual/PRESENTATION_Prog/my_cmd.cc
+
+
+Script Passes
+-------------
+
+The ScriptPass base class can be used to implement passes that just call other passes,
+like a script. Examples for such passes are:
+
+     techlibs/common/prep.cc
+     techlibs/common/synth.cc
+
+In some cases it is easier to implement such a pass as regular pass, for example when
+ScriptPass doesn&#39;t provide the type of flow control desired. (But many of the
+script passes in Yosys that don&#39;t use ScriptPass simply predate the ScriptPass base
+class.) Examples for such passes are:
+
+     passes/opt/opt.cc
+     passes/proc/proc.cc
+
+Whether they use the ScriptPass base-class or not, a pass should always either
+call other passes without doing any non-trivial work itself, or should implement
+a non-trivial algorithm but not call any other passes. The reason for this is that
+this helps containing complexity in individual passes and simplifies debugging the
+entire system.
+
+Exceptions to this rule should be rare and limited to cases where calling other
+passes is optional and only happens when requested by the user (such as for
+example `techmap -autoproc`), or where it is about commands that are &quot;top-level
+commands&quot; in their own right, not components to be used in regular synthesis
+flows (such as the `bugpoint` command).
+
+A pass that would &quot;naturally&quot; call other passes and also do some work itself
+should be re-written in one of two ways:
+
+1) It could be re-written as script pass with the parts that are not calls
+to other passes factored out into individual new passes. Usually in those
+cases the new sub passes share the same prefix as the top-level script pass.
+
+2) It could be re-written so that it already expects the design in a certain
+state, expecting the calling script to set up this state before calling the
+pass in questions.
+
+Many back-ends are examples for the 2nd approach. For example, `write_aiger`
+does not convert the design into AIG representation, but expects the design
+to be already in this form, and prints an `Unsupported cell type` error
+message otherwise.
+
+
+Notes on the existing codebase
+------------------------------
+
+For historical reasons not all parts of Yosys adhere to the current coding
+style. When adding code to existing parts of the system, adhere to this guide
+for the new code instead of trying to mimic the style of the surrounding code.
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Coding</span> <span class="n">Style</span>
+<span class="o">============</span>
+
+
+<span class="n">Formatting</span> <span class="n">of</span> <span class="n">code</span>
+<span class="o">------------------</span>
+
+<span class="o">-</span> <span class="n">Yosys</span> <span class="n">code</span> <span class="ow">is</span> <span class="n">using</span> <span class="n">tabs</span> <span class="k">for</span> <span class="n">indentation</span><span class="o">.</span> <span class="n">Tabs</span> <span class="n">are</span> <span class="mi">8</span> <span class="n">characters</span><span class="o">.</span>
+
+<span class="o">-</span> <span class="n">A</span> <span class="n">continuation</span> <span class="n">of</span> <span class="n">a</span> <span class="n">statement</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">following</span> <span class="n">line</span> <span class="ow">is</span> <span class="n">indented</span> <span class="n">by</span>
+  <span class="n">two</span> <span class="n">additional</span> <span class="n">tabs</span><span class="o">.</span>
+
+<span class="o">-</span> <span class="n">Lines</span> <span class="n">are</span> <span class="k">as</span> <span class="n">long</span> <span class="k">as</span> <span class="n">you</span> <span class="n">want</span> <span class="n">them</span> <span class="n">to</span> <span class="n">be</span><span class="o">.</span> <span class="n">A</span> <span class="n">good</span> <span class="n">rule</span> <span class="n">of</span> <span class="n">thumb</span> <span class="ow">is</span>
+  <span class="n">to</span> <span class="k">break</span> <span class="n">lines</span> <span class="n">at</span> <span class="n">about</span> <span class="n">column</span> <span class="mf">150.</span>
+
+<span class="o">-</span> <span class="n">Opening</span> <span class="n">braces</span> <span class="n">can</span> <span class="n">be</span> <span class="n">put</span> <span class="n">on</span> <span class="n">the</span> <span class="n">same</span> <span class="ow">or</span> <span class="nb">next</span> <span class="n">line</span> <span class="k">as</span> <span class="n">the</span> <span class="n">statement</span>
+  <span class="n">opening</span> <span class="n">the</span> <span class="n">block</span> <span class="p">(</span><span class="k">if</span><span class="p">,</span> <span class="n">switch</span><span class="p">,</span> <span class="k">for</span><span class="p">,</span> <span class="k">while</span><span class="p">,</span> <span class="n">do</span><span class="p">)</span><span class="o">.</span> <span class="n">Put</span> <span class="n">the</span> <span class="n">opening</span> <span class="n">brace</span>
+  <span class="n">on</span> <span class="n">its</span> <span class="n">own</span> <span class="n">line</span> <span class="k">for</span> <span class="n">larger</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">especially</span> <span class="n">blocks</span> <span class="n">that</span> <span class="n">contains</span>
+  <span class="n">blank</span> <span class="n">lines</span><span class="o">.</span>
+
+<span class="o">-</span> <span class="n">Otherwise</span> <span class="n">stick</span> <span class="n">to</span> <span class="n">the</span> <span class="n">Linux</span> <span class="n">Kernel</span> <span class="n">Coding</span> <span class="n">Style</span><span class="p">:</span>
+    <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">Documentation</span><span class="o">/</span><span class="n">CodingStyle</span>
+
+
+<span class="n">C</span><span class="o">++</span> <span class="n">Language</span>
+<span class="o">-------------</span>
+
+<span class="n">Yosys</span> <span class="ow">is</span> <span class="n">written</span> <span class="ow">in</span> <span class="n">C</span><span class="o">++</span><span class="mf">11.</span> <span class="n">At</span> <span class="n">the</span> <span class="n">moment</span> <span class="n">only</span> <span class="n">constructs</span> <span class="n">supported</span> <span class="n">by</span>
+<span class="n">gcc</span> <span class="mf">4.8</span> <span class="n">are</span> <span class="n">allowed</span> <span class="ow">in</span> <span class="n">Yosys</span> <span class="n">code</span><span class="o">.</span> <span class="n">This</span> <span class="n">will</span> <span class="n">change</span> <span class="ow">in</span> <span class="n">future</span> <span class="n">releases</span><span class="o">.</span>
+
+<span class="n">In</span> <span class="n">general</span> <span class="n">Yosys</span> <span class="n">uses</span> <span class="s2">&quot;int&quot;</span> <span class="n">instead</span> <span class="n">of</span> <span class="s2">&quot;size_t&quot;</span><span class="o">.</span> <span class="n">To</span> <span class="n">avoid</span> <span class="n">compiler</span>
+<span class="n">warnings</span> <span class="k">for</span> <span class="n">implicit</span> <span class="nb">type</span> <span class="n">casts</span><span class="p">,</span> <span class="n">always</span> <span class="n">use</span> <span class="s2">&quot;GetSize(foobar)&quot;</span> <span class="n">instead</span>
+<span class="n">of</span> <span class="s2">&quot;foobar.size()&quot;</span><span class="o">.</span> <span class="p">(</span><span class="n">GetSize</span><span class="p">()</span> <span class="ow">is</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">kernel</span><span class="o">/</span><span class="n">yosys</span><span class="o">.</span><span class="n">h</span><span class="p">)</span>
+
+<span class="n">Use</span> <span class="nb">range</span><span class="o">-</span><span class="n">based</span> <span class="k">for</span> <span class="n">loops</span> <span class="n">whenever</span> <span class="n">applicable</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-stubsnets-example-module">
+<h2>The “stubsnets” Example Module<a class="headerlink" href="#the-stubsnets-example-module" title="Permalink to this headline">¶</a></h2>
+<p>The following is the complete code of the “stubsnets” example module. It
+is included in the Yosys source distribution as
+<code class="docutils literal notranslate"><span class="pre">manual/CHAPTER_Prog/stubnets.cc</span></code>.</p>
+<div class="highlight-c++ notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">// This is free and unencumbered software released into the public domain.</span>
+<span class="c1">//</span>
+<span class="c1">// Anyone is free to copy, modify, publish, use, compile, sell, or</span>
+<span class="c1">// distribute this software, either in source code form or as a compiled</span>
+<span class="c1">// binary, for any purpose, commercial or non-commercial, and by any</span>
+<span class="c1">// means.</span>
+
+<span class="cp">#include</span> <span class="cpf">&quot;kernel/yosys.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;kernel/sigtools.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;set&gt;</span><span class="cp"></span>
+
+<span class="n">USING_YOSYS_NAMESPACE</span>
+<span class="n">PRIVATE_NAMESPACE_BEGIN</span>
+
+<span class="c1">// this function is called for each module in the design</span>
+<span class="k">static</span> <span class="kt">void</span> <span class="n">find_stub_nets</span><span class="p">(</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">Design</span> <span class="o">*</span><span class="n">design</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Module</span> <span class="o">*</span><span class="k">module</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">report_bits</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="c1">// use a SigMap to convert nets to a unique representation</span>
+     <span class="n">SigMap</span> <span class="nf">sigmap</span><span class="p">(</span><span class="k">module</span><span class="p">);</span>
+
+     <span class="c1">// count how many times a single-bit signal is used</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">RTLIL</span><span class="o">::</span><span class="n">SigBit</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">bit_usage_count</span><span class="p">;</span>
+
+     <span class="c1">// count output lines for this module (needed only for summary output at the end)</span>
+     <span class="kt">int</span> <span class="n">line_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+     <span class="n">log</span><span class="p">(</span><span class="s">&quot;Looking for stub wires in module %s:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">id2cstr</span><span class="p">(</span><span class="k">module</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">));</span>
+
+     <span class="c1">// For all ports on all cells</span>
+     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">cell_iter</span> <span class="p">:</span> <span class="k">module</span><span class="o">-&gt;</span><span class="n">cells_</span><span class="p">)</span>
+     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">conn</span> <span class="p">:</span> <span class="n">cell_iter</span><span class="p">.</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">connections</span><span class="p">())</span>
+     <span class="p">{</span>
+             <span class="c1">// Get the signals on the port</span>
+             <span class="c1">// (use sigmap to get a uniqe signal name)</span>
+             <span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span> <span class="n">sig</span> <span class="o">=</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">conn</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+
+             <span class="c1">// add each bit to bit_usage_count, unless it is a constant</span>
+             <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">bit</span> <span class="p">:</span> <span class="n">sig</span><span class="p">)</span>
+                     <span class="k">if</span> <span class="p">(</span><span class="n">bit</span><span class="p">.</span><span class="n">wire</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+                             <span class="n">bit_usage_count</span><span class="p">[</span><span class="n">bit</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+     <span class="p">}</span>
+
+     <span class="c1">// for each wire in the module</span>
+     <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">wire_iter</span> <span class="p">:</span> <span class="k">module</span><span class="o">-&gt;</span><span class="n">wires_</span><span class="p">)</span>
+     <span class="p">{</span>
+             <span class="n">RTLIL</span><span class="o">::</span><span class="n">Wire</span> <span class="o">*</span><span class="n">wire</span> <span class="o">=</span> <span class="n">wire_iter</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+
+             <span class="c1">// .. but only selected wires</span>
+             <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">design</span><span class="o">-&gt;</span><span class="n">selected</span><span class="p">(</span><span class="k">module</span><span class="p">,</span> <span class="n">wire</span><span class="p">))</span>
+                     <span class="k">continue</span><span class="p">;</span>
+
+             <span class="c1">// add +1 usage if this wire actually is a port</span>
+             <span class="kt">int</span> <span class="n">usage_offset</span> <span class="o">=</span> <span class="n">wire</span><span class="o">-&gt;</span><span class="n">port_id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+
+             <span class="c1">// we will record which bits of the (possibly multi-bit) wire are stub signals</span>
+             <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">stub_bits</span><span class="p">;</span>
+
+             <span class="c1">// get a signal description for this wire and split it into separate bits</span>
+             <span class="n">RTLIL</span><span class="o">::</span><span class="n">SigSpec</span> <span class="n">sig</span> <span class="o">=</span> <span class="n">sigmap</span><span class="p">(</span><span class="n">wire</span><span class="p">);</span>
+
+             <span class="c1">// for each bit (unless it is a constant):</span>
+             <span class="c1">// check if it is used at least two times and add to stub_bits otherwise</span>
+             <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">GetSize</span><span class="p">(</span><span class="n">sig</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+                     <span class="k">if</span> <span class="p">(</span><span class="n">sig</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">wire</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">bit_usage_count</span><span class="p">[</span><span class="n">sig</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+</span> <span class="n">usage_offset</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+                             <span class="n">stub_bits</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+
+             <span class="c1">// continue if no stub bits found</span>
+             <span class="k">if</span> <span class="p">(</span><span class="n">stub_bits</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                     <span class="k">continue</span><span class="p">;</span>
+
+             <span class="c1">// report stub bits and/or stub wires, don&#39;t report single bits</span>
+             <span class="c1">// if called with report_bits set to false.</span>
+             <span class="k">if</span> <span class="p">(</span><span class="n">GetSize</span><span class="p">(</span><span class="n">stub_bits</span><span class="p">)</span> <span class="o">==</span> <span class="n">GetSize</span><span class="p">(</span><span class="n">sig</span><span class="p">))</span> <span class="p">{</span>
+                     <span class="n">log</span><span class="p">(</span><span class="s">&quot;  found stub wire: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">id2cstr</span><span class="p">(</span><span class="n">wire</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">));</span>
+             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">report_bits</span><span class="p">)</span>
+                             <span class="k">continue</span><span class="p">;</span>
+                     <span class="n">log</span><span class="p">(</span><span class="s">&quot;  found wire with stub bits: %s [&quot;</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">id2cstr</span><span class="p">(</span><span class="n">wire</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">));</span>
+                     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nl">bit</span> <span class="p">:</span> <span class="n">stub_bits</span><span class="p">)</span>
+                             <span class="n">log</span><span class="p">(</span><span class="s">&quot;%s%d&quot;</span><span class="p">,</span> <span class="n">bit</span> <span class="o">==</span> <span class="o">*</span><span class="n">stub_bits</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">?</span> <span class="s">&quot;&quot;</span> <span class="o">:</span> <span class="s">&quot;, &quot;</span><span class="p">,</span> <span class="n">bit</span><span class="p">);</span>
+                     <span class="n">log</span><span class="p">(</span><span class="s">&quot;]</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+             <span class="p">}</span>
+
+             <span class="c1">// we have outputted a line, increment summary counter</span>
+             <span class="n">line_count</span><span class="o">++</span><span class="p">;</span>
+     <span class="p">}</span>
+
+     <span class="c1">// report summary</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">report_bits</span><span class="p">)</span>
+             <span class="n">log</span><span class="p">(</span><span class="s">&quot;  found %d stub wires or wires with stub bits.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">line_count</span><span class="p">);</span>
+     <span class="k">else</span>
+             <span class="nf">log</span><span class="p">(</span><span class="s">&quot;  found %d stub wires.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">line_count</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// each pass contains a singleton object that is derived from Pass</span>
+<span class="k">struct</span> <span class="nc">StubnetsPass</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Pass</span> <span class="p">{</span>
+     <span class="n">StubnetsPass</span><span class="p">()</span> <span class="o">:</span> <span class="n">Pass</span><span class="p">(</span><span class="s">&quot;stubnets&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+     <span class="kt">void</span> <span class="n">execute</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">args</span><span class="p">,</span> <span class="n">RTLIL</span><span class="o">::</span><span class="n">Design</span> <span class="o">*</span><span class="n">design</span><span class="p">)</span> <span class="k">override</span>
+     <span class="p">{</span>
+             <span class="c1">// variables to mirror information from passed options</span>
+             <span class="kt">bool</span> <span class="n">report_bits</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+             <span class="n">log_header</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="s">&quot;Executing STUBNETS pass (find stub nets).</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+             <span class="c1">// parse options</span>
+             <span class="kt">size_t</span> <span class="n">argidx</span><span class="p">;</span>
+             <span class="k">for</span> <span class="p">(</span><span class="n">argidx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">argidx</span> <span class="o">&lt;</span> <span class="n">args</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">argidx</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                     <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">arg</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">argidx</span><span class="p">];</span>
+                     <span class="k">if</span> <span class="p">(</span><span class="n">arg</span> <span class="o">==</span> <span class="s">&quot;-report_bits&quot;</span><span class="p">)</span> <span class="p">{</span>
+                             <span class="n">report_bits</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                             <span class="k">continue</span><span class="p">;</span>
+                     <span class="p">}</span>
+                     <span class="k">break</span><span class="p">;</span>
+             <span class="p">}</span>
+
+             <span class="c1">// handle extra options (e.g. selection)</span>
+             <span class="n">extra_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">argidx</span><span class="p">,</span> <span class="n">design</span><span class="p">);</span>
+
+             <span class="c1">// call find_stub_nets() for each module that is either</span>
+             <span class="c1">// selected as a whole or contains selected objects.</span>
+             <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">it</span> <span class="p">:</span> <span class="n">design</span><span class="o">-&gt;</span><span class="n">modules_</span><span class="p">)</span>
+                     <span class="k">if</span> <span class="p">(</span><span class="n">design</span><span class="o">-&gt;</span><span class="n">selected_module</span><span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">first</span><span class="p">))</span>
+                             <span class="n">find_stub_nets</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="n">it</span><span class="p">.</span><span class="n">second</span><span class="p">,</span> <span class="n">report_bits</span><span class="p">);</span>
+     <span class="p">}</span>
+<span class="p">}</span> <span class="n">StubnetsPass</span><span class="p">;</span>
+
+<span class="n">PRIVATE_NAMESPACE_END</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-makefile notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nf">test</span><span class="o">:</span> <span class="n">stubnets</span>.<span class="n">so</span>
+     yosys -ql test1.log -m ./stubnets.so test.v -p <span class="s2">&quot;stubnets&quot;</span>
+     yosys -ql test2.log -m ./stubnets.so test.v -p <span class="s2">&quot;opt; stubnets&quot;</span>
+     yosys -ql test3.log -m ./stubnets.so test.v -p <span class="s2">&quot;techmap; opt; stubnets -report_bits&quot;</span>
+     tail test1.log test2.log test3.log
+
+<span class="nf">stubnets.so</span><span class="o">:</span> <span class="n">stubnets</span>.<span class="n">cc</span>
+     yosys-config --exec --cxx --cxxflags --ldflags -o <span class="nv">$@</span> -shared $^ --ldlibs
+
+<span class="nf">clean</span><span class="o">:</span>
+     rm -f test1.log test2.log test3.log
+     rm -f stubnets.so stubnets.d
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-verilog notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">uut</span><span class="p">(</span><span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">in3</span><span class="p">,</span> <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span><span class="p">);</span>
+
+<span class="k">input</span> <span class="p">[</span><span class="mh">8</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">in1</span><span class="p">,</span> <span class="n">in2</span><span class="p">,</span> <span class="n">in3</span><span class="p">;</span>
+<span class="k">output</span> <span class="p">[</span><span class="mh">8</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">out1</span><span class="p">,</span> <span class="n">out2</span><span class="p">;</span>
+
+<span class="k">assign</span> <span class="n">out1</span> <span class="o">=</span> <span class="n">in1</span> <span class="o">+</span> <span class="n">in2</span> <span class="o">+</span> <span class="p">(</span><span class="n">in3</span> <span class="o">&gt;&gt;</span> <span class="mh">4</span><span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Programming Yosys Extensions</a><ul>
+<li><a class="reference internal" href="#guidelines">Guidelines</a></li>
+<li><a class="reference internal" href="#the-stubsnets-example-module">The “stubsnets” Example Module</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+     <a id="button-prev" href="CHAPTER_CellLib.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="P">
+         <i class="pagenation-arrow-L material-icons">arrow_back</i>
+         <div class="pagenation-text">
+            <span class="pagenation-direction">Previous</span>
+            <div>Internal Cell Library</div>
+         </div>
+     </a>
+     <a id="button-next" href="CHAPTER_Verilog.html" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" role="botton" accesskey="N">
+        <i class="pagenation-arrow-R material-icons">arrow_forward</i>
+        <div class="pagenation-text">
+            <span class="pagenation-direction">Next</span>
+            <div>The Verilog and AST Frontends</div>
+        </div>
+     </a>
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>

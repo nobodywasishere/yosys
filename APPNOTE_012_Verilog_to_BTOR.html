@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>Installation &#8212; Yosys  documentation</title>
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-icons.css" type="text/css" />
+    <link rel="stylesheet" href="_static/notosanscjkjp.css" type="text/css" />
+    <link rel="stylesheet" href="_static/roboto.css" type="text/css" />
+    <link rel="stylesheet" href="_static/material-design-lite-1.3.0/material.deep_purple-purple.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx_symbiflow_theme.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/sphinx_symbiflow_theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer"><header class="mdl-layout__header mdl-layout__header--waterfall ">
+    <div class="mdl-layout__header-row">
+        
+        <nav class="mdl-navigation breadcrumb">
+            <a class="mdl-navigation__link is-active">Installation</a>
+        </nav>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation">
+        
+<form class="form-inline pull-sm-right" action="search.html" method="get">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+        <label id="quick-search-icon" class="mdl-button mdl-js-button mdl-button--icon"  for="waterfall-exp">
+            <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="q"  id="waterfall-exp" placeholder="Search" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </div>
+      </div>
+      <div class="mdl-tooltip" data-mdl-for="quick-search-icon">
+      Quick search
+      </div>
+</form>
+        
+<a id="button-show-source"
+    class="mdl-button mdl-js-button mdl-button--icon"
+    href="_sources/APPNOTE_012_Verilog_to_BTOR.rst.txt" rel="nofollow">
+<i class="material-icons">code</i>
+</a>
+<div class="mdl-tooltip" data-mdl-for="button-show-source">
+Show Source
+</div>
+        </nav>
+    </div>
+    <div class="mdl-layout__header-row header-links">
+      <div class="mdl-layout-spacer"></div>
+      <nav class="mdl-navigation">
+          <a  class="mdl-navigation__link" href="index.html">
+                  <i class="material-icons navigation-link-icon">home</i>
+                  Home
+              </a>
+          
+              <a  class="mdl-navigation__link" href="https://github.com/YosysHQ/yosys">
+                  <i class="material-icons navigation-link-icon">link</i>
+                  GitHub
+              </a>
+      
+          <a  class="mdl-navigation__link" href="https://symbiflow.github.io/">
+            <i class="material-icons navigation-link-icon">web</i>
+            SymbiFlow Website
+          </a>
+          <a  class="mdl-navigation__link" href="https://symbiflow.readthedocs.io/en/latest/">
+            <i class="material-icons navigation-link-icon">library_books</i>
+            SymbiFlow Docs
+          </a></nav>
+    </div>
+</header><header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+        <main class="mdl-layout__content" tabIndex="0">
+<header class="mdl-layout__drawer">
+    
+          <!-- Title -->
+      <span class="mdl-layout-title">
+          <a class="title" href="index.html">
+              <span class="title-text">
+                  Yosys
+              </span>
+          </a>
+      </span>
+    
+<div class="globaltoc">
+  <span class="mdl-layout-title toc">Table Of Contents</span>
+  
+  
+      
+      <nav class="mdl-navigation">
+          <ul>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Basics.html">Basic Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Approach.html">Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Overview.html">Implementation Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_CellLib.html">Internal Cell Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Prog.html">Programming Yosys Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Verilog.html">The Verilog and AST Frontends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Optimize.html">Optimizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Techmap.html">Technology Mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Eval.html">Evaluation, Conclusion, Future Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxlibs.html">Auxiliary Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Auxprogs.html">Auxiliary Programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_TextRtlil.html">RTLIL Text Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_Appnotes.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHAPTER_StateOfTheArt.html">Evaluation of other OSS Verilog Synthesis Tools</a></li>
+</ul>
+
+      </nav>
+  
+  </div>
+
+</header>
+
+    <div class="document">
+        <div class="page-content">
+        
+  <hr class="docutils" />
+<dl class="field-list simple">
+<dt class="field-odd">Author</dt>
+<dd class="field-odd"><p>Ahmed Irfan and Clifford Wolf</p>
+</dd>
+</dl>
+<p>April 2015</p>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Yosys written in C++ (using features from C++11) and is tested on modern
+Linux. It should compile fine on most UNIX systems with a C++11
+compiler. The README file contains useful information on building Yosys
+and its prerequisites.</p>
+<p>Yosys is a large and feature-rich program with some dependencies. For
+this work, we may deactivate other extra features such as <code class="docutils literal notranslate"><span class="pre">TCL</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ABC</span></code> support in the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>.</p>
+<p>This Application Note is based on GIT Rev. <code class="docutils literal notranslate"><span class="pre">082550f</span></code> from 2015-04-04
+of Yosys .</p>
+</div>
+<div class="section" id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p>We assume that the Verilog design is synthesizable and we also assume
+that the design does not have multi-dimensional memories. As BTOR
+implicitly initializes registers to zero value and memories stay
+uninitialized, we assume that the Verilog design does not contain
+initial blocks. For more details about the BTOR format, please refer
+to .</p>
+<p>We provide a shell script <code class="docutils literal notranslate"><span class="pre">verilog2btor.sh</span></code> which can be used to
+convert a Verilog design to BTOR. The script can be found in the
+<code class="docutils literal notranslate"><span class="pre">backends/btor</span></code> directory. The following example shows its usage:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>verilog2btor.sh fsm.v fsm.btor <span class="nb">test</span>
+</pre></div>
+</div>
+<p>The script <code class="docutils literal notranslate"><span class="pre">verilog2btor.sh</span></code> takes three parameters. In the above
+example, the first parameter <code class="docutils literal notranslate"><span class="pre">fsm.v</span></code> is the input design, the second
+parameter <code class="docutils literal notranslate"><span class="pre">fsm.btor</span></code> is the file name of BTOR output, and the third
+parameter <code class="docutils literal notranslate"><span class="pre">test</span></code> is the name of top module in the design.</p>
+<p>To specify the properties (that need to be checked), we have two
+options:</p>
+<ul class="simple">
+<li><p>We can use the Verilog <code class="docutils literal notranslate"><span class="pre">assert</span></code> statement in the procedural block
+or module body of the Verilog design, as shown in
+Listing <a class="reference external" href="#specifying_property_assert">[specifying_property_assert]</a>.
+This is the preferred option.</p></li>
+<li><p>We can use a single-bit output wire, whose name starts with
+<code class="docutils literal notranslate"><span class="pre">safety</span></code>. The value of this output wire needs to be driven low when
+the property is met, i.e. the solver will try to find a model that
+makes the safety pin go high. This is demonstrated in
+Listing <a class="reference external" href="#specifying_property_output">[specifying_property_output]</a>.</p></li>
+</ul>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">clk</span><span class="p">,</span> <span class="k">input</span> <span class="n">rst</span><span class="p">,</span> <span class="k">output</span> <span class="n">y</span><span class="p">);</span>
+
+  <span class="kt">reg</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">state</span><span class="p">;</span>
+
+  <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rst</span> <span class="o">||</span> <span class="n">state</span> <span class="o">==</span> <span class="mh">3</span><span class="p">)</span> <span class="k">begin</span>
+      <span class="n">state</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">else</span> <span class="k">begin</span>
+      <span class="n">assert</span><span class="p">(</span><span class="n">state</span> <span class="o">&lt;</span> <span class="mh">3</span><span class="p">);</span>
+      <span class="n">state</span> <span class="o">&lt;=</span> <span class="n">state</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mh">2</span><span class="p">];</span>
+
+  <span class="n">assert</span> <span class="n">property</span> <span class="p">(</span><span class="n">y</span> <span class="o">!==</span> <span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">test</span><span class="p">(</span><span class="k">input</span> <span class="n">clk</span><span class="p">,</span> <span class="k">input</span> <span class="n">rst</span><span class="p">,</span>
+    <span class="k">output</span> <span class="n">y</span><span class="p">,</span> <span class="k">output</span> <span class="n">safety1</span><span class="p">);</span>
+
+  <span class="kt">reg</span> <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">state</span><span class="p">;</span>
+
+  <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rst</span> <span class="o">||</span> <span class="n">state</span> <span class="o">==</span> <span class="mh">3</span><span class="p">)</span>
+      <span class="n">state</span> <span class="o">&lt;=</span> <span class="mh">0</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="n">state</span> <span class="o">&lt;=</span> <span class="n">state</span> <span class="o">+</span> <span class="mh">1</span><span class="p">;</span>
+  <span class="k">end</span>
+
+  <span class="k">assign</span> <span class="n">y</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="mh">2</span><span class="p">];</span>
+
+  <span class="k">assign</span> <span class="n">safety1</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">y</span> <span class="o">!==</span> <span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p>We can run Boolector  <span class="math">1.4.1</span> <a class="footnote-reference brackets" href="#id2" id="id1">1</a>
+on the generated BTOR file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ boolector fsm.btor
+unsat
+</pre></div>
+</div>
+<p>We can also use nuXmv , but on BTOR designs it
+does not support memories yet. With the next release of nuXmv, we will
+be also able to verify designs with memories.</p>
+</div>
+<div class="section" id="detailed-flow">
+<h1>Detailed Flow<a class="headerlink" href="#detailed-flow" title="Permalink to this headline">¶</a></h1>
+<p>Yosys is able to synthesize Verilog designs up to the gate level. We are
+interested in keeping registers and memories when synthesizing the
+design. For this purpose, we describe a customized Yosys synthesis flow,
+that is also provided by the <code class="docutils literal notranslate"><span class="pre">verilog2btor.sh</span></code> script.
+Listing <a class="reference external" href="#btor_script_memory">[btor_script_memory]</a> shows the Yosys
+commands that are executed by <code class="docutils literal notranslate"><span class="pre">verilog2btor.sh</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>read_verilog -sv <span class="nv">$1</span><span class="p">;</span>
+hierarchy -top <span class="nv">$3</span><span class="p">;</span> hierarchy -libdir <span class="nv">$DIR</span><span class="p">;</span>
+hierarchy -check<span class="p">;</span>
+proc<span class="p">;</span> opt<span class="p">;</span>
+opt_expr -mux_undef<span class="p">;</span> opt<span class="p">;</span>
+rename -hide<span class="p">;;;</span>
+splice<span class="p">;</span> opt<span class="p">;</span>
+memory_dff -wr_only<span class="p">;</span> memory_collect<span class="p">;;</span>
+flatten<span class="p">;;</span>
+memory_unpack<span class="p">;</span>
+splitnets -driver<span class="p">;</span>
+setundef -zero -undriven<span class="p">;</span>
+opt<span class="p">;;;</span>
+write_btor <span class="nv">$2</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Here is short description of what is happening in the script line by
+line:</p>
+<ol class="arabic simple">
+<li><p>Reading the input file.</p></li>
+<li><p>Setting the top module in the hierarchy and trying to read
+automatically the files which are given as <code class="docutils literal notranslate"><span class="pre">include</span></code> in the file
+read in first line.</p></li>
+<li><p>Checking the design hierarchy.</p></li>
+<li><p>Converting processes to multiplexers (muxs) and flip-flops.</p></li>
+<li><p>Removing undef signals from muxs.</p></li>
+<li><p>Hiding all signal names that are not used as module ports.</p></li>
+<li><p>Explicit type conversion, by introducing slice and concat cells in
+the circuit.</p></li>
+<li><p>Converting write memories to synchronous memories, and collecting the
+memories to multi-port memories.</p></li>
+<li><p>Flattening the design to get only one module.</p></li>
+<li><p>Separating read and write memories.</p></li>
+<li><p>Splitting the signals that are partially assigned</p></li>
+<li><p>Setting undef to zero value.</p></li>
+<li><p>Final optimization pass.</p></li>
+<li><p>Writing BTOR file.</p></li>
+</ol>
+<p>For detailed description of the commands mentioned above, please refer
+to the Yosys documentation, or run <code class="docutils literal notranslate"><span class="pre">yosys</span> <span class="pre">-h</span> <span class="pre">command_name</span></code>.</p>
+<p>The script presented earlier can be easily modified to have a BTOR file
+that does not contain memories. This is done by removing the line
+number 8 and 10, and introduces a new command <code class="docutils literal notranslate"><span class="pre">memory</span></code> at line
+number 8.
+Listing <a class="reference external" href="#btor_script_without_memory">[btor_script_without_memory]</a>
+shows the modified Yosys script file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>read_verilog -sv <span class="nv">$1</span><span class="p">;</span>
+hierarchy -top <span class="nv">$3</span><span class="p">;</span> hierarchy -libdir <span class="nv">$DIR</span><span class="p">;</span>
+hierarchy -check<span class="p">;</span>
+proc<span class="p">;</span> opt<span class="p">;</span>
+opt_expr -mux_undef<span class="p">;</span> opt<span class="p">;</span>
+rename -hide<span class="p">;;;</span>
+splice<span class="p">;</span> opt<span class="p">;</span>
+memory<span class="p">;;</span>
+flatten<span class="p">;;</span>
+splitnets -driver<span class="p">;</span>
+setundef -zero -undriven<span class="p">;</span>
+opt<span class="p">;;;</span>
+write_btor <span class="nv">$2</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example">
+<h1>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h1>
+<p>Here is an example Verilog design that we want to convert to BTOR:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span> <span class="n">array</span><span class="p">(</span><span class="k">input</span> <span class="n">clk</span><span class="p">);</span>
+
+  <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">counter</span><span class="p">;</span>
+  <span class="kt">reg</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">mem</span> <span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">];</span>
+
+  <span class="k">always</span> <span class="p">@(</span><span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span> <span class="k">begin</span>
+    <span class="n">counter</span> <span class="o">&lt;=</span> <span class="n">counter</span> <span class="o">+</span> <span class="mh">8</span><span class="mi">&#39;d1</span><span class="p">;</span>
+    <span class="n">mem</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">counter</span><span class="p">;</span>
+  <span class="k">end</span>
+
+  <span class="n">assert</span> <span class="n">property</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">counter</span> <span class="o">&gt;</span> <span class="mh">8</span><span class="mi">&#39;d0</span><span class="p">)</span> <span class="o">||</span>
+    <span class="n">mem</span><span class="p">[</span><span class="n">counter</span> <span class="o">-</span> <span class="mh">8</span><span class="mi">&#39;d1</span><span class="p">]</span> <span class="o">==</span> <span class="n">counter</span> <span class="o">-</span> <span class="mh">8</span><span class="mi">&#39;d1</span><span class="p">);</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+<p>The generated BTOR file that contain memories, using the script shown in
+Listing <a class="reference external" href="#btor_script_memory">[btor_script_memory]</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1 var 1 clk
+2 array 8 3
+3 var 8 $auto$rename.cc:150:execute$20
+4 const 8 00000001
+5 sub 8 3 4
+6 slice 3 5 2 0
+7 read 8 2 6
+8 slice 3 3 2 0
+9 add 8 3 4
+10 const 8 00000000
+11 ugt 1 3 10
+12 not 1 11
+13 const 8 11111111
+14 slice 1 13 0 0
+15 one 1
+16 eq 1 1 15
+17 and 1 16 14
+18 write 8 3 2 8 3
+19 acond 8 3 17 18 2
+20 anext 8 3 2 19
+21 eq 1 7 5
+22 or 1 12 21
+23 const 1 1
+24 one 1
+25 eq 1 23 24
+26 cond 1 25 22 24
+27 root 1 -26
+28 cond 8 1 9 3
+29 next 8 3 28
+</pre></div>
+</div>
+<p>And the BTOR file obtained by the script shown in
+Listing <a class="reference external" href="#btor_script_without_memory">[btor_script_without_memory]</a>,
+which expands the memory into individual elements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1 var 1 clk
+2 var 8 mem[0]
+3 var 8 $auto$rename.cc:150:execute$20
+4 slice 3 3 2 0
+5 slice 1 4 0 0
+6 not 1 5
+7 slice 1 4 1 1
+8 not 1 7
+9 slice 1 4 2 2
+10 not 1 9
+11 and 1 8 10
+12 and 1 6 11
+13 cond 8 12 3 2
+14 cond 8 1 13 2
+15 next 8 2 14
+16 const 8 00000001
+17 add 8 3 16
+18 const 8 00000000
+19 ugt 1 3 18
+20 not 1 19
+21 var 8 mem[2]
+22 and 1 7 10
+23 and 1 6 22
+24 cond 8 23 3 21
+25 cond 8 1 24 21
+26 next 8 21 25
+27 sub 8 3 16
+
+@\vbox to 0pt{\vss\vdots\vskip3pt}@
+54 cond 1 53 50 52
+55 root 1 -54
+
+@\vbox to 0pt{\vss\vdots\vskip3pt}@
+77 cond 8 76 3 44
+78 cond 8 1 77 44
+79 next 8 44 78
+</pre></div>
+</div>
+</div>
+<div class="section" id="limitations">
+<h1>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h1>
+<p>BTOR does not support initialization of memories and registers, i.e.
+they are implicitly initialized to value zero, so the initial block for
+memories need to be removed when converting to BTOR. It should also be
+kept in consideration that BTOR does not support the <code class="docutils literal notranslate"><span class="pre">x</span></code> or <code class="docutils literal notranslate"><span class="pre">z</span></code>
+values of Verilog.</p>
+<p>Another thing to bear in mind is that Yosys will convert
+multi-dimensional memories to one-dimensional memories and address
+decoders. Therefore out-of-bounds memory accesses can yield unexpected
+results.</p>
+</div>
+<div class="section" id="conclusion">
+<h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h1>
+<p>Using the described flow, we can use Yosys to generate word-level
+verification benchmarks with or without memories from Verilog designs.</p>
+<div class="thebibliography docutils container">
+<p>9</p>
+<div class="line-block">
+<div class="line">Clifford Wolf. The Yosys Open SYnthesis Suite.</div>
+<div class="line"><a class="reference external" href="http://www.clifford.at/yosys/">http://www.clifford.at/yosys/</a></div>
+</div>
+<div class="line-block">
+<div class="line">Robert Brummayer and Armin Biere, Boolector: An Efficient SMT
+Solver for Bit-Vectors and Arrays</div>
+<div class="line"><a class="reference external" href="http://fmv.jku.at/boolector/">http://fmv.jku.at/boolector/</a></div>
+</div>
+<div class="line-block">
+<div class="line">Robert Brummayer and Armin Biere and Florian Lonsing, BTOR:
+Bit-Precise Modelling of Word-Level Problems for Model Checking</div>
+<div class="line"><a class="reference external" href="http://fmv.jku.at/papers/BrummayerBiereLonsing-BPR08.pdf">http://fmv.jku.at/papers/BrummayerBiereLonsing-BPR08.pdf</a></div>
+</div>
+<div class="line-block">
+<div class="line">Roberto Cavada and Alessandro Cimatti and Michele Dorigatti and
+Alberto Griggio and Alessandro Mariotti and Andrea Micheli and
+Sergio Mover and Marco Roveri and Stefano Tonetta, The nuXmv
+Symbolic Model Checker</div>
+<div class="line"><a class="reference external" href="https://es-static.fbk.eu/tools/nuxmv/index.php">https://es-static.fbk.eu/tools/nuxmv/index.php</a></div>
+</div>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Newer version of Boolector do not support sequential models.
+Boolector 1.4.1 can be built with picosat-951. Newer versions of
+picosat have an incompatible API.</p>
+</dd>
+</dl>
+</div>
+
+
+        </div>
+        <div class="side-doc-outline">
+            <div class="side-doc-outline--content"> 
+<div class="localtoc">
+    <p class="caption">
+      <span class="caption-text">Table Of Contents</span>
+    </p>
+    <ul>
+<li><a class="reference internal" href="#">Installation</a></li>
+<li><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li><a class="reference internal" href="#detailed-flow">Detailed Flow</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+
+</div>
+            </div>
+        </div>
+
+      <div class="clearer"></div>
+    </div><div class="pagenation">
+</div>
+        <footer class="mdl-mini-footer">
+  <div class="mdl-mini-footer__left-section">
+    <div class="mdl-logo">Yosys</div>
+    <div>
+      <ul>
+        
+        <li>
+          <a href="https://symbiflow.github.io/" target="_blank">SymbiFlow</a>
+        </li>
+        <li>
+          <a href="https://lists.librecores.org/listinfo/symbiflow" target="_blank">Mailing List</a>
+        </li>
+        <li>
+          <a href="https://webchat.freenode.net/#symbiflow" target="_blank">IRC</a>
+        </li>
+        <li>
+          <a href="https://join.slack.com/t/symbiflow/shared_invite/enQtNTkyMjcyNTkzOTY4LTU0MzhmYWNjOGMyMTkyNjA0MmEyMWM5OWY3ZDg5MWQ3ODlmOWQwZjk2YzBmMDBjMzkzMzNjYjkwYjAxZTMyNjQ"
+            target="_blank">Slack</a>
+        </li>
+
+        <!-- This is to still take up space when none of the links above are shown in the footer -->
+        <li style="visibility: hidden;">
+          a
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mdl-mini-footer__right-section">
+    <div>&copy; Copyright 2012-2020, Claire Wolf.</div>
+    <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a>
+      3.3.1 using <a
+        href="https://github.com/SymbiFlow/sphinx_symbiflow_theme">sphinx_symbiflow_theme</a>.</div>
+  </div>
+</footer>
+        </main>
+    </div>
+  </body>
+</html>
