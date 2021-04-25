@@ -1,0 +1,1 @@
+git+http://github.com/SymbiFlow/sphinx_materialdesign_theme.git@master#egg=sphinx_symbiflow_theme
